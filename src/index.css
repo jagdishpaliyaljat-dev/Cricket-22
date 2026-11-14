@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-primary-blue: #1554B8;
+  --color-deep-blue: #0B3F91;
+  --color-bright-blue: #2878E5;
+  --color-light-blue: #EAF2FF;
+  --color-pale-blue: #F2F6FC;
+  --color-pure-white: #FFFFFF;
+  --color-primary-text: #172033;
+  --color-secondary-text: #718096;
+  --color-border-color: #DFE7F2;
+  --color-success-green: #21864A;
+  --color-warning-orange: #E99A27;
+  --color-error-red: #D94343;
+
+  /* Legacy and mapped alias colors for smooth migration */
+  --color-bg-primary: #1554B8;
+  --color-bg-secondary: #EAF2FF;
+  --color-bg-card: #FFFFFF;
+  --color-surface: #FFFFFF;
+  --color-accent-lime: #2878E5;
+  --color-accent-emerald: #21864A;
+  --color-text-primary: #172033;
+  --color-text-secondary: #718096;
+  --color-text-muted: #718096;
+  --color-status-live: #D94343;
+  --color-status-final: #21864A;
+  --color-border: #DFE7F2;
+
+  --color-forest-green: #1554B8;
+  --color-deep-green: #0B3F91;
+  --color-dark-bg: #F2F6FC;
+  --color-off-white: #FFFFFF;
+  --color-muted-gold: #2878E5;
+  --color-light-gold: #EAF2FF;
+  --color-border-light: #DFE7F2;
+  --color-border-dark: #DFE7F2;
+}
+
+html {
+  box-sizing: border-box;
+  -webkit-text-size-adjust: 100%;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-dark-bg);
+  color: var(--color-text-primary);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+/* Custom mobile tap helpers with haptic feel */
+.touch-press {
+  transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1), filter 0.15s ease, background-color 0.15s ease;
+}
+.touch-press:active {
+  transform: scale(0.96);
+  filter: brightness(1.05);
+}
+
+/* Subtle entrance animations for cards and buttons */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Hide scrollbar for clean horizontal card rails */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Smooth momentum scrolling on mobile containers */
+.touch-scroll {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Safe area padding utilities for gesture navigation & mobile notches */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}

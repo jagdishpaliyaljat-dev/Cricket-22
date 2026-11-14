@@ -1,0 +1,8 @@
+{
+  "name": "Remix Remix tt",
+  "description": "Every Local Match. Every Player. Every Record. Mobile-first cricket platform for player profiles, availability, team building, live ball-by-ball scoring, and career records.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

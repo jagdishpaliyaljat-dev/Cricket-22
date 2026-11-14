@@ -1,0 +1,219 @@
+{
+  "entities": {
+    "user": {
+      "title": "User",
+      "description": "Authenticated user profile",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "scorer", "player"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "email", "displayName", "role"]
+    },
+    "admin": {
+      "title": "Admin",
+      "description": "Administrative authority record",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["uid"]
+    },
+    "player": {
+      "title": "Player",
+      "description": "Player profile and career aggregate statistics",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "fullName": { "type": "string", "maxLength": 100 },
+        "mobileNumber": { "type": "string", "maxLength": 20 },
+        "dob": { "type": "string" },
+        "playingRole": {
+          "type": "string",
+          "enum": [
+            "top_order_batter",
+            "middle_order_batter",
+            "wicketkeeper_batter",
+            "batting_allrounder",
+            "bowling_allrounder",
+            "pace_bowler",
+            "spin_bowler"
+          ]
+        },
+        "battingStyle": {
+          "type": "string",
+          "enum": ["right_hand_bat", "left_hand_bat"]
+        },
+        "bowlingStyle": {
+          "type": "string",
+          "enum": [
+            "right_arm_fast",
+            "right_arm_medium",
+            "right_arm_spin",
+            "left_arm_fast",
+            "left_arm_spin",
+            "none"
+          ]
+        },
+        "jerseyNumber": { "type": "number" },
+        "status": { "type": "string", "enum": ["active", "inactive"] },
+        "registrationDate": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "fullName", "playingRole", "battingStyle", "bowlingStyle", "status"]
+    },
+    "match": {
+      "title": "Match",
+      "description": "Cricket fixture and official match scorecard summary",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string", "maxLength": 150 },
+        "dateTime": { "type": "string" },
+        "venue": { "type": "string", "maxLength": 150 },
+        "playersPerTeam": { "type": "number" },
+        "oversPerInnings": { "type": "number" },
+        "status": {
+          "type": "string",
+          "enum": ["scheduled", "live", "completed", "abandoned"]
+        },
+        "currentInnings": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "title", "dateTime", "venue", "playersPerTeam", "oversPerInnings", "status"]
+    },
+    "ball": {
+      "title": "BallEvent",
+      "description": "Ball-by-ball delivery event in match innings",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "matchId": { "type": "string" },
+        "innings": { "type": "number" },
+        "overNumber": { "type": "number" },
+        "ballInOver": { "type": "number" },
+        "bowlerId": { "type": "string" },
+        "strikerId": { "type": "string" },
+        "nonStrikerId": { "type": "string" },
+        "runsBatter": { "type": "number" },
+        "extraType": { "type": "string" },
+        "extraRuns": { "type": "number" },
+        "isLegal": { "type": "boolean" },
+        "isWicket": { "type": "boolean" },
+        "totalRunsOnBall": { "type": "number" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["id", "matchId", "innings", "overNumber", "ballInOver", "bowlerId", "strikerId", "isLegal"]
+    },
+    "availability": {
+      "title": "MatchAvailability",
+      "description": "Player match availability response",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "matchId": { "type": "string" },
+        "playerId": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["available", "unavailable", "not_responded"]
+        },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "matchId", "playerId", "status"]
+    },
+    "playerMatchStat": {
+      "title": "PlayerMatchStat",
+      "description": "Idempotent player performance record for a finalized match",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "playerId": { "type": "string" },
+        "matchId": { "type": "string" },
+        "teamId": { "type": "string" },
+        "battingRuns": { "type": "number" },
+        "ballsFaced": { "type": "number" },
+        "fours": { "type": "number" },
+        "sixes": { "type": "number" },
+        "wickets": { "type": "number" },
+        "runsConceded": { "type": "number" },
+        "oversBowled": { "type": "number" },
+        "catches": { "type": "number" },
+        "runOuts": { "type": "number" },
+        "potmAward": { "type": "boolean" }
+      },
+      "required": ["id", "playerId", "matchId"]
+    },
+    "auditLog": {
+      "title": "AuditLog",
+      "description": "Administrative actions and score corrections audit log",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "action": { "type": "string" },
+        "details": { "type": "string" },
+        "performedBy": { "type": "string" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["id", "action", "performedBy"]
+    },
+    "setting": {
+      "title": "Setting",
+      "description": "Platform settings and threshold configurations",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "minimumMatchesForLeaderboard": { "type": "number" },
+        "defaultLegalBallsPerOver": { "type": "number" },
+        "logoUrl": { "type": "string" }
+      },
+      "required": ["id"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "user",
+      "description": "Authenticated users store"
+    },
+    "/admins/{userId}": {
+      "schema": "admin",
+      "description": "Administrator roles"
+    },
+    "/players/{playerId}": {
+      "schema": "player",
+      "description": "Cricket player directory and career records"
+    },
+    "/matches/{matchId}": {
+      "schema": "match",
+      "description": "Cricket matches and scorecards"
+    },
+    "/matches/{matchId}/balls/{ballId}": {
+      "schema": "ball",
+      "description": "Ball-by-ball deliveries subcollection"
+    },
+    "/availability/{availabilityId}": {
+      "schema": "availability",
+      "description": "Player match-specific availability"
+    },
+    "/playerMatchStats/{statId}": {
+      "schema": "playerMatchStat",
+      "description": "Official player match performance records"
+    },
+    "/auditLogs/{logId}": {
+      "schema": "auditLog",
+      "description": "Admin and scorer audit trail"
+    },
+    "/siteSettings/{settingId}": {
+      "schema": "setting",
+      "description": "System settings and rules"
+    }
+  }
+}

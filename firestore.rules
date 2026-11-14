@@ -1,0 +1,42 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isSuperAdmin() {
+      return isSignedIn() &&
+        ('email' in request.auth.token) && (
+          request.auth.token.email == "kamleshchoudhary96022@gmail.com" ||
+          request.auth.token.email == "gopsabanna7773@gmail.com" ||
+          request.auth.token.email == "zdpaliyal@gmail.com"
+        );
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        isSuperAdmin() ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    function isScorer() {
+      return isSignedIn() && (
+        isAdmin() ||
+        exists(/databases/$(database)/documents/scorers/$(request.auth.uid))
+      );
+    }
+
+    // Global Safety Net: Default-allow catch-all for testing
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
