@@ -292,7 +292,7 @@ export async function updatePlayer(playerId: string, updates: Partial<Player>): 
       ...updates,
       updatedAt: new Date().toISOString(),
     });
-    await updateDoc(ref, sanitized);
+    await setDoc(ref, sanitized, { merge: true });
   } catch (error) {
     handleFirestoreError(error, OperationType.UPDATE, `${PLAYERS_COLLECTION}/${playerId}`);
     throw error;

@@ -52,10 +52,15 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
   const effectiveMatches = matches.length > 0 ? matches : cachedMatchesList;
 
-  // Find user player profile or fallback to first player in directory
-  const userPlayer =
-    players.find((p) => currentUser && (p.userId === currentUser.uid || p.id === currentUser.uid)) ||
-    players[0];
+  // Find user player profile matching current authenticated user
+  const userPlayer = players.find(
+    (p) =>
+      currentUser &&
+      (p.userId === currentUser.uid ||
+        p.id === currentUser.uid ||
+        p.id === `player_${currentUser.uid}` ||
+        (currentUser.email && p.email?.toLowerCase() === currentUser.email.toLowerCase()))
+  );
 
   const greetingName =
     currentUser?.displayName?.split(' ')[0] ||
@@ -78,8 +83,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
         <div className="flex items-center gap-3 min-w-0">
           <button
             onClick={() => {
-              if (userPlayer) onSelectPlayer(userPlayer);
-              else if (onOpenProfile) onOpenProfile();
+              if (onOpenProfile) onOpenProfile();
+              else if (userPlayer) onSelectPlayer(userPlayer);
             }}
             className="relative shrink-0 focus:outline-none cursor-pointer touch-press"
           >

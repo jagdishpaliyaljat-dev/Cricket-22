@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { Logo } from './components/Logo';
 import { Header } from './components/Header';
@@ -144,9 +144,53 @@ function LocalXIContent() {
   };
 
   const displayPlayers = players;
-  const currentUserPlayer = displayPlayers.find(
-    (p) => p.userId === currentUser?.uid || p.id === currentUser?.uid
-  );
+  const currentUserPlayer = useMemo(() => {
+    if (!currentUser) return undefined;
+    const found = displayPlayers.find(
+      (p) =>
+        p.userId === currentUser.uid ||
+        p.id === currentUser.uid ||
+        p.id === `player_${currentUser.uid}` ||
+        (currentUser.email && p.email?.toLowerCase() === currentUser.email.toLowerCase())
+    );
+    if (found) return found;
+
+    // Real dynamic profile for authenticated user (never fallback to mock player)
+    return {
+      id: `player_${currentUser.uid}`,
+      userId: currentUser.uid,
+      fullName: currentUser.displayName || 'Cricket Player',
+      email: currentUser.email || '',
+      photoUrl: currentUser.photoURL || '',
+      playingRole: 'batting_allrounder' as const,
+      battingStyle: 'right_hand_bat' as const,
+      bowlingStyle: 'right_arm_medium' as const,
+      status: 'active' as const,
+      verificationStatus: 'verified' as const,
+      registrationDate: new Date().toISOString(),
+      career: {
+        matches: 0,
+        innings: 0,
+        runs: 0,
+        highestScore: 0,
+        notOuts: 0,
+        fours: 0,
+        sixes: 0,
+        ballsFaced: 0,
+        wickets: 0,
+        oversBowled: 0,
+        ballsBowled: 0,
+        runsConceded: 0,
+        bestBowlingRuns: 0,
+        bestBowlingWickets: 0,
+        catches: 0,
+        runOuts: 0,
+        potmAwards: 0,
+      },
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+  }, [displayPlayers, currentUser]);
   const displayMatches = matches;
 
   const { activeAlert, dismissAlert } = useMatchReminders(displayMatches, displayPlayers, currentUserPlayer);
@@ -390,8 +434,11 @@ function LocalXIContent() {
                 onOpenTeamBuilder={(m) => setActiveTeamBuilderMatch(m)}
                 onSelectPlayer={(p) => setSelectedPlayer(p)}
                 onOpenProfile={() => {
-                  const p = displayPlayers.find((x) => currentUser && (x.userId === currentUser.uid || x.id === currentUser.uid)) || displayPlayers[0];
-                  if (p) setSelectedPlayer(p);
+                  setSelectedPlayer(null);
+                  setDetailedMatch(null);
+                  setSubMenuView(null);
+                  setProfileSubMode('main');
+                  setCurrentTab('profile');
                 }}
               />
             )}
@@ -534,10 +581,7 @@ function LocalXIContent() {
 
         {/* TAB 6: PROFILE (MY PROFILE / EDIT PROFILE / BATTING STATS) */}
         {currentTab === 'profile' && (() => {
-          const myPlayer =
-            displayPlayers.find(
-              (p) => currentUser && (p.userId === currentUser.uid || p.id === currentUser.uid)
-            ) || displayPlayers[0];
+          const myPlayer = currentUserPlayer;
 
           if (!myPlayer) {
             return (

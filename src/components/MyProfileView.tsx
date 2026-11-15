@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 import { Player } from '../types/cricket';
 import {
   User,
@@ -36,6 +37,8 @@ export const MyProfileView: React.FC<MyProfileViewProps> = ({
   const [showPhotoModal, setShowPhotoModal] = useState(false);
   const [newPhotoUrl, setNewPhotoUrl] = useState('');
 
+  const { currentUser } = useAuth();
+
   // Real player career statistics (0 defaults for new player)
   const career = player.career || ({} as any);
   const matchesCount = career.matches ?? 0;
@@ -43,7 +46,8 @@ export const MyProfileView: React.FC<MyProfileViewProps> = ({
   const wicketsCount = career.wickets ?? 0;
   const fiftiesCount = career.fifties ?? 0;
 
-  const fullName = player.fullName || 'Cricket Player';
+  const fullName = player.fullName || currentUser?.displayName || 'Cricket Player';
+  const emailDisplay = player.email || currentUser?.email || '';
   const roleDisplay = player.playingRole
     ? player.playingRole.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
     : 'Club Player';
@@ -79,6 +83,7 @@ export const MyProfileView: React.FC<MyProfileViewProps> = ({
 
   const avatarUrl =
     player.photoUrl ||
+    currentUser?.photoURL ||
     'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=250&h=250&q=80';
 
   const handleSavePhoto = (e: React.FormEvent) => {
@@ -136,6 +141,12 @@ export const MyProfileView: React.FC<MyProfileViewProps> = ({
             <h2 className="font-sans font-bold text-lg text-white leading-tight truncate uppercase">
               {fullName}
             </h2>
+
+            {emailDisplay && (
+              <p className="text-[11px] text-[#00F2FE] font-mono truncate">
+                {emailDisplay}
+              </p>
+            )}
 
             <div className="flex items-center gap-1 text-slate-200 text-xs font-semibold">
               <User className="w-3.5 h-3.5 shrink-0 stroke-[2.4]" />

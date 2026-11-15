@@ -16,8 +16,8 @@ export const EditProfileView: React.FC<EditProfileViewProps> = ({
   onSaveSuccess,
   focusBio = false,
 }) => {
-  // Form State initialized with player's existing values or reference defaults
-  const [fullName, setFullName] = useState(player.fullName || 'Amit Patel');
+  // Form State initialized with player's existing values
+  const [fullName, setFullName] = useState(player.fullName || '');
   const [playingRole, setPlayingRole] = useState<PlayingRole>(
     player.playingRole || 'batting_allrounder'
   );
@@ -28,16 +28,14 @@ export const EditProfileView: React.FC<EditProfileViewProps> = ({
     player.bowlingStyle || 'right_arm_spin'
   );
   const [mobileNumber, setMobileNumber] = useState(
-    player.mobileNumber || '+91 98765 43210'
+    player.mobileNumber || ''
   );
-  const [location, setLocation] = useState(player.location || 'Indore');
+  const [location, setLocation] = useState(player.location || '');
   const [bio, setBio] = useState(
-    player.bio ||
-      'A passionate cricketer who enjoys both batting and bowling. Always ready to play and contribute to the team.'
+    player.bio || ''
   );
   const [photoUrl, setPhotoUrl] = useState(
-    player.photoUrl ||
-      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=250&h=250&q=80'
+    player.photoUrl || ''
   );
 
   // Status & modal states
@@ -180,7 +178,7 @@ export const EditProfileView: React.FC<EditProfileViewProps> = ({
             required
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
-            placeholder="e.g. Amit Patel"
+            placeholder="Enter your full name"
             className="w-full bg-[#131E32]/80 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-slate-100 placeholder-[#718096] focus:outline-none focus:border-[#00F2FE] transition-colors shadow-xs"
           />
         </div>

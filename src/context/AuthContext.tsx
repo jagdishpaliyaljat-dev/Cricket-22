@@ -163,34 +163,82 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       
 
 
-      // 2. Synchronize photoURL with Player profile if it exists
+      // 2. Synchronize or auto-provision Player profile for the authenticated user
       try {
         const playersRef = collection(db, 'players');
-        // Match by userId first, then email
-        const qUserId = query(playersRef, where('userId', '==', user.uid));
-        const userIdSnap = await getDocs(qUserId);
-        
-        let playerToUpdate: string | null = null;
-        if (!userIdSnap.empty) {
-          playerToUpdate = userIdSnap.docs[0].id;
-        } else if (user.email) {
-          const qEmail = query(playersRef, where('email', '==', user.email));
-          const emailSnap = await getDocs(qEmail);
-          if (!emailSnap.empty) {
-            playerToUpdate = emailSnap.docs[0].id;
-            // Also link the userId if missing
-            if (!emailSnap.docs[0].data().userId) {
-              await setDoc(doc(db, 'players', playerToUpdate), { userId: user.uid }, { merge: true });
-            }
+        const directPlayerRef = doc(db, 'players', `player_${user.uid}`);
+        const directPlayerSnap = await getDoc(directPlayerRef);
+
+        let targetPlayerDocId: string | null = directPlayerSnap.exists() ? directPlayerRef.id : null;
+
+        if (!targetPlayerDocId) {
+          const qUserId = query(playersRef, where('userId', '==', user.uid));
+          const userIdSnap = await getDocs(qUserId);
+          if (!userIdSnap.empty) {
+            targetPlayerDocId = userIdSnap.docs[0].id;
           }
         }
 
-        if (playerToUpdate && user.photoURL) {
-          console.log(`[AuthContext] Syncing photoURL to Player: ${playerToUpdate}`);
-          await setDoc(doc(db, 'players', playerToUpdate), { photoUrl: user.photoURL }, { merge: true });
+        if (!targetPlayerDocId && user.email) {
+          const qEmail = query(playersRef, where('email', '==', user.email.toLowerCase()));
+          const emailSnap = await getDocs(qEmail);
+          if (!emailSnap.empty) {
+            targetPlayerDocId = emailSnap.docs[0].id;
+          }
+        }
+
+        if (targetPlayerDocId) {
+          const updates: Record<string, any> = {
+            userId: user.uid,
+            updatedAt: new Date().toISOString(),
+          };
+          if (user.photoURL) updates.photoUrl = user.photoURL;
+          if (user.displayName) updates.fullName = user.displayName;
+          if (user.email) updates.email = user.email.toLowerCase();
+
+          await setDoc(doc(db, 'players', targetPlayerDocId), updates, { merge: true });
+          console.log(`[AuthContext] Synced profile details to Player: ${targetPlayerDocId}`);
+        } else {
+          const newPlayerId = `player_${user.uid}`;
+          const newPlayerData = {
+            id: newPlayerId,
+            userId: user.uid,
+            fullName: user.displayName || 'Cricket Player',
+            email: user.email ? user.email.toLowerCase() : '',
+            photoUrl: user.photoURL || '',
+            playingRole: 'batting_allrounder',
+            battingStyle: 'right_hand_bat',
+            bowlingStyle: 'right_arm_medium',
+            status: 'active',
+            verificationStatus: 'verified',
+            registrationDate: new Date().toISOString(),
+            career: {
+              matches: 0,
+              innings: 0,
+              runs: 0,
+              highestScore: 0,
+              notOuts: 0,
+              fours: 0,
+              sixes: 0,
+              ballsFaced: 0,
+              wickets: 0,
+              oversBowled: 0,
+              ballsBowled: 0,
+              runsConceded: 0,
+              bestBowlingRuns: 0,
+              bestBowlingWickets: 0,
+              catches: 0,
+              runOuts: 0,
+              potmAwards: 0,
+            },
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+          };
+          await setDoc(doc(db, 'players', newPlayerId), newPlayerData, { merge: true });
+          console.log(`[AuthContext] Auto-created player profile for user: ${newPlayerId}`);
         }
       } catch (err) {
-        console.warn('[AuthContext] Player photo sync failed:', err);
+        console.warn('[AuthContext] Player profile sync/creation failed:', err);
       }
 
       setAppUser(userData);
