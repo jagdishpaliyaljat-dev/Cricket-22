@@ -363,9 +363,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       let message = 'Login failed. Please check your internet connection.';
       if (err?.code === 'auth/unauthorized-domain') {
         const domain = typeof window !== 'undefined' ? window.location.hostname : 'this domain';
-        message = `⚠️ Firebase Unauthorized Domain: "${domain}" is not added in Firebase Console. Add "${domain}" in Firebase Console -> Authentication -> Settings -> Authorized Domains. In the meantime, click "⚡ Quick Admin Access" below to enter immediately!`;
+        message = `⚠️ Firebase Unauthorized Domain: "${domain}" is not yet added in Firebase Console. Please add "${domain}" under Firebase Console → Authentication → Settings → Authorized Domains.`;
       } else if (err?.code === 'auth/popup-blocked') {
-        message = 'Login popup was blocked by browser. Please allow popups or use "⚡ Quick Admin Access".';
+        message = 'Login popup was blocked by your browser. Please enable popups for this site and try again.';
       } else if (err?.code === 'auth/popup-closed-by-user') {
         message = 'Google sign-in popup was closed before completing. Please try again.';
       } else if (err?.code === 'auth/network-request-failed') {
