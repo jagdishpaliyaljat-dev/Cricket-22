@@ -2,7 +2,7 @@ import { initializeApp, getApp, getApps, FirebaseApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut as fbSignOut, Auth } from 'firebase/auth';
 import { getFirestore, doc, getDocFromServer, enableIndexedDbPersistence, Firestore } from 'firebase/firestore';
 import { getStorage, FirebaseStorage } from 'firebase/storage';
-import { getMessaging, Messaging } from 'firebase/messaging';
+import { getMessaging, isSupported, Messaging } from 'firebase/messaging';
 import firebaseConfig from '../../firebase-applet-config.json';
 
 // Handle potential variations in JSON import (Vite/ESM)
@@ -40,12 +40,16 @@ try {
 export const db = firestoreDb;
 export const storage = getStorage(app);
 let messagingInstance: Messaging | null = null;
-if (typeof window !== 'undefined') {
-  try {
-    messagingInstance = getMessaging(app);
-  } catch (err) {
-    console.warn('[Firebase] Messaging not supported in this environment:', err);
-  }
+if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+  isSupported().then((supported) => {
+    if (supported) {
+      try {
+        messagingInstance = getMessaging(app);
+      } catch (e) {
+        console.warn('[Firebase] getMessaging initialization failed:', e);
+      }
+    }
+  }).catch(() => {});
 }
 export const messaging = messagingInstance;
 const provider = new GoogleAuthProvider();

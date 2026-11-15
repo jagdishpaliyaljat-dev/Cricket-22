@@ -186,15 +186,15 @@ function LocalXIContent() {
 
   if (authLoading) {
     return (
-      <div className="h-screen bg-[#F2F6FC] flex flex-col items-center justify-center p-6 text-center">
+      <div className="min-h-screen bg-[#0B1120] text-slate-100 flex flex-col items-center justify-center p-6 text-center">
         <div className="w-16 h-16 mb-6 flex items-center justify-center animate-bounce">
-          <Logo variant="icon" className="w-16 h-16" />
+          <Logo variant="icon" className="w-16 h-16 drop-shadow-[0_0_20px_rgba(0,242,254,0.4)]" />
         </div>
         <div className="space-y-2">
-          <h2 className="text-[#172033] font-black text-xl tracking-tight">LocalXI Cricket</h2>
+          <h2 className="text-white font-black text-xl tracking-tight">LocalXI Cricket</h2>
           <div className="flex items-center justify-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-[#1554B8] animate-pulse" />
-            <span className="text-[#718096] text-xs font-bold uppercase tracking-widest">Initializing Session...</span>
+            <div className="w-2 h-2 rounded-full bg-[#00F2FE] animate-pulse" />
+            <span className="text-slate-400 text-xs font-bold uppercase tracking-widest font-mono">Initializing Session...</span>
           </div>
         </div>
       </div>

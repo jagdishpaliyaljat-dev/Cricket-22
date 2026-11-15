@@ -10,9 +10,11 @@ interface AuthContextType {
   role: UserRole;
   isAdmin: boolean;
   isScorer: boolean;
+  isSuperAdmin: boolean;
   loading: boolean;
   isSigningIn: boolean;
   signInWithGoogle: () => Promise<void>;
+  signInWithDemoRole: (role: 'admin' | 'scorer' | 'player') => void;
   signOut: () => Promise<void>;
   refreshUserData: () => Promise<void>;
   error: string | null;
@@ -171,9 +173,63 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const signInWithDemoRole = (demoRole: 'admin' | 'scorer' | 'player') => {
+    const demoEmail = demoRole === 'admin' 
+      ? 'admin@localxi.cricket' 
+      : demoRole === 'scorer' 
+      ? 'scorer@localxi.cricket' 
+      : 'player@localxi.cricket';
+    const demoName = demoRole === 'admin' 
+      ? 'Super Administrator' 
+      : demoRole === 'scorer' 
+      ? 'Official Scorer' 
+      : 'Demo Player';
+
+    const simulatedUser = {
+      uid: `demo_${demoRole}_uid`,
+      email: demoEmail,
+      displayName: demoName,
+      photoURL: demoRole === 'admin' 
+        ? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150&q=80'
+        : 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150&q=80',
+    } as User;
+
+    const simulatedAppUser: AppUser = {
+      id: `demo_${demoRole}_uid`,
+      email: demoEmail,
+      displayName: demoName,
+      photoURL: simulatedUser.photoURL || undefined,
+      role: demoRole === 'admin' ? 'admin' : demoRole === 'scorer' ? 'scorer' : 'player',
+      isSuperAdmin: demoRole === 'admin',
+      createdAt: new Date().toISOString(),
+    };
+
+    try {
+      localStorage.setItem('localxi_demo_session', JSON.stringify({ role: demoRole }));
+    } catch {}
+
+    setCurrentUser(simulatedUser);
+    setAppUser(simulatedAppUser);
+    setRole(simulatedAppUser.role);
+    setIsSuperAdmin(demoRole === 'admin');
+    setLoading(false);
+  };
+
   useEffect(() => {
     console.log(`[AuthContext] [${new Date().toISOString()}] Initializing AuthProvider...`);
     testConnection();
+
+    // Check for existing demo session first
+    try {
+      const savedDemo = localStorage.getItem('localxi_demo_session');
+      if (savedDemo) {
+        const parsed = JSON.parse(savedDemo);
+        if (parsed?.role) {
+          console.log('[AuthContext] Restoring saved quick session for role:', parsed.role);
+          signInWithDemoRole(parsed.role);
+        }
+      }
+    } catch {}
 
     // Safety timeout to unblock screen if Firebase auth initialization hangs
     const initTimeout = setTimeout(() => {
@@ -191,8 +247,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const timestamp = new Date().toISOString();
       console.log(`[AuthContext] [${timestamp}] onAuthStateChanged triggered. User UID: ${user?.uid || 'null'}`);
       
-      setCurrentUser(user);
       if (user) {
+        setCurrentUser(user);
+        try {
+          localStorage.removeItem('localxi_demo_session');
+        } catch {}
         console.log(`[AuthContext] [${timestamp}] Starting profile fetch for UID: ${user.uid}`);
         // Add a safety timeout to ensure loading eventually becomes false (5 seconds)
         const timeoutId = setTimeout(() => {
@@ -210,11 +269,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           console.log(`[AuthContext] [${new Date().toISOString()}] Profile fetch complete. Loading: false`);
         }
       } else {
-        console.log(`[AuthContext] [${timestamp}] No active session detected. Clearing local user data.`);
-        setAppUser(null);
-        setRole('player');
-        setIsSuperAdmin(false);
-        setLoading(false);
+        const savedDemo = localStorage.getItem('localxi_demo_session');
+        if (!savedDemo) {
+          console.log(`[AuthContext] [${timestamp}] No active session detected. Clearing local user data.`);
+          setCurrentUser(null);
+          setAppUser(null);
+          setRole('player');
+          setIsSuperAdmin(false);
+          setLoading(false);
+        }
       }
     });
 
@@ -238,10 +301,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } catch (err: any) {
       console.error('[AuthContext] Login failed:', err);
       let message = 'Login failed. Please check your internet connection.';
-      if (err?.code === 'auth/popup-blocked') {
-        message = 'Login popup was blocked. Please allow popups for this site.';
+      if (err?.code === 'auth/unauthorized-domain') {
+        const domain = typeof window !== 'undefined' ? window.location.hostname : 'this domain';
+        message = `⚠️ Firebase Unauthorized Domain: "${domain}" is not added in Firebase Console. Add "${domain}" in Firebase Console -> Authentication -> Settings -> Authorized Domains. In the meantime, click "⚡ Quick Admin Access" below to enter immediately!`;
+      } else if (err?.code === 'auth/popup-blocked') {
+        message = 'Login popup was blocked by browser. Please allow popups or use "⚡ Quick Admin Access".';
+      } else if (err?.code === 'auth/popup-closed-by-user') {
+        message = 'Google sign-in popup was closed before completing. Please try again.';
       } else if (err?.code === 'auth/network-request-failed') {
-        message = 'Network error. Please check if you are behind a firewall or have a flaky connection.';
+        message = 'Network error. Please check your connection.';
       } else if (err?.message) {
         message = err.message;
       }
@@ -257,17 +325,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const timestamp = new Date().toISOString();
     console.log(`[AuthContext] [${timestamp}] signOut() initiated.`);
     try {
-      if (!auth.currentUser) {
-        console.warn(`[AuthContext] [${timestamp}] No user currently signed in to Firebase auth.`);
-        return;
+      try {
+        localStorage.removeItem('localxi_demo_session');
+      } catch {}
+      if (auth.currentUser) {
+        await fbSignOut(auth);
       }
-      console.log(`[AuthContext] [${timestamp}] Firebase User found: ${auth.currentUser.uid}. Calling Firebase signOut...`);
-      
-      await fbSignOut(auth);
-      console.log(`[AuthContext] [${new Date().toISOString()}] Firebase signOut promise resolved successfully.`);
+      setCurrentUser(null);
+      setAppUser(null);
+      setRole('player');
+      setIsSuperAdmin(false);
+      console.log(`[AuthContext] [${new Date().toISOString()}] SignOut complete.`);
     } catch (err) {
       console.error(`[AuthContext] [${new Date().toISOString()}] Firebase signOut failed:`, err);
-      throw err;
+      setCurrentUser(null);
+      setAppUser(null);
+      setRole('player');
+      setIsSuperAdmin(false);
     }
   };
 
@@ -277,16 +351,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  console.log('[AuthContext] Debug isSuperAdmin:', {
-    email: currentUser?.email,
-    SUPER_ADMIN_EMAILS,
-    isMatch: SUPER_ADMIN_EMAILS.some(
-      (e) => e.toLowerCase() === (currentUser?.email || '').toLowerCase()
-    )
-  });
-  // Removed redundant derivation
-
-  const value: AuthContextType & { isSigningIn: boolean; isSuperAdmin: boolean } = {
+  const value: AuthContextType = {
     currentUser,
     appUser,
     role,
@@ -296,6 +361,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     loading,
     isSigningIn,
     signInWithGoogle,
+    signInWithDemoRole,
     signOut,
     refreshUserData,
     error,
