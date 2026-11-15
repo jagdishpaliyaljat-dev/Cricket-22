@@ -44,51 +44,82 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const timestamp = new Date().toISOString();
       console.log(`[AuthContext] [${timestamp}] Fetching profile for user: ${user.uid}`);
       
-      // 1. Check if user is SuperAdmin or has admin document
+      // 1. Strict Role Verification
       let userRole: UserRole = 'player';
       const isSuperAdminEmail = SUPER_ADMIN_EMAILS.some(
         (e) => e.toLowerCase() === (user.email || '').toLowerCase()
       );
 
-      // Check if admin doc exists
+      // Check if admin document exists by UID
       const adminDocRef = doc(db, 'admins', user.uid);
       const adminSnap = await getDoc(adminDocRef);
 
-      if (adminSnap.exists() || isSuperAdminEmail) {
+      // Check if user was assigned admin by email by an existing admin
+      let isAdminByEmail = false;
+      if (!adminSnap.exists() && user.email) {
+        try {
+          const qAdminEmail = query(
+            collection(db, 'admins'),
+            where('email', '==', user.email.toLowerCase())
+          );
+          const adminEmailSnap = await getDocs(qAdminEmail);
+          if (!adminEmailSnap.empty) {
+            isAdminByEmail = true;
+            // Link UID into admins doc for instant future lookups
+            await setDoc(adminDocRef, {
+              uid: user.uid,
+              email: user.email.toLowerCase(),
+              linkedAt: new Date().toISOString(),
+            }, { merge: true });
+          }
+        } catch (err) {
+          console.warn('[AuthContext] Admin email check warning:', err);
+        }
+      }
+
+      if (isSuperAdminEmail || adminSnap.exists() || isAdminByEmail) {
         userRole = 'admin';
-        console.log(`[AuthContext] [${new Date().toISOString()}] User identified as admin.`);
+        console.log(`[AuthContext] [${new Date().toISOString()}] User verified as ADMIN.`);
         if (isSuperAdminEmail && !adminSnap.exists()) {
-          // Ensure admin record exists
           await setDoc(adminDocRef, {
             uid: user.uid,
             email: user.email,
             createdAt: new Date().toISOString(),
-          });
+          }, { merge: true });
         }
       } else {
-        // First user to register becomes admin bootstrap
-        try {
-          const adminsSnap = await getDocs(collection(db, 'admins'));
-          if (adminsSnap.empty) {
-            console.log(`[AuthContext] [${new Date().toISOString()}] First user detected, bootstrapping admin role.`);
-            await setDoc(adminDocRef, {
-              uid: user.uid,
-              email: user.email,
-              createdAt: new Date().toISOString(),
-            });
-            userRole = 'admin';
+        // Check if scorer document exists by UID or by email
+        const scorerDocRef = doc(db, 'scorers', user.uid);
+        const scorerSnap = await getDoc(scorerDocRef);
+        let isScorerByEmail = false;
+
+        if (!scorerSnap.exists() && user.email) {
+          try {
+            const qScorerEmail = query(
+              collection(db, 'scorers'),
+              where('email', '==', user.email.toLowerCase())
+            );
+            const scorerEmailSnap = await getDocs(qScorerEmail);
+            if (!scorerEmailSnap.empty) {
+              isScorerByEmail = true;
+              await setDoc(scorerDocRef, {
+                uid: user.uid,
+                email: user.email.toLowerCase(),
+                linkedAt: new Date().toISOString(),
+              }, { merge: true });
+            }
+          } catch (err) {
+            console.warn('[AuthContext] Scorer email check warning:', err);
           }
-        } catch (err) {
-          console.warn(`[AuthContext] Admin bootstrap check failed:`, err);
         }
 
-        if (userRole !== 'admin') {
-          // Check if scorer
-          const scorerSnap = await getDoc(doc(db, 'scorers', user.uid));
-          if (scorerSnap.exists()) {
-            userRole = 'scorer';
-            console.log(`[AuthContext] [${new Date().toISOString()}] User identified as scorer.`);
-          }
+        if (scorerSnap.exists() || isScorerByEmail) {
+          userRole = 'scorer';
+          console.log(`[AuthContext] [${new Date().toISOString()}] User verified as SCORER.`);
+        } else {
+          // STRICTLY PLAYER! No automatic admin promotion under any circumstances!
+          userRole = 'player';
+          console.log(`[AuthContext] [${new Date().toISOString()}] User is standard PLAYER.`);
         }
       }
 
@@ -279,16 +310,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     console.log(`[AuthContext] [${new Date().toISOString()}] Initializing AuthProvider...`);
     testConnection();
 
-    // Check for existing demo session first
+    // Purge any stale demo session so real authentication is strictly enforced
     try {
-      const savedDemo = localStorage.getItem('localxi_demo_session');
-      if (savedDemo) {
-        const parsed = JSON.parse(savedDemo);
-        if (parsed?.role) {
-          console.log('[AuthContext] Restoring saved quick session for role:', parsed.role);
-          signInWithDemoRole(parsed.role);
-        }
-      }
+      localStorage.removeItem('localxi_demo_session');
     } catch {}
 
     // Safety timeout to unblock screen if Firebase auth initialization hangs

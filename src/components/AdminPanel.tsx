@@ -33,6 +33,7 @@ import {
   ShieldCheck,
   Shield,
   AlertTriangle,
+  ShieldAlert,
   Check,
 } from 'lucide-react';
 
@@ -75,6 +76,26 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   const [activeScreen, setActiveScreen] = useState<'dashboard' | 'manage_matches' | 'create_match' | 'edit_match' | 'live_scoring_panel' | 'player_management' | 'manage_users' | 'logo_upload' | 'manage_teams' | 'audit_log' | 'super_admin'>(() => {
     return initialEditingMatch ? 'edit_match' : 'dashboard';
   });
+
+  if (!isAdmin && !isScorer) {
+    return (
+      <div className="min-h-[70vh] flex flex-col items-center justify-center p-6 text-center font-sans max-w-md mx-auto">
+        <div className="w-16 h-16 rounded-3xl bg-rose-500/10 border border-rose-500/30 text-rose-400 flex items-center justify-center mb-4 shadow-[0_0_20px_rgba(244,63,94,0.2)]">
+          <ShieldAlert className="w-8 h-8" />
+        </div>
+        <h2 className="font-display font-black text-2xl text-white mb-2">Access Denied (प्रवेश प्रतिबंधित)</h2>
+        <p className="text-xs text-slate-400 max-w-sm mb-6 leading-relaxed">
+          आप वर्तमान में एडमिन नहीं हैं। केवल वर्तमान अधिकृत एडमिन ही एडमिन पैनल एक्सेस कर सकते हैं और अन्य उपयोगकर्ताओं को एडमिन बना सकते हैं।
+        </p>
+        <button
+          onClick={() => onNavigateTab ? onNavigateTab('home') : null}
+          className="px-6 py-3 bg-gradient-to-r from-[#00F2FE] to-blue-600 text-slate-950 font-black text-xs uppercase tracking-wider rounded-2xl shadow-lg cursor-pointer transition-all active:scale-95"
+        >
+          होम पेज पर जाएं
+        </button>
+      </div>
+    );
+  }
   const [selectedScoringMatch, setSelectedScoringMatch] = useState<CricketMatch | null>(null);
   const [editingMatch, setEditingMatch] = useState<CricketMatch | null>(initialEditingMatch);
   const [matchToDelete, setMatchToDelete] = useState<CricketMatch | null>(null);
@@ -1909,11 +1930,25 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
       {/* ================= 7. ADMIN USER MANAGEMENT SCREEN ================= */}
       {activeScreen === 'manage_users' && (
-        <AdminUserManagement
-          players={players}
-          onBack={() => setActiveScreen('dashboard')}
-          onRefreshData={onRefreshData}
-        />
+        isAdmin ? (
+          <AdminUserManagement
+            players={players}
+            onBack={() => setActiveScreen('dashboard')}
+            onRefreshData={onRefreshData}
+          />
+        ) : (
+          <div className="stadium-card rounded-3xl p-8 text-center space-y-4 max-w-md mx-auto">
+            <ShieldAlert className="w-12 h-12 text-rose-400 mx-auto" />
+            <h3 className="text-lg font-bold text-white">Admin Privileges Required</h3>
+            <p className="text-xs text-slate-400">केवल वर्तमान एडमिन ही उपयोगकर्ताओं की भूमिकाएं देख या बदल सकते हैं।</p>
+            <button
+              onClick={() => setActiveScreen('dashboard')}
+              className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-bold text-white transition-colors cursor-pointer"
+            >
+              वापस जाएं
+            </button>
+          </div>
+        )
       )}
 
       {activeScreen === 'audit_log' && (

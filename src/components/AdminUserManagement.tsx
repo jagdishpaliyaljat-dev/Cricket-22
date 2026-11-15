@@ -49,7 +49,7 @@ export const AdminUserManagement: React.FC<AdminUserManagementProps> = ({
   onBack,
   onRefreshData,
 }) => {
-  const { currentUser, appUser: currentAppUser } = useAuth();
+  const { currentUser, appUser: currentAppUser, isAdmin } = useAuth();
 
   const [users, setUsers] = useState<AppUser[]>([]);
   const [adminUids, setAdminUids] = useState<Set<string>>(new Set());
@@ -430,6 +430,26 @@ export const AdminUserManagement: React.FC<AdminUserManagementProps> = ({
       setIsSubmittingPlayer(false);
     }
   };
+
+  if (!isAdmin) {
+    return (
+      <div className="min-h-[50vh] flex flex-col items-center justify-center p-6 text-center font-sans max-w-md mx-auto">
+        <div className="w-14 h-14 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-400 flex items-center justify-center mb-3">
+          <ShieldAlert className="w-7 h-7" />
+        </div>
+        <h2 className="font-display font-black text-xl text-white mb-1">Access Restricted (प्रवेश प्रतिबंधित)</h2>
+        <p className="text-xs text-slate-400 max-w-xs mb-4">
+          केवल वर्तमान एडमिन ही उपयोगकर्ताओं की भूमिकाएं देख या बदल सकते हैं।
+        </p>
+        <button
+          onClick={onBack}
+          className="px-4 py-2 bg-white/10 text-white text-xs font-bold rounded-xl hover:bg-white/20 transition-colors cursor-pointer"
+        >
+          वापस जाएं
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-4 animate-in fade-in duration-200 font-sans text-slate-100 max-w-5xl mx-auto pb-10">

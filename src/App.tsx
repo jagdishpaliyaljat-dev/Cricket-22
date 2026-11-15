@@ -40,20 +40,13 @@ import {
   isCreateMatchModalOpen,
 } from './utils/draftStorage';
 import { purgeAllDemoData } from './utils/seedData';
-import { Activity, Calendar, Trophy, Users, Shield, PlusCircle, Sparkles, Bell, Clock, X } from 'lucide-react';
+import { Activity, Calendar, Trophy, Users, Shield, PlusCircle, Sparkles, Bell, Clock, X, ShieldAlert } from 'lucide-react';
 
 function LocalXIContent() {
   console.log('[LocalXI] LocalXIContent rendering...');
   const { currentUser, isAdmin, isScorer, loading: authLoading } = useAuth();
   console.log('[LocalXI] Auth state:', { currentUser, authLoading });
-  const [currentTab, setCurrentTab] = useState<'home' | 'matches' | 'live' | 'players' | 'compare' | 'leaderboard' | 'admin' | 'profile'>(() => {
-    try {
-      if (isCreateMatchModalOpen()) {
-        return 'admin';
-      }
-    } catch {}
-    return 'home';
-  });
+  const [currentTab, setCurrentTab] = useState<'home' | 'matches' | 'live' | 'players' | 'compare' | 'leaderboard' | 'admin' | 'profile'>('home');
   const [compareInitialPlayerId, setCompareInitialPlayerId] = useState<string | undefined>(undefined);
   const [matchFilter, setMatchFilter] = useState<'all' | 'live' | 'scheduled' | 'completed'>('all');
 
@@ -509,16 +502,34 @@ function LocalXIContent() {
 
         {/* TAB 5: ADMIN PANEL */}
         {currentTab === 'admin' && (
-          <AdminPanel
-            matches={displayMatches}
-            players={displayPlayers}
-            onOpenTeamBuilder={(m) => setActiveTeamBuilderMatch(m)}
-            onOpenScoringPad={(m) => setActiveScoringMatch(m)}
-            onOpenAvailability={(m) => setActiveAvailabilityMatch(m)}
-            onRefreshData={handleRefreshData}
-            initialEditingMatch={matchToEditInAdmin}
-            onNavigateTab={(tab) => setCurrentTab(tab as any)}
-          />
+          (isAdmin || isScorer) ? (
+            <AdminPanel
+              matches={displayMatches}
+              players={displayPlayers}
+              onOpenTeamBuilder={(m) => setActiveTeamBuilderMatch(m)}
+              onOpenScoringPad={(m) => setActiveScoringMatch(m)}
+              onOpenAvailability={(m) => setActiveAvailabilityMatch(m)}
+              onRefreshData={handleRefreshData}
+              initialEditingMatch={matchToEditInAdmin}
+              onNavigateTab={(tab) => setCurrentTab(tab as any)}
+            />
+          ) : (
+            <div className="min-h-[70vh] flex flex-col items-center justify-center p-6 text-center font-sans max-w-md mx-auto">
+              <div className="w-16 h-16 rounded-3xl bg-rose-500/10 border border-rose-500/30 text-rose-400 flex items-center justify-center mb-4 shadow-[0_0_20px_rgba(244,63,94,0.2)]">
+                <ShieldAlert className="w-8 h-8" />
+              </div>
+              <h2 className="font-display font-black text-2xl text-white mb-2">Access Denied (प्रवेश प्रतिबंधित)</h2>
+              <p className="text-xs text-slate-400 max-w-sm mb-6 leading-relaxed">
+                आप वर्तमान में एडमिन नहीं हैं। केवल वर्तमान अधिकृत एडमिन ही किसी यूजर को एडमिन बना सकता है।
+              </p>
+              <button
+                onClick={() => setCurrentTab('home')}
+                className="px-6 py-3 bg-gradient-to-r from-[#00F2FE] to-blue-600 text-slate-950 font-black text-xs uppercase tracking-wider rounded-2xl shadow-lg cursor-pointer transition-all active:scale-95"
+              >
+                होम पेज पर जाएं
+              </button>
+            </div>
+          )
         )}
 
         {/* TAB 6: PROFILE (MY PROFILE / EDIT PROFILE / BATTING STATS) */}
