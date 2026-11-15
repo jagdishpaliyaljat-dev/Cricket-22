@@ -39,7 +39,15 @@ try {
 }
 export const db = firestoreDb;
 export const storage = getStorage(app);
-export const messaging = typeof window !== 'undefined' ? getMessaging(app) : null;
+let messagingInstance: Messaging | null = null;
+if (typeof window !== 'undefined') {
+  try {
+    messagingInstance = getMessaging(app);
+  } catch (err) {
+    console.warn('[Firebase] Messaging not supported in this environment:', err);
+  }
+}
+export const messaging = messagingInstance;
 const provider = new GoogleAuthProvider();
 
 export const googleProvider = provider;

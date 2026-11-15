@@ -2,8 +2,8 @@ import React from 'react';
 import { Home, Calendar, Activity, Users, BarChart2, User } from 'lucide-react';
 
 interface BottomNavProps {
-  currentTab: 'home' | 'matches' | 'live' | 'players' | 'leaderboard' | 'admin' | 'profile';
-  setCurrentTab: (tab: 'home' | 'matches' | 'live' | 'players' | 'leaderboard' | 'admin' | 'profile') => void;
+  currentTab: 'home' | 'matches' | 'live' | 'players' | 'compare' | 'leaderboard' | 'admin' | 'profile';
+  setCurrentTab: (tab: 'home' | 'matches' | 'live' | 'players' | 'compare' | 'leaderboard' | 'admin' | 'profile') => void;
   liveMatchCount?: number;
 }
 
@@ -56,7 +56,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
       <div className="max-w-md mx-auto grid grid-cols-6 items-center px-1 pt-1.5 pb-1">
         {tabs.map((tab) => {
           const Icon = tab.icon;
-          const isActive = currentTab === tab.id;
+          const isActive = currentTab === tab.id || (tab.id === 'players' && currentTab === 'compare');
 
           return (
             <button

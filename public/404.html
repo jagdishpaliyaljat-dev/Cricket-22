@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>LocalXI - Redirecting...</title>
+    <script>
+      (function () {
+        var segments = window.location.pathname.split('/').filter(Boolean);
+        var base = window.location.hostname.endsWith('github.io') && segments.length > 0
+          ? '/' + segments[0] + '/'
+          : '/';
+        window.location.replace(base + window.location.search + window.location.hash);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>

@@ -8,8 +8,8 @@ import { Logo } from './Logo';
 import { CricketMatch } from '../types/cricket';
 
 interface HeaderProps {
-  currentTab: 'home' | 'matches' | 'live' | 'players' | 'leaderboard' | 'admin' | 'profile';
-  setCurrentTab: (tab: 'home' | 'matches' | 'live' | 'players' | 'leaderboard' | 'admin' | 'profile') => void;
+  currentTab: 'home' | 'matches' | 'live' | 'players' | 'compare' | 'leaderboard' | 'admin' | 'profile';
+  setCurrentTab: (tab: 'home' | 'matches' | 'live' | 'players' | 'compare' | 'leaderboard' | 'admin' | 'profile') => void;
   liveMatchCount?: number;
   matches?: CricketMatch[];
   onOpenProfile?: () => void;

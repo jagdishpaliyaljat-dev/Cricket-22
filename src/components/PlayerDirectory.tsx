@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { Player } from '../types/cricket';
-import { Search, ChevronRight } from 'lucide-react';
+import { Search, ChevronRight, ArrowLeftRight } from 'lucide-react';
 
 interface PlayerDirectoryProps {
   players: Player[];
   onSelectPlayer: (player: Player) => void;
   onRefresh?: () => void;
+  onOpenCompare?: () => void;
 }
 
 export const PlayerDirectory: React.FC<PlayerDirectoryProps> = ({
   players,
   onSelectPlayer,
+  onOpenCompare,
 }) => {
   const [search, setSearch] = useState('');
   const [availabilityFilter, setAvailabilityFilter] = useState<'all' | 'available' | 'unavailable'>('all');
@@ -46,10 +48,20 @@ export const PlayerDirectory: React.FC<PlayerDirectoryProps> = ({
   return (
     <div className="space-y-3.5 max-w-md mx-auto px-4 pb-6 text-[#172033] animate-in fade-in duration-150">
       {/* Title */}
-      <div className="flex items-center justify-between pt-0.5">
+      <div className="flex items-center justify-between pt-0.5 gap-3">
         <h1 className="font-sans font-black text-2xl sm:text-3xl tracking-tight text-[#172033]">
           Players
         </h1>
+        {onOpenCompare && (
+          <button
+            type="button"
+            onClick={onOpenCompare}
+            className="min-h-[40px] px-3 py-1.5 rounded-xl bg-[#EAF2FF] hover:bg-[#1554B8] text-[#1554B8] hover:text-white border border-[#DFE7F2] text-xs font-bold inline-flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs shrink-0"
+          >
+            <ArrowLeftRight className="w-3.5 h-3.5" />
+            <span>Compare</span>
+          </button>
+        )}
       </div>
 
       {/* Filter Tabs */}

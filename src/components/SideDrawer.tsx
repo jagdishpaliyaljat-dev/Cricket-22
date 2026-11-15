@@ -17,6 +17,7 @@ import {
   LogIn,
   Shield,
   ChevronRight,
+  ArrowLeftRight,
 } from 'lucide-react';
 import { InstallPWA } from './InstallPWA';
 
@@ -57,6 +58,7 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
     { id: 'matches', label: 'Matches', icon: Calendar, action: onOpenMatchesMenu },
     { id: 'live', label: 'Live', icon: Activity },
     { id: 'players', label: 'Players', icon: Users },
+    { id: 'compare', label: 'Compare Players', icon: ArrowLeftRight },
     { id: 'leaderboard', label: 'Stats', icon: BarChart2 },
     ...(isAdmin ? [{ id: 'admin', label: 'Admin Panel', icon: Shield }] : []),
     { id: 'profile', label: 'Profile', icon: User, action: onOpenProfileMenu },

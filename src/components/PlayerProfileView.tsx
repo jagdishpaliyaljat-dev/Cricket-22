@@ -15,6 +15,7 @@ import {
   Info,
   ChevronRight,
   Edit3,
+  ArrowLeftRight,
 } from 'lucide-react';
 import { fetchPlayerMatchStats } from '../services/playerService';
 import { format } from 'date-fns';
@@ -25,6 +26,7 @@ interface PlayerProfileViewProps {
   initialTab?: 'overview' | 'batting' | 'bowling' | 'history' | 'bio';
   onSelectMatchDetails?: (matchId: string) => void;
   onEditPlayer?: (player: Player) => void;
+  onComparePlayer?: (player: Player) => void;
 }
 
 export const PlayerProfileView: React.FC<PlayerProfileViewProps> = ({
@@ -33,6 +35,7 @@ export const PlayerProfileView: React.FC<PlayerProfileViewProps> = ({
   initialTab = 'overview',
   onSelectMatchDetails,
   onEditPlayer,
+  onComparePlayer,
 }) => {
   const [activeTab, setActiveTab] = useState<'overview' | 'batting' | 'bowling' | 'history' | 'bio'>(
     initialTab
@@ -154,6 +157,15 @@ export const PlayerProfileView: React.FC<PlayerProfileViewProps> = ({
                   >
                     <Edit3 className="w-4 h-4 text-[#1554B8]" />
                     <span>Edit Profile</span>
+                  </button>
+                )}
+                {onComparePlayer && (
+                  <button
+                    onClick={() => { setShowMenu(false); onComparePlayer(player); }}
+                    className="w-full text-left px-4 py-2.5 hover:bg-[#F2F6FC] flex items-center gap-2.5 transition-colors cursor-pointer border-b border-[#DFE7F2]"
+                  >
+                    <ArrowLeftRight className="w-4 h-4 text-[#1554B8]" />
+                    <span>Compare Player</span>
                   </button>
                 )}
                 <button

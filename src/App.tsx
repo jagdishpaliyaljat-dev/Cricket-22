@@ -10,6 +10,7 @@ import { AvailabilityModal } from './components/AvailabilityModal';
 import { TeamBuilderModal } from './components/TeamBuilderModal';
 import { PlayerProfileModal } from './components/PlayerProfileModal';
 import { PlayerDirectory } from './components/PlayerDirectory';
+import { PlayerComparison } from './components/PlayerComparison';
 import { LeaderboardView } from './components/LeaderboardView';
 import { AdminPanel } from './components/AdminPanel';
 import { LoginScreen } from './components/LoginScreen';
@@ -45,7 +46,7 @@ function LocalXIContent() {
   console.log('[LocalXI] LocalXIContent rendering...');
   const { currentUser, isAdmin, isScorer, loading: authLoading } = useAuth();
   console.log('[LocalXI] Auth state:', { currentUser, authLoading });
-  const [currentTab, setCurrentTab] = useState<'home' | 'matches' | 'live' | 'players' | 'leaderboard' | 'admin' | 'profile'>(() => {
+  const [currentTab, setCurrentTab] = useState<'home' | 'matches' | 'live' | 'players' | 'compare' | 'leaderboard' | 'admin' | 'profile'>(() => {
     try {
       if (isCreateMatchModalOpen()) {
         return 'admin';
@@ -53,6 +54,7 @@ function LocalXIContent() {
     } catch {}
     return 'home';
   });
+  const [compareInitialPlayerId, setCompareInitialPlayerId] = useState<string | undefined>(undefined);
   const [matchFilter, setMatchFilter] = useState<'all' | 'live' | 'scheduled' | 'completed'>('all');
 
   // Application Data State
@@ -302,7 +304,7 @@ function LocalXIContent() {
       })()}
 
       {/* Main Container */}
-      <main className="max-w-md mx-auto py-3 flex-1 w-full min-w-0 relative z-10">
+      <main className={`${currentTab === 'compare' && !detailedMatch && !selectedPlayer && !subMenuView ? 'max-w-4xl' : 'max-w-md'} mx-auto py-3 flex-1 w-full min-w-0 relative z-10`}>
         {subMenuView === 'matches_menu' ? (
           <MatchesMenuView
             onBack={() => setSubMenuView(null)}
@@ -372,6 +374,11 @@ function LocalXIContent() {
               }
             }}
             onEditPlayer={(p) => setEditingPlayer(p)}
+            onComparePlayer={(p) => {
+              setSelectedPlayer(null);
+              setCompareInitialPlayerId(p.id);
+              setCurrentTab('compare');
+            }}
           />
         ) : (
           <>
@@ -475,6 +482,20 @@ function LocalXIContent() {
             players={displayPlayers}
             onSelectPlayer={(p) => setSelectedPlayer(p)}
             onRefresh={handleRefreshData}
+            onOpenCompare={() => {
+              setCompareInitialPlayerId(undefined);
+              setCurrentTab('compare');
+            }}
+          />
+        )}
+
+        {/* TAB 3B: PLAYER COMPARISON */}
+        {currentTab === 'compare' && (
+          <PlayerComparison
+            players={displayPlayers}
+            initialPlayerAId={compareInitialPlayerId}
+            onBack={() => setCurrentTab('players')}
+            onSelectPlayerProfile={(p) => setSelectedPlayer(p)}
           />
         )}
 

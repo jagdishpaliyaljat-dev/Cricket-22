@@ -7,14 +7,15 @@ import { messaging, db, auth } from '../lib/firebase';
 const VAPID_KEY = 'YOUR_VAPID_KEY_HERE';
 
 export async function requestPushPermission() {
-  if (!messaging) return null;
+  if (!messaging || typeof Notification === 'undefined' || !('serviceWorker' in navigator)) return null;
 
   try {
     const permission = await Notification.requestPermission();
     if (permission === 'granted') {
+      const baseUrl = import.meta.env.BASE_URL || '/';
       // Register the service worker explicitly to ensure FCM can find it
-      const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js', {
-        scope: '/firebase-cloud-messaging-push-scope'
+      const registration = await navigator.serviceWorker.register(`${baseUrl}firebase-messaging-sw.js`, {
+        scope: `${baseUrl}firebase-cloud-messaging-push-scope`
       });
       
       const token = await getToken(messaging, { 
@@ -56,10 +57,11 @@ export function setupOnMessageListener() {
   onMessage(messaging, (payload) => {
     console.log('Foreground message received:', payload);
     // You can handle foreground messages here, e.g., show a custom toast
-    if (payload.notification) {
+    if (payload.notification && typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+      const baseUrl = import.meta.env.BASE_URL || '/';
       new Notification(payload.notification.title || 'New Notification', {
         body: payload.notification.body,
-        icon: '/icon.svg'
+        icon: `${baseUrl}icon.svg`
       });
     }
   });
