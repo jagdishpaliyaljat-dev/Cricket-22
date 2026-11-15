@@ -461,7 +461,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
     switch (status) {
       case 'verified':
         return (
-          <span className="inline-flex items-center gap-1 bg-[#D8FBE5] text-[#007A3D] border border-emerald-300 px-2 py-0.5 rounded-full text-[11px] font-bold">
+          <span className="inline-flex items-center gap-1 bg-[#D8FBE5] text-[#00F2FE] border border-emerald-300 px-2 py-0.5 rounded-full text-[11px] font-bold">
             <CheckCircle2 className="w-3 h-3" /> Verified
           </span>
         );
@@ -479,7 +479,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
         );
       default:
         return (
-          <span className="inline-flex items-center gap-1 bg-[#D8FBE5] text-[#007A3D] px-2 py-0.5 rounded-full text-[11px] font-bold">
+          <span className="inline-flex items-center gap-1 bg-[#D8FBE5] text-[#00F2FE] px-2 py-0.5 rounded-full text-[11px] font-bold">
             Verified
           </span>
         );
@@ -487,15 +487,15 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#F2F6FC] text-[#172033] flex flex-col font-sans">
+    <div className="min-h-screen bg-[#0B1120] text-slate-100 flex flex-col font-sans">
       {/* Toast Notice Banner */}
       {notice && (
-        <div className="fixed top-16 right-4 z-50 bg-white border border-[#DFE7F2] text-[#172033] px-4 py-3 rounded-2xl shadow-xl font-bold text-xs flex items-center gap-2.5 transition-all animate-in fade-in">
+        <div className="fixed top-16 right-4 z-50 bg-[#131D33] border border-cyan-500/40 text-white shadow-2xl px-4 py-3 rounded-2xl shadow-xl font-bold text-xs flex items-center gap-2.5 transition-all animate-in fade-in">
           <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${
             notice.type === 'success' ? 'bg-[#21864A]' : notice.type === 'error' ? 'bg-[#D94343]' : 'bg-[#1554B8]'
           }`} />
           <span>{notice.message}</span>
-          <button onClick={() => setNotice(null)} className="ml-2 text-[#718096] hover:text-[#172033] cursor-pointer">
+          <button onClick={() => setNotice(null)} className="ml-2 text-slate-400 hover:text-white cursor-pointer">
             ✕
           </button>
         </div>
@@ -512,10 +512,10 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
             {/* Title & Add Player Button */}
             <div className="flex items-center justify-between gap-3">
               <div>
-                <h2 className="font-sans font-bold text-xl sm:text-2xl text-[#172033] tracking-tight">
+                <h2 className="font-sans font-bold text-xl sm:text-2xl text-white tracking-tight">
                   Players
                 </h2>
-                <p className="text-xs text-[#718096]">Manage LocalXI registered player directory & verification</p>
+                <p className="text-xs text-slate-400">Manage LocalXI registered player directory & verification</p>
               </div>
 
               <div className="flex items-center gap-2">
@@ -531,7 +531,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
 
                 <button
                   onClick={handleOpenAddForm}
-                  className="bg-[#1554B8] hover:bg-[#0B3F91] text-white font-bold text-xs sm:text-sm px-3.5 py-2 sm:py-2.5 rounded-xl shadow-xs border border-[#1554B8] flex items-center gap-1.5 cursor-pointer transition-all shrink-0"
+                  className="bg-gradient-to-r from-[#00F2FE] to-blue-600 hover:from-[#00F2FE]/90 hover:to-blue-600/90 text-slate-950 font-black text-xs sm:text-sm px-3.5 py-2 sm:py-2.5 rounded-xl shadow-[0_0_15px_rgba(0,242,254,0.3)] flex items-center gap-1.5 cursor-pointer transition-all shrink-0"
                 >
                   <Plus className="w-4 h-4 text-white" />
                   <span>+ Add Player</span>
@@ -540,13 +540,13 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
             </div>
 
             {/* Status Filter Tabs */}
-            <div className="bg-[#EAF2FF] p-1 rounded-2xl border border-[#DFE7F2] grid grid-cols-4 gap-1 text-[11px] font-bold">
+            <div className="bg-[#131D33] p-1 rounded-2xl border border-white/10 grid grid-cols-4 gap-1 text-[11px] font-bold">
               <button
                 onClick={() => setStatusTab('all')}
                 className={`py-2 px-0.5 rounded-xl text-center transition-all cursor-pointer ${
                   statusTab === 'all'
                     ? 'bg-[#1554B8] text-white shadow-xs'
-                    : 'text-[#718096] hover:text-[#172033]'
+                    : 'text-slate-400 hover:text-white'
                 }`}
               >
                 All <span className="text-[9px] opacity-70">({counts.all})</span>
@@ -557,7 +557,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                 className={`py-2 px-0.5 rounded-xl text-center transition-all cursor-pointer ${
                   statusTab === 'verified'
                     ? 'bg-[#1554B8] text-white shadow-xs'
-                    : 'text-[#718096] hover:text-[#172033]'
+                    : 'text-slate-400 hover:text-white'
                 }`}
               >
                 Verified <span className="text-[9px] opacity-70">({counts.verified})</span>
@@ -568,7 +568,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                 className={`py-2 px-0.5 rounded-xl text-center transition-all cursor-pointer ${
                   statusTab === 'pending'
                     ? 'bg-[#1554B8] text-white shadow-xs'
-                    : 'text-[#718096] hover:text-[#172033]'
+                    : 'text-slate-400 hover:text-white'
                 }`}
               >
                 Pending <span className="text-[9px] opacity-70">({counts.pending})</span>
@@ -579,7 +579,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                 className={`py-2 px-0.5 rounded-xl text-center transition-all cursor-pointer ${
                   statusTab === 'blocked'
                     ? 'bg-[#1554B8] text-white shadow-xs'
-                    : 'text-[#718096] hover:text-[#172033]'
+                    : 'text-slate-400 hover:text-white'
                 }`}
               >
                 Blocked <span className="text-[9px] opacity-70">({counts.blocked})</span>
@@ -589,18 +589,18 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
             {/* Search and Filter Bar */}
             <div className="flex gap-2">
               <div className="relative flex-1 group">
-                <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#718096] group-focus-within:text-[#1554B8] transition-colors" />
+                <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#1554B8] transition-colors" />
                 <input
                   type="text"
                   placeholder="Search players..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-white border border-[#DFE7F2] rounded-[18px] pl-8.5 pr-3 py-2.5 text-xs text-[#172033] placeholder-[#718096] focus:outline-none focus:border-[#1554B8] transition-all shadow-xs"
+                  className="w-full bg-white border border-[#DFE7F2] rounded-[18px] pl-8.5 pr-3 py-2.5 text-xs text-white placeholder-[#718096] focus:outline-none focus:border-[#1554B8] transition-all shadow-xs"
                 />
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery('')}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#718096] hover:text-[#172033] transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
@@ -612,7 +612,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                 className={`px-3.5 py-2.5 rounded-[18px] border text-[11px] font-bold flex items-center gap-1.5 cursor-pointer transition-all active:scale-95 shadow-xs ${
                   showFilterPanel || roleFilter !== 'all'
                     ? 'bg-[#1554B8] border-[#1554B8] text-white'
-                    : 'bg-white border-[#DFE7F2] text-[#718096] hover:text-[#172033]'
+                    : 'bg-white border-[#DFE7F2] text-slate-400 hover:text-white'
                 }`}
               >
                 <Filter className="w-3.5 h-3.5" />
@@ -622,13 +622,13 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
 
             {/* Filter Drawer Panel */}
             {showFilterPanel && (
-              <div className="bg-[#003626] border border-[#007A3D]/60 rounded-2xl p-3.5 space-y-2 text-xs">
+              <div className="bg-[#131D33] border border-[#00F2FE]/60 rounded-2xl p-3.5 space-y-2 text-xs">
                 <div className="flex items-center justify-between font-semibold text-emerald-200">
                   <span>Filter by Playing Role</span>
                   {roleFilter !== 'all' && (
                     <button
                       onClick={() => setRoleFilter('all')}
-                      className="text-[#A8FF00] hover:underline text-[11px]"
+                      className="text-[#00F2FE] hover:underline text-[11px]"
                     >
                       Reset Filter
                     </button>
@@ -650,8 +650,8 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                       onClick={() => setRoleFilter(r.value)}
                       className={`px-2.5 py-1.5 rounded-lg border text-[11px] font-medium text-left truncate cursor-pointer ${
                         roleFilter === r.value
-                          ? 'bg-[#007A3D] border-[#A8FF00] text-[#A8FF00] font-bold'
-                          : 'bg-[#002A1D] border-[#007A3D]/40 text-slate-300 hover:text-white'
+                          ? 'bg-[#007A3D] border-[#A8FF00] text-[#00F2FE] font-bold'
+                          : 'bg-[#131D33] border-[#00F2FE]/40 text-slate-300 hover:text-white'
                       }`}
                     >
                       {r.label}
@@ -664,7 +664,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
             {/* Vertically Scrolling Player Cards List */}
             <div className="space-y-2.5">
               {filteredPlayers.length === 0 ? (
-                <div className="bg-[#003626] rounded-2xl p-8 border border-[#007A3D]/40 text-center space-y-2">
+                <div className="bg-[#131D33] rounded-2xl p-8 border border-[#00F2FE]/40 text-center space-y-2">
                   <User className="w-10 h-10 text-slate-500 mx-auto" />
                   <p className="text-sm font-semibold text-white">No players found matching your criteria.</p>
                   <p className="text-xs text-slate-400">
@@ -675,7 +675,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                 filteredPlayers.map((player) => (
                   <div
                     key={player.id}
-                    className="bg-white text-[#17211D] rounded-[24px] p-3 border border-[#E3EAE7] shadow-sm hover:border-[#007A3D]/30 transition-all flex items-center justify-between gap-3 relative active:scale-[0.98] active:bg-slate-50"
+                    className="bg-white text-white rounded-[24px] p-3 border border-white/10 shadow-sm hover:border-[#00F2FE]/30 transition-all flex items-center justify-between gap-3 relative active:scale-[0.98] active:bg-[#0B1120]"
                   >
                     {/* Left: Avatar & Info */}
                     <div
@@ -686,7 +686,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                       className="flex items-center gap-3 min-w-0 flex-1 cursor-pointer"
                     >
                       {/* Properly Cropped Circular Avatar */}
-                      <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#003626] border-2 border-[#007A3D] overflow-hidden shrink-0 flex items-center justify-center text-white font-bold text-sm shadow-xs">
+                      <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#131D33] border-2 border-[#00F2FE] overflow-hidden shrink-0 flex items-center justify-center text-white font-bold text-sm shadow-xs">
                         {player.photoUrl ? (
                           <img
                             src={player.photoUrl}
@@ -701,7 +701,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                       {/* Name & Details */}
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-1.5 flex-wrap">
-                          <h3 className="font-display font-bold text-sm sm:text-base text-[#17211D] truncate leading-tight">
+                          <h3 className="font-display font-bold text-sm sm:text-base text-white truncate leading-tight">
                             {player.fullName}
                           </h3>
                           {player.jerseyNumber && (
@@ -711,10 +711,10 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                           )}
                         </div>
 
-                        <div className="text-xs text-[#64716B] flex items-center gap-2 mt-0.5 font-medium flex-wrap">
+                        <div className="text-xs text-slate-400 flex items-center gap-2 mt-0.5 font-medium flex-wrap">
                           <span>{formatBattingStyle(player.battingStyle)}</span>
                           <span className="text-slate-300">•</span>
-                          <span className="font-semibold text-[#007A3D]">
+                          <span className="font-semibold text-[#00F2FE]">
                             {player.teamName || 'Unassigned Team'}
                           </span>
                         </div>
@@ -732,14 +732,14 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                             e.stopPropagation();
                             setOpenMenuPlayerId(openMenuPlayerId === player.id ? null : player.id);
                           }}
-                          className="p-1.5 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg cursor-pointer"
+                          className="p-1.5 text-slate-500 hover:text-slate-900 hover:bg-white/10 rounded-lg cursor-pointer"
                         >
                           <MoreVertical className="w-4.5 h-4.5" />
                         </button>
 
                         {/* Dropdown Menu Popup */}
                         {openMenuPlayerId === player.id && (
-                          <div className="absolute right-0 top-8 z-40 w-44 bg-white border border-slate-200 rounded-2xl shadow-xl py-1.5 text-xs text-[#17211D]">
+                          <div className="absolute right-0 top-8 z-40 w-44 bg-white border border-white/10 rounded-2xl shadow-xl py-1.5 text-xs text-white">
                             <button
                               onClick={(e) => {
                                 e.stopPropagation();
@@ -747,9 +747,9 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                                 setSelectedPlayer(player);
                                 setViewState('details');
                               }}
-                              className="w-full text-left px-3.5 py-2 hover:bg-slate-50 font-medium flex items-center gap-2 cursor-pointer"
+                              className="w-full text-left px-3.5 py-2 hover:bg-[#0B1120] font-medium flex items-center gap-2 cursor-pointer"
                             >
-                              <User className="w-4 h-4 text-[#007A3D]" /> View Player
+                              <User className="w-4 h-4 text-[#00F2FE]" /> View Player
                             </button>
 
                             <button
@@ -758,7 +758,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                                 setOpenMenuPlayerId(null);
                                 handleOpenEditForm(player);
                               }}
-                              className="w-full text-left px-3.5 py-2 hover:bg-slate-50 font-medium flex items-center gap-2 cursor-pointer"
+                              className="w-full text-left px-3.5 py-2 hover:bg-[#0B1120] font-medium flex items-center gap-2 cursor-pointer"
                             >
                               <Edit3 className="w-4 h-4 text-blue-600" /> Edit Player
                             </button>
@@ -770,7 +770,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                                   setOpenMenuPlayerId(null);
                                   handleVerifyPlayer(player);
                                 }}
-                                className="w-full text-left px-3.5 py-2 hover:bg-emerald-50 text-[#007A3D] font-bold flex items-center gap-2 cursor-pointer"
+                                className="w-full text-left px-3.5 py-2 hover:bg-emerald-50 text-[#00F2FE] font-bold flex items-center gap-2 cursor-pointer"
                               >
                                 <CheckCircle2 className="w-4 h-4" /> Verify Player
                               </button>
@@ -821,7 +821,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
             <div className="flex items-center justify-between gap-3">
               <button
                 onClick={() => setViewState('list')}
-                className="p-2 rounded-xl bg-[#003626] border border-[#007A3D]/50 text-slate-200 hover:text-white flex items-center gap-1 text-xs font-semibold cursor-pointer"
+                className="p-2 rounded-xl bg-[#131D33] border border-[#00F2FE]/50 text-slate-200 hover:text-white flex items-center gap-1 text-xs font-semibold cursor-pointer"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>Back to Players</span>
@@ -833,17 +833,17 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
 
               <button
                 onClick={() => handleOpenEditForm(selectedPlayer)}
-                className="px-3 py-1.5 bg-[#007A3D] text-white rounded-xl text-xs font-bold flex items-center gap-1 cursor-pointer"
+                className="px-3 py-1.5 bg-gradient-to-r from-[#00F2FE] to-blue-600 text-slate-950 font-black rounded-xl text-xs font-bold flex items-center gap-1 cursor-pointer"
               >
-                <Edit3 className="w-3.5 h-3.5 text-[#A8FF00]" /> Edit
+                <Edit3 className="w-3.5 h-3.5 text-[#00F2FE]" /> Edit
               </button>
             </div>
 
             {/* Player Profile Header Card */}
-            <div className="bg-white text-[#17211D] rounded-3xl p-4 sm:p-5 border border-[#E3EAE7] shadow-md space-y-4">
+            <div className="bg-white text-white rounded-3xl p-4 sm:p-5 border border-white/10 shadow-md space-y-4">
               <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left">
                 {/* Avatar */}
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#003626] border-4 border-[#007A3D] overflow-hidden shrink-0 flex items-center justify-center text-white font-black text-2xl shadow-md">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#131D33] border-4 border-[#00F2FE] overflow-hidden shrink-0 flex items-center justify-center text-white font-black text-2xl shadow-md">
                   {selectedPlayer.photoUrl ? (
                     <img
                       src={selectedPlayer.photoUrl}
@@ -858,18 +858,18 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                 {/* Info */}
                 <div className="space-y-1.5 min-w-0 flex-1">
                   <div className="flex items-center justify-center sm:justify-start gap-2 flex-wrap">
-                    <h3 className="font-display font-black text-xl sm:text-2xl text-[#17211D]">
+                    <h3 className="font-display font-black text-xl sm:text-2xl text-white">
                       {selectedPlayer.fullName}
                     </h3>
                     {renderStatusBadge(selectedPlayer.verificationStatus)}
                   </div>
 
-                  <div className="text-xs text-[#64716B] font-semibold space-y-0.5">
+                  <div className="text-xs text-slate-400 font-semibold space-y-0.5">
                     <div>
                       {formatBattingStyle(selectedPlayer.battingStyle)} ·{' '}
                       {formatBowlingStyle(selectedPlayer.bowlingStyle)}
                     </div>
-                    <div className="text-[#007A3D] font-bold">
+                    <div className="text-[#00F2FE] font-bold">
                       Team: {selectedPlayer.teamName || 'Unassigned Team'} · Joined:{' '}
                       {new Date(selectedPlayer.registrationDate || Date.now()).toLocaleDateString('en-GB', {
                         day: '2-digit',
@@ -883,8 +883,8 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
 
               {/* Career Summary 3 Compact Cards */}
               <div className="grid grid-cols-3 gap-2.5 pt-2 border-t border-slate-100">
-                <div className="bg-[#002A1D] text-white p-3 rounded-2xl text-center space-y-0.5 border border-[#007A3D]/40">
-                  <span className="font-display font-black text-xl sm:text-2xl text-[#A8FF00] block">
+                <div className="bg-[#131D33] text-white p-3 rounded-2xl text-center space-y-0.5 border border-[#00F2FE]/40">
+                  <span className="font-display font-black text-xl sm:text-2xl text-[#00F2FE] block">
                     {selectedPlayer.career?.matches ?? 24}
                   </span>
                   <span className="text-[11px] font-semibold text-slate-300 uppercase tracking-wider block">
@@ -892,8 +892,8 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                   </span>
                 </div>
 
-                <div className="bg-[#002A1D] text-white p-3 rounded-2xl text-center space-y-0.5 border border-[#007A3D]/40">
-                  <span className="font-display font-black text-xl sm:text-2xl text-[#A8FF00] block">
+                <div className="bg-[#131D33] text-white p-3 rounded-2xl text-center space-y-0.5 border border-[#00F2FE]/40">
+                  <span className="font-display font-black text-xl sm:text-2xl text-[#00F2FE] block">
                     {selectedPlayer.career?.runs ?? 482}
                   </span>
                   <span className="text-[11px] font-semibold text-slate-300 uppercase tracking-wider block">
@@ -901,8 +901,8 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                   </span>
                 </div>
 
-                <div className="bg-[#002A1D] text-white p-3 rounded-2xl text-center space-y-0.5 border border-[#007A3D]/40">
-                  <span className="font-display font-black text-xl sm:text-2xl text-[#A8FF00] block">
+                <div className="bg-[#131D33] text-white p-3 rounded-2xl text-center space-y-0.5 border border-[#00F2FE]/40">
+                  <span className="font-display font-black text-xl sm:text-2xl text-[#00F2FE] block">
                     {selectedPlayer.career?.wickets ?? 18}
                   </span>
                   <span className="text-[11px] font-semibold text-slate-300 uppercase tracking-wider block">
@@ -913,14 +913,14 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
             </div>
 
             {/* Profile Tabs */}
-            <div className="bg-[#003626] p-1 rounded-2xl border border-[#007A3D]/40 grid grid-cols-4 gap-1 text-xs font-semibold">
+            <div className="bg-[#131D33] p-1 rounded-2xl border border-[#00F2FE]/40 grid grid-cols-4 gap-1 text-xs font-semibold">
               {(['overview', 'batting', 'bowling', 'matches'] as const).map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setDetailsTab(tab)}
                   className={`py-2 px-1 rounded-xl text-center capitalize transition-all cursor-pointer ${
                     detailsTab === tab
-                      ? 'bg-[#007A3D] text-[#A8FF00] font-bold shadow-sm'
+                      ? 'bg-[#007A3D] text-[#00F2FE] font-bold shadow-sm'
                       : 'text-slate-300 hover:text-white'
                   }`}
                 >
@@ -930,14 +930,14 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
             </div>
 
             {/* Personal Information Card */}
-            <div className="bg-white text-[#17211D] rounded-3xl p-4 sm:p-5 border border-[#E3EAE7] shadow-sm space-y-3">
+            <div className="bg-white text-white rounded-3xl p-4 sm:p-5 border border-white/10 shadow-sm space-y-3">
               <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
-                <h4 className="font-display font-bold text-base text-[#17211D]">
+                <h4 className="font-display font-bold text-base text-white">
                   Personal Information
                 </h4>
                 <button
                   onClick={() => handleOpenEditForm(selectedPlayer)}
-                  className="text-[#007A3D] font-bold text-xs hover:underline flex items-center gap-1 cursor-pointer"
+                  className="text-[#00F2FE] font-bold text-xs hover:underline flex items-center gap-1 cursor-pointer"
                 >
                   <Edit3 className="w-3.5 h-3.5" /> Edit
                 </button>
@@ -945,25 +945,25 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                 <div>
-                  <span className="text-[#64716B] block">Full Name:</span>
-                  <strong className="text-[#17211D] text-sm block">{selectedPlayer.fullName}</strong>
+                  <span className="text-slate-400 block">Full Name:</span>
+                  <strong className="text-white text-sm block">{selectedPlayer.fullName}</strong>
                 </div>
 
                 <div>
-                  <span className="text-[#64716B] block">Email:</span>
-                  <strong className="text-[#17211D] text-sm block">{selectedPlayer.email || 'amit@gmail.com'}</strong>
+                  <span className="text-slate-400 block">Email:</span>
+                  <strong className="text-white text-sm block">{selectedPlayer.email || 'amit@gmail.com'}</strong>
                 </div>
 
                 <div>
-                  <span className="text-[#64716B] block">Phone:</span>
-                  <strong className="text-[#17211D] text-sm block">
+                  <span className="text-slate-400 block">Phone:</span>
+                  <strong className="text-white text-sm block">
                     {selectedPlayer.mobileNumber || '+91 98765 43210'}
                   </strong>
                 </div>
 
                 <div>
-                  <span className="text-[#64716B] block">Date of Birth:</span>
-                  <strong className="text-[#17211D] text-sm block">
+                  <span className="text-slate-400 block">Date of Birth:</span>
+                  <strong className="text-white text-sm block">
                     {selectedPlayer.dob
                       ? new Date(selectedPlayer.dob).toLocaleDateString('en-GB', {
                           day: '2-digit',
@@ -975,8 +975,8 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                 </div>
 
                 <div className="sm:col-span-2">
-                  <span className="text-[#64716B] block">Location:</span>
-                  <strong className="text-[#17211D] text-sm block">
+                  <span className="text-slate-400 block">Location:</span>
+                  <strong className="text-white text-sm block">
                     {selectedPlayer.location || 'Indore, Madhya Pradesh'}
                   </strong>
                 </div>
@@ -984,32 +984,32 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
             </div>
 
             {/* Team Information Card */}
-            <div className="bg-white text-[#17211D] rounded-3xl p-4 sm:p-5 border border-[#E3EAE7] shadow-sm space-y-3">
+            <div className="bg-white text-white rounded-3xl p-4 sm:p-5 border border-white/10 shadow-sm space-y-3">
               <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
-                <h4 className="font-display font-bold text-base text-[#17211D]">
+                <h4 className="font-display font-bold text-base text-white">
                   Team Information
                 </h4>
                 <button
                   onClick={() => handleOpenEditForm(selectedPlayer)}
-                  className="text-[#007A3D] font-bold text-xs hover:underline flex items-center gap-1 cursor-pointer"
+                  className="text-[#00F2FE] font-bold text-xs hover:underline flex items-center gap-1 cursor-pointer"
                 >
                   <Edit3 className="w-3.5 h-3.5" /> Edit
                 </button>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#003626] text-[#A8FF00] font-black text-xs flex items-center justify-center border border-[#007A3D]">
+                <div className="w-10 h-10 rounded-xl bg-[#131D33] text-[#00F2FE] font-black text-xs flex items-center justify-center border border-[#00F2FE]">
                   {selectedPlayer.teamName?.charAt(0) || 'T'}
                 </div>
                 <div className="text-xs">
-                  <span className="text-[#64716B] block">Team Assignment</span>
-                  <strong className="text-[#17211D] text-sm block">
+                  <span className="text-slate-400 block">Team Assignment</span>
+                  <strong className="text-white text-sm block">
                     {selectedPlayer.teamName || 'Metro Challengers'}
                   </strong>
                 </div>
                 <div className="ml-auto text-right text-xs">
-                  <span className="text-[#64716B] block">Jersey Number</span>
-                  <strong className="text-[#007A3D] font-mono text-base block font-bold">
+                  <span className="text-slate-400 block">Jersey Number</span>
+                  <strong className="text-[#00F2FE] font-mono text-base block font-bold">
                     #{String(selectedPlayer.jerseyNumber || 7).padStart(2, '0')}
                   </strong>
                 </div>
@@ -1017,14 +1017,14 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
             </div>
 
             {/* Playing Role Card */}
-            <div className="bg-white text-[#17211D] rounded-3xl p-4 sm:p-5 border border-[#E3EAE7] shadow-sm space-y-3">
+            <div className="bg-white text-white rounded-3xl p-4 sm:p-5 border border-white/10 shadow-sm space-y-3">
               <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
-                <h4 className="font-display font-bold text-base text-[#17211D]">
+                <h4 className="font-display font-bold text-base text-white">
                   Playing Role
                 </h4>
                 <button
                   onClick={() => handleOpenEditForm(selectedPlayer)}
-                  className="text-[#007A3D] font-bold text-xs hover:underline flex items-center gap-1 cursor-pointer"
+                  className="text-[#00F2FE] font-bold text-xs hover:underline flex items-center gap-1 cursor-pointer"
                 >
                   <Edit3 className="w-3.5 h-3.5" /> Edit
                 </button>
@@ -1032,15 +1032,15 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
 
               <div className="grid grid-cols-2 gap-3 text-xs">
                 <div>
-                  <span className="text-[#64716B] block">Primary Role:</span>
-                  <strong className="text-[#17211D] text-sm block">
+                  <span className="text-slate-400 block">Primary Role:</span>
+                  <strong className="text-white text-sm block">
                     {formatRoleName(selectedPlayer.playingRole)}
                   </strong>
                 </div>
 
                 <div>
-                  <span className="text-[#64716B] block">Secondary Role:</span>
-                  <strong className="text-[#17211D] text-sm block">
+                  <span className="text-slate-400 block">Secondary Role:</span>
+                  <strong className="text-white text-sm block">
                     {formatRoleName(selectedPlayer.secondaryRole)}
                   </strong>
                 </div>
@@ -1053,7 +1053,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                 onClick={() => handleToggleBlockPlayer(selectedPlayer)}
                 className={`flex-1 py-3 px-4 rounded-2xl font-bold text-xs border cursor-pointer touch-press transition-all flex items-center justify-center gap-1.5 ${
                   selectedPlayer.verificationStatus === 'blocked'
-                    ? 'bg-emerald-900 border-[#A8FF00] text-[#A8FF00]'
+                    ? 'bg-emerald-900 border-[#A8FF00] text-[#00F2FE]'
                     : 'bg-[#FFE0E0] border-red-300 text-[#E53945] hover:bg-red-200'
                 }`}
               >
@@ -1065,9 +1065,9 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
 
               <button
                 onClick={() => handleOpenEditForm(selectedPlayer)}
-                className="flex-1 py-3 px-4 rounded-2xl bg-[#007A3D] hover:bg-[#006030] text-white font-bold text-xs border border-[#A8FF00]/40 cursor-pointer touch-press transition-all flex items-center justify-center gap-1.5 shadow-md"
+                className="flex-1 py-3 px-4 rounded-2xl bg-gradient-to-r from-[#00F2FE] to-blue-600 text-slate-950 font-black shadow-[0_0_15px_rgba(0,242,254,0.3)] font-bold text-xs border border-[#A8FF00]/40 cursor-pointer touch-press transition-all flex items-center justify-center gap-1.5 shadow-md"
               >
-                <Edit3 className="w-4 h-4 text-[#A8FF00]" />
+                <Edit3 className="w-4 h-4 text-[#00F2FE]" />
                 <span>Edit Player</span>
               </button>
             </div>
@@ -1084,7 +1084,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
               <button
                 type="button"
                 onClick={() => setViewState(selectedPlayer ? 'details' : 'list')}
-                className="p-2 rounded-xl bg-[#003626] border border-[#007A3D]/50 text-slate-200 hover:text-white flex items-center gap-1 text-xs font-semibold cursor-pointer"
+                className="p-2 rounded-xl bg-[#131D33] border border-[#00F2FE]/50 text-slate-200 hover:text-white flex items-center gap-1 text-xs font-semibold cursor-pointer"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>Back</span>
@@ -1098,14 +1098,14 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
             </div>
 
             {/* Basic Information Card */}
-            <div className="bg-white text-[#17211D] rounded-3xl p-4 sm:p-5 border border-[#E3EAE7] shadow-sm space-y-4">
-              <h3 className="font-display font-bold text-base text-[#17211D] border-b border-slate-100 pb-2">
+            <div className="bg-white text-white rounded-3xl p-4 sm:p-5 border border-white/10 shadow-sm space-y-4">
+              <h3 className="font-display font-bold text-base text-white border-b border-slate-100 pb-2">
                 Basic Information
               </h3>
 
               {/* Photo Selector with Camera Badge */}
               <div className="flex items-center gap-4">
-                <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#003626] border-2 border-[#007A3D] overflow-hidden flex items-center justify-center text-white font-bold text-xl shrink-0 shadow-sm">
+                <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#131D33] border-2 border-[#00F2FE] overflow-hidden flex items-center justify-center text-white font-bold text-xl shrink-0 shadow-sm">
                   {formData.photoUrl ? (
                     <img src={formData.photoUrl} alt="Preview" className="w-full h-full object-cover" />
                   ) : (
@@ -1117,7 +1117,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-xs font-semibold text-[#17211D] block">
+                  <label className="text-xs font-semibold text-white block">
                     Profile Photo URL
                   </label>
                   <input
@@ -1125,15 +1125,15 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                     placeholder="https://example.com/photo.jpg"
                     value={formData.photoUrl}
                     onChange={(e) => setFormData({ ...formData, photoUrl: e.target.value })}
-                    className="w-full sm:w-80 bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                    className="w-full sm:w-80 bg-[#0B1120] border border-white/10 text-white rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                   />
-                  <p className="text-[10px] text-[#64716B]">Recommended square format PNG or JPG</p>
+                  <p className="text-[10px] text-slate-400">Recommended square format PNG or JPG</p>
                 </div>
               </div>
 
               {/* Full Name */}
               <div>
-                <label className="text-xs font-bold text-[#17211D] block mb-1">
+                <label className="text-xs font-bold text-white block mb-1">
                   Full Name *
                 </label>
                 <input
@@ -1141,8 +1141,8 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                   placeholder="e.g. Amit Patel"
                   value={formData.fullName}
                   onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                  className={`w-full bg-slate-50 border rounded-xl px-3 py-2.5 text-xs text-[#17211D] focus:outline-none ${
-                    formErrors.fullName ? 'border-red-500' : 'border-slate-200 focus:border-[#007A3D]'
+                  className={`w-full bg-[#0B1120] border border-white/10 rounded-xl text-white px-3 py-2.5 text-xs text-white focus:outline-none ${
+                    formErrors.fullName ? 'border-red-500' : 'border-white/10 focus:border-[#00F2FE]'
                   }`}
                 />
                 {formErrors.fullName && (
@@ -1152,7 +1152,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
 
               {/* Email */}
               <div>
-                <label className="text-xs font-bold text-[#17211D] block mb-1">
+                <label className="text-xs font-bold text-white block mb-1">
                   Email *
                 </label>
                 <input
@@ -1160,8 +1160,8 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                   placeholder="amit@gmail.com"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className={`w-full bg-slate-50 border rounded-xl px-3 py-2.5 text-xs text-[#17211D] focus:outline-none ${
-                    formErrors.email ? 'border-red-500' : 'border-slate-200 focus:border-[#007A3D]'
+                  className={`w-full bg-[#0B1120] border border-white/10 rounded-xl text-white px-3 py-2.5 text-xs text-white focus:outline-none ${
+                    formErrors.email ? 'border-red-500' : 'border-white/10 focus:border-[#00F2FE]'
                   }`}
                 />
                 {formErrors.email && (
@@ -1171,14 +1171,14 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
 
               {/* Phone Number */}
               <div>
-                <label className="text-xs font-bold text-[#17211D] block mb-1">
+                <label className="text-xs font-bold text-white block mb-1">
                   Phone Number *
                 </label>
                 <div className="flex gap-2">
                   <select
                     value={formData.phoneCode}
                     onChange={(e) => setFormData({ ...formData, phoneCode: e.target.value })}
-                    className="bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-2.5 text-xs text-[#17211D] font-mono font-bold"
+                    className="bg-[#0B1120] border border-white/10 text-white rounded-xl px-2.5 py-2.5 text-xs text-white font-mono font-bold"
                   >
                     <option value="+91">+91 (IN)</option>
                     <option value="+1">+1 (US)</option>
@@ -1190,8 +1190,8 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                     placeholder="98765 43210"
                     value={formData.phoneNumber}
                     onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
-                    className={`flex-1 bg-slate-50 border rounded-xl px-3 py-2.5 text-xs font-mono text-[#17211D] focus:outline-none ${
-                      formErrors.phoneNumber ? 'border-red-500' : 'border-slate-200 focus:border-[#007A3D]'
+                    className={`flex-1 bg-[#0B1120] border border-white/10 rounded-xl text-white px-3 py-2.5 text-xs font-mono text-white focus:outline-none ${
+                      formErrors.phoneNumber ? 'border-red-500' : 'border-white/10 focus:border-[#00F2FE]'
                     }`}
                   />
                 </div>
@@ -1203,15 +1203,15 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
               {/* DOB & Location */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-bold text-[#17211D] block mb-1">
+                  <label className="text-xs font-bold text-white block mb-1">
                     Date of Birth *
                   </label>
                   <input
                     type="date"
                     value={formData.dob}
                     onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
-                    className={`w-full bg-slate-50 border rounded-xl px-3 py-2.5 text-xs text-[#17211D] focus:outline-none ${
-                      formErrors.dob ? 'border-red-500' : 'border-slate-200 focus:border-[#007A3D]'
+                    className={`w-full bg-[#0B1120] border border-white/10 rounded-xl text-white px-3 py-2.5 text-xs text-white focus:outline-none ${
+                      formErrors.dob ? 'border-red-500' : 'border-white/10 focus:border-[#00F2FE]'
                     }`}
                   />
                   {formErrors.dob && (
@@ -1220,7 +1220,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-[#17211D] block mb-1">
+                  <label className="text-xs font-bold text-white block mb-1">
                     Location
                   </label>
                   <input
@@ -1228,27 +1228,27 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                     placeholder="Indore, Madhya Pradesh"
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                    className="w-full bg-[#0B1120] border border-white/10 text-white rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                   />
                 </div>
               </div>
             </div>
 
             {/* Playing Information Card */}
-            <div className="bg-white text-[#17211D] rounded-3xl p-4 sm:p-5 border border-[#E3EAE7] shadow-sm space-y-4">
-              <h3 className="font-display font-bold text-base text-[#17211D] border-b border-slate-100 pb-2">
+            <div className="bg-white text-white rounded-3xl p-4 sm:p-5 border border-white/10 shadow-sm space-y-4">
+              <h3 className="font-display font-bold text-base text-white border-b border-slate-100 pb-2">
                 Playing Information
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-bold text-[#17211D] block mb-1">
+                  <label className="text-xs font-bold text-white block mb-1">
                     Batting Style *
                   </label>
                   <select
                     value={formData.battingStyle}
                     onChange={(e) => setFormData({ ...formData, battingStyle: e.target.value as BattingStyle })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                    className="w-full bg-[#0B1120] border border-white/10 text-white rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                   >
                     <option value="right_hand_bat">Right Hand Bat</option>
                     <option value="left_hand_bat">Left Hand Bat</option>
@@ -1256,13 +1256,13 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-[#17211D] block mb-1">
+                  <label className="text-xs font-bold text-white block mb-1">
                     Bowling Style *
                   </label>
                   <select
                     value={formData.bowlingStyle}
                     onChange={(e) => setFormData({ ...formData, bowlingStyle: e.target.value as BowlingStyle })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                    className="w-full bg-[#0B1120] border border-white/10 text-white rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                   >
                     <option value="right_arm_spin">Right Arm Off Spin</option>
                     <option value="right_arm_medium">Right Arm Medium</option>
@@ -1274,13 +1274,13 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-[#17211D] block mb-1">
+                  <label className="text-xs font-bold text-white block mb-1">
                     Primary Role *
                   </label>
                   <select
                     value={formData.primaryRole}
                     onChange={(e) => setFormData({ ...formData, primaryRole: e.target.value as PlayingRole })}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                    className="w-full bg-[#0B1120] border border-white/10 text-white rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                   >
                     <option value="top_order_batter">Top Order Batter</option>
                     <option value="middle_order_batter">Middle Order Batter</option>
@@ -1293,7 +1293,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-[#17211D] block mb-1">
+                  <label className="text-xs font-bold text-white block mb-1">
                     Secondary Role
                   </label>
                   <select
@@ -1304,7 +1304,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                         secondaryRole: e.target.value as PlayingRole | 'none',
                       })
                     }
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                    className="w-full bg-[#0B1120] border border-white/10 text-white rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                   >
                     <option value="none">None</option>
                     <option value="top_order_batter">Top Order Batter</option>
@@ -1320,14 +1320,14 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
             </div>
 
             {/* Team & Status Card */}
-            <div className="bg-white text-[#17211D] rounded-3xl p-4 sm:p-5 border border-[#E3EAE7] shadow-sm space-y-4">
-              <h3 className="font-display font-bold text-base text-[#17211D] border-b border-slate-100 pb-2">
+            <div className="bg-white text-white rounded-3xl p-4 sm:p-5 border border-white/10 shadow-sm space-y-4">
+              <h3 className="font-display font-bold text-base text-white border-b border-slate-100 pb-2">
                 Team & Status
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div className="sm:col-span-1">
-                  <label className="text-xs font-bold text-[#17211D] block mb-1">
+                  <label className="text-xs font-bold text-white block mb-1">
                     Team *
                   </label>
                   <input
@@ -1336,8 +1336,8 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                     value={formData.teamName}
                     onChange={(e) => setFormData({ ...formData, teamName: e.target.value })}
                     list="registered-teams-list"
-                    className={`w-full bg-slate-50 border rounded-xl px-3 py-2.5 text-xs text-[#17211D] focus:outline-none ${
-                      formErrors.teamName ? 'border-red-500' : 'border-slate-200 focus:border-[#007A3D]'
+                    className={`w-full bg-[#0B1120] border border-white/10 rounded-xl text-white px-3 py-2.5 text-xs text-white focus:outline-none ${
+                      formErrors.teamName ? 'border-red-500' : 'border-white/10 focus:border-[#00F2FE]'
                     }`}
                   />
                   <datalist id="registered-teams-list">
@@ -1351,7 +1351,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-[#17211D] block mb-1">
+                  <label className="text-xs font-bold text-white block mb-1">
                     Jersey Number
                   </label>
                   <input
@@ -1359,8 +1359,8 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                     placeholder="07"
                     value={formData.jerseyNumber}
                     onChange={(e) => setFormData({ ...formData, jerseyNumber: e.target.value })}
-                    className={`w-full bg-slate-50 border rounded-xl px-3 py-2.5 text-xs font-mono font-bold text-[#17211D] focus:outline-none ${
-                      formErrors.jerseyNumber ? 'border-red-500' : 'border-slate-200 focus:border-[#007A3D]'
+                    className={`w-full bg-[#0B1120] border border-white/10 rounded-xl text-white px-3 py-2.5 text-xs font-mono font-bold text-white focus:outline-none ${
+                      formErrors.jerseyNumber ? 'border-red-500' : 'border-white/10 focus:border-[#00F2FE]'
                     }`}
                   />
                   {formErrors.jerseyNumber && (
@@ -1369,7 +1369,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-[#17211D] block mb-1">
+                  <label className="text-xs font-bold text-white block mb-1">
                     Verification Status *
                   </label>
                   <select
@@ -1380,7 +1380,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
                         verificationStatus: e.target.value as 'verified' | 'pending' | 'blocked',
                       })
                     }
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-bold text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                    className="w-full bg-[#0B1120] border border-white/10 text-white rounded-xl px-3 py-2.5 text-xs font-bold text-white focus:outline-none focus:border-[#00F2FE]"
                   >
                     <option value="verified">Verified</option>
                     <option value="pending">Pending</option>
@@ -1394,7 +1394,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full min-h-[50px] bg-[#007A3D] hover:bg-[#006030] text-white font-bold text-sm py-3.5 rounded-2xl shadow-md border border-[#A8FF00]/40 flex items-center justify-center gap-2 cursor-pointer touch-press transition-all disabled:opacity-60"
+              className="w-full min-h-[50px] bg-gradient-to-r from-[#00F2FE] to-blue-600 text-slate-950 font-black shadow-[0_0_15px_rgba(0,242,254,0.3)] font-bold text-sm py-3.5 rounded-2xl shadow-md border border-[#A8FF00]/40 flex items-center justify-center gap-2 cursor-pointer touch-press transition-all disabled:opacity-60"
             >
               {isSubmitting ? (
                 <span>Saving Record...</span>
@@ -1408,13 +1408,13 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
       {/* Delete Single Player Modal */}
       {playerToDelete && (
         <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl p-5 max-w-sm w-full space-y-4 shadow-2xl border border-red-100 text-[#17211D]">
+          <div className="bg-white rounded-3xl p-5 max-w-sm w-full space-y-4 shadow-2xl border border-red-100 text-white">
             <div className="w-12 h-12 rounded-2xl bg-red-50 text-[#FF263D] flex items-center justify-center mx-auto">
               <Trash2 className="w-6 h-6 stroke-[2.2]" />
             </div>
             <div className="text-center space-y-1">
-              <h3 className="font-display font-black text-lg text-[#17211D]">Delete Player?</h3>
-              <p className="text-xs text-[#68746F]">
+              <h3 className="font-display font-black text-lg text-white">Delete Player?</h3>
+              <p className="text-xs text-slate-400">
                 Are you sure you want to permanently delete player &quot;{playerToDelete.fullName}&quot;? This action cannot be undone.
               </p>
             </div>
@@ -1422,7 +1422,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
               <button
                 type="button"
                 onClick={() => setPlayerToDelete(null)}
-                className="py-2.5 px-4 bg-gray-100 hover:bg-gray-200 text-[#17211D] font-bold text-xs rounded-xl cursor-pointer"
+                className="py-2.5 px-4 bg-gray-100 hover:bg-gray-200 text-white font-bold text-xs rounded-xl cursor-pointer"
               >
                 Cancel
               </button>
@@ -1441,13 +1441,13 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
       {/* Delete All Players Modal */}
       {confirmDeleteAll && (
         <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl p-5 max-w-sm w-full space-y-4 shadow-2xl border border-red-100 text-[#17211D]">
+          <div className="bg-white rounded-3xl p-5 max-w-sm w-full space-y-4 shadow-2xl border border-red-100 text-white">
             <div className="w-12 h-12 rounded-2xl bg-red-50 text-[#FF263D] flex items-center justify-center mx-auto">
               <Trash2 className="w-6 h-6 stroke-[2.2]" />
             </div>
             <div className="text-center space-y-1">
-              <h3 className="font-display font-black text-lg text-[#17211D]">Delete All Players?</h3>
-              <p className="text-xs text-[#68746F]">
+              <h3 className="font-display font-black text-lg text-white">Delete All Players?</h3>
+              <p className="text-xs text-slate-400">
                 Are you sure you want to permanently delete ALL {allPlayersList.length} players? This action cannot be undone.
               </p>
             </div>
@@ -1455,7 +1455,7 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
               <button
                 type="button"
                 onClick={() => setConfirmDeleteAll(false)}
-                className="py-2.5 px-4 bg-gray-100 hover:bg-gray-200 text-[#17211D] font-bold text-xs rounded-xl cursor-pointer"
+                className="py-2.5 px-4 bg-gray-100 hover:bg-gray-200 text-white font-bold text-xs rounded-xl cursor-pointer"
               >
                 Cancel
               </button>
@@ -1474,15 +1474,15 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
       {/* Block/Unblock Player Modal */}
       {confirmBlockPlayer && (
         <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl p-5 max-w-sm w-full space-y-4 shadow-2xl border border-amber-100 text-[#17211D]">
+          <div className="bg-white rounded-3xl p-5 max-w-sm w-full space-y-4 shadow-2xl border border-amber-100 text-white">
             <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mx-auto">
               <Ban className="w-6 h-6 stroke-[2.2]" />
             </div>
             <div className="text-center space-y-1">
-              <h3 className="font-display font-black text-lg text-[#17211D]">
+              <h3 className="font-display font-black text-lg text-white">
                 {confirmBlockPlayer.actionName === 'block' ? 'Block Player?' : 'Unblock Player?'}
               </h3>
-              <p className="text-xs text-[#68746F]">
+              <p className="text-xs text-slate-400">
                 Are you sure you want to {confirmBlockPlayer.actionName} player &quot;{confirmBlockPlayer.player.fullName}&quot;?
               </p>
             </div>
@@ -1490,14 +1490,14 @@ export const AdminPlayerManagement: React.FC<AdminPlayerManagementProps> = ({
               <button
                 type="button"
                 onClick={() => setConfirmBlockPlayer(null)}
-                className="py-2.5 px-4 bg-gray-100 hover:bg-gray-200 text-[#17211D] font-bold text-xs rounded-xl cursor-pointer"
+                className="py-2.5 px-4 bg-gray-100 hover:bg-gray-200 text-white font-bold text-xs rounded-xl cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={executeToggleBlock}
-                className="py-2.5 px-4 bg-[#007A3D] hover:bg-[#006030] text-white font-bold text-xs rounded-xl cursor-pointer flex items-center justify-center gap-1.5 shadow-md"
+                className="py-2.5 px-4 bg-gradient-to-r from-[#00F2FE] to-blue-600 text-slate-950 font-black shadow-[0_0_15px_rgba(0,242,254,0.3)] font-bold text-xs rounded-xl cursor-pointer flex items-center justify-center gap-1.5 shadow-md"
               >
                 Confirm
               </button>

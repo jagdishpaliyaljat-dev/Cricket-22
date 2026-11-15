@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { CricketMatch, Player, MatchAvailability, AvailabilityStatus } from '../types/cricket';
+import { CricketMatch, Player, AvailabilityStatus } from '../types/cricket';
 import { useAuth } from '../context/AuthContext';
-import { fetchMatchAvailability, setPlayerAvailability, subscribeMatchAvailability } from '../services/availabilityService';
+import { setPlayerAvailability, subscribeMatchAvailability } from '../services/availabilityService';
 import { X, Check, Clock, UserCheck } from 'lucide-react';
 
 interface AvailabilityModalProps {
@@ -62,21 +62,22 @@ export const AvailabilityModal: React.FC<AvailabilityModalProps> = ({
   });
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-xs flex items-center justify-center p-3 overflow-y-auto">
-      <div className="bg-[#063D2E] border border-emerald-900 w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl my-auto max-h-[90vh] flex flex-col">
+    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 overflow-y-auto">
+      <div className="bg-[#0F172A] border border-white/15 w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl my-auto max-h-[90vh] flex flex-col text-slate-100 font-sans">
         {/* Header */}
-        <div className="bg-[#002B1B] p-4 border-b border-emerald-900/60 flex items-center justify-between">
+        <div className="bg-gradient-to-r from-[#0F1E36] to-[#13284C] p-4 border-b border-white/10 flex items-center justify-between">
           <div>
-            <h2 className="font-display font-bold text-base text-white">
+            <h2 className="font-display font-black text-base text-white">
               Match Availability
             </h2>
-            <div className="text-xs text-emerald-200/80 font-mono">
+            <div className="text-xs text-[#00F2FE] font-mono mt-0.5">
               {match.title}
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-300 hover:text-white bg-emerald-950 rounded-xl"
+            className="p-1.5 text-slate-300 hover:text-white bg-white/10 hover:bg-white/20 rounded-xl transition-colors cursor-pointer border border-white/10"
+            title="Close"
           >
             <X className="w-5 h-5" />
           </button>
@@ -84,12 +85,12 @@ export const AvailabilityModal: React.FC<AvailabilityModalProps> = ({
 
         {/* Current User Quick Response Card */}
         {myPlayer && (
-          <div className="bg-emerald-950/90 p-3.5 border-b border-emerald-800/40">
+          <div className="stadium-card-glow p-3.5 border-b border-white/10">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-white">
                 Your Availability ({myPlayer.fullName}):
               </span>
-              <span className="text-xs font-mono font-bold text-[#7CFC00] capitalize">
+              <span className="text-xs font-mono font-bold text-[#00F2FE] capitalize">
                 {availabilities[myPlayer.id] || 'Not Responded'}
               </span>
             </div>
@@ -97,10 +98,10 @@ export const AvailabilityModal: React.FC<AvailabilityModalProps> = ({
             <div className="grid grid-cols-3 gap-1.5 xs:gap-2">
               <button
                 onClick={() => handleSetStatus(myPlayer.id, 'available')}
-                className={`py-2 px-1 text-[10.5px] xs:text-xs font-bold rounded-xl border flex items-center justify-center gap-1 cursor-pointer touch-press ${
+                className={`py-2 px-1 text-[10.5px] xs:text-xs font-bold rounded-xl border flex items-center justify-center gap-1 cursor-pointer transition-all ${
                   availabilities[myPlayer.id] === 'available'
-                    ? 'bg-[#16A34A] text-white border-lime-400'
-                    : 'bg-[#002B1B] text-slate-300 border-emerald-800'
+                    ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40 shadow-xs'
+                    : 'bg-white/5 text-slate-300 border-white/10 hover:text-white hover:bg-white/10'
                 }`}
               >
                 <Check className="w-3 h-3 xs:w-3.5 xs:h-3.5 shrink-0" />
@@ -108,10 +109,10 @@ export const AvailabilityModal: React.FC<AvailabilityModalProps> = ({
               </button>
               <button
                 onClick={() => handleSetStatus(myPlayer.id, 'unavailable')}
-                className={`py-2 px-1 text-[10.5px] xs:text-xs font-bold rounded-xl border flex items-center justify-center gap-1 cursor-pointer touch-press ${
+                className={`py-2 px-1 text-[10.5px] xs:text-xs font-bold rounded-xl border flex items-center justify-center gap-1 cursor-pointer transition-all ${
                   availabilities[myPlayer.id] === 'unavailable'
-                    ? 'bg-red-700 text-white border-red-500'
-                    : 'bg-[#002B1B] text-slate-300 border-emerald-800'
+                    ? 'bg-red-500/20 text-red-400 border-red-500/40 shadow-xs'
+                    : 'bg-white/5 text-slate-300 border-white/10 hover:text-white hover:bg-white/10'
                 }`}
               >
                 <X className="w-3 h-3 xs:w-3.5 xs:h-3.5 shrink-0" />
@@ -119,10 +120,10 @@ export const AvailabilityModal: React.FC<AvailabilityModalProps> = ({
               </button>
               <button
                 onClick={() => handleSetStatus(myPlayer.id, 'not_responded')}
-                className={`py-2 px-1 text-[10.5px] xs:text-xs font-bold rounded-xl border flex items-center justify-center gap-1 cursor-pointer touch-press ${
+                className={`py-2 px-1 text-[10.5px] xs:text-xs font-bold rounded-xl border flex items-center justify-center gap-1 cursor-pointer transition-all ${
                   (!availabilities[myPlayer.id] || availabilities[myPlayer.id] === 'not_responded')
-                    ? 'bg-slate-700 text-white border-slate-500'
-                    : 'bg-[#002B1B] text-slate-300 border-emerald-800'
+                    ? 'bg-slate-700 text-white border-slate-500 shadow-xs'
+                    : 'bg-white/5 text-slate-300 border-white/10 hover:text-white hover:bg-white/10'
                 }`}
               >
                 <Clock className="w-3 h-3 xs:w-3.5 xs:h-3.5 shrink-0" />
@@ -133,28 +134,28 @@ export const AvailabilityModal: React.FC<AvailabilityModalProps> = ({
         )}
 
         {/* Stats strip */}
-        <div className="p-3 bg-[#002B1B]/60 flex items-center justify-around text-xs border-b border-emerald-950 text-slate-300 font-mono">
+        <div className="p-3 bg-[#0B1120] flex items-center justify-around text-xs border-b border-white/10 text-slate-300 font-mono">
           <div>
-            Available: <strong className="text-[#7CFC00]">{availableCount}</strong>
+            Available: <strong className="text-emerald-400 font-bold">{availableCount}</strong>
           </div>
           <div>
-            Unavailable: <strong className="text-red-400">{unavailableCount}</strong>
+            Unavailable: <strong className="text-red-400 font-bold">{unavailableCount}</strong>
           </div>
           <div>
-            Pending: <strong className="text-slate-400">{notRespondedCount}</strong>
+            Pending: <strong className="text-slate-400 font-bold">{notRespondedCount}</strong>
           </div>
         </div>
 
         {/* Filter buttons */}
-        <div className="flex gap-1 p-2 bg-[#063D2E] text-xs">
+        <div className="flex gap-1 p-2 bg-[#131E32]/90 border-b border-white/10 text-xs">
           {(['all', 'available', 'unavailable', 'not_responded'] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setFilter(tab)}
-              className={`flex-1 py-1.5 px-1 rounded-lg font-medium capitalize text-[10.5px] xs:text-[11px] transition-colors cursor-pointer text-center truncate ${
+              className={`flex-1 py-1.5 px-1 rounded-lg font-bold capitalize text-[10.5px] xs:text-[11px] transition-all cursor-pointer text-center truncate ${
                 filter === tab
-                  ? 'bg-[#7CFC00] text-[#002B1B] font-bold'
-                  : 'text-slate-300 hover:text-white bg-emerald-950/60'
+                  ? 'bg-gradient-to-r from-[#00F2FE] to-[#38BDF8] text-[#0B1120] shadow-[0_0_10px_rgba(0,242,254,0.3)]'
+                  : 'text-slate-400 hover:text-white bg-white/5'
               }`}
             >
               {tab === 'not_responded' ? 'Pending' : tab}
@@ -163,7 +164,7 @@ export const AvailabilityModal: React.FC<AvailabilityModalProps> = ({
         </div>
 
         {/* Player Roster Availability List */}
-        <div className="p-3 overflow-y-auto space-y-2 flex-1 max-h-72">
+        <div className="p-3 overflow-y-auto space-y-2 flex-1 max-h-72 bg-[#0B1120]">
           {filteredPlayers.length === 0 ? (
             <div className="text-center py-8 text-slate-400 italic text-xs">
               No players found in this category.
@@ -175,7 +176,7 @@ export const AvailabilityModal: React.FC<AvailabilityModalProps> = ({
               return (
                 <div
                   key={p.id}
-                  className="bg-[#002B1B] p-2.5 rounded-xl border border-emerald-950 flex items-center justify-between text-xs"
+                  className="stadium-card p-2.5 rounded-xl border border-white/10 flex items-center justify-between text-xs"
                 >
                   <div>
                     <div className="font-semibold text-white">{p.fullName}</div>
@@ -190,8 +191,8 @@ export const AvailabilityModal: React.FC<AvailabilityModalProps> = ({
                         onClick={() => handleSetStatus(p.id, 'available')}
                         className={`px-2 py-1 rounded text-[10px] font-mono font-bold cursor-pointer ${
                           status === 'available'
-                            ? 'bg-[#16A34A] text-white'
-                            : 'bg-emerald-950 text-slate-400 hover:text-white'
+                            ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                            : 'bg-white/5 text-slate-400 hover:text-white'
                         }`}
                       >
                         Avail
@@ -200,8 +201,8 @@ export const AvailabilityModal: React.FC<AvailabilityModalProps> = ({
                         onClick={() => handleSetStatus(p.id, 'unavailable')}
                         className={`px-2 py-1 rounded text-[10px] font-mono font-bold cursor-pointer ${
                           status === 'unavailable'
-                            ? 'bg-red-700 text-white'
-                            : 'bg-emerald-950 text-slate-400 hover:text-white'
+                            ? 'bg-red-500/20 text-red-400 border border-red-500/30'
+                            : 'bg-white/5 text-slate-400 hover:text-white'
                         }`}
                       >
                         Unavail
@@ -209,12 +210,12 @@ export const AvailabilityModal: React.FC<AvailabilityModalProps> = ({
                     </div>
                   ) : (
                     <span
-                      className={`text-[11px] font-mono font-bold capitalize ${
+                      className={`text-[11px] font-mono font-bold capitalize px-2 py-0.5 rounded-full ${
                         status === 'available'
-                          ? 'text-[#7CFC00]'
+                          ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
                           : status === 'unavailable'
-                          ? 'text-red-400'
-                          : 'text-slate-400'
+                          ? 'bg-red-500/20 text-red-400 border border-red-500/30'
+                          : 'bg-white/5 text-slate-400 border border-white/10'
                       }`}
                     >
                       {status.replace('_', ' ')}
@@ -228,15 +229,15 @@ export const AvailabilityModal: React.FC<AvailabilityModalProps> = ({
 
         {/* Footer Admin Action: Team Builder */}
         {isAdmin && onOpenTeamBuilder && (
-          <div className="p-3 bg-[#002B1B] border-t border-emerald-900/60">
+          <div className="p-3 bg-[#0F172A] border-t border-white/10">
             <button
               onClick={() => {
                 onClose();
                 onOpenTeamBuilder(match);
               }}
-              className="w-full min-h-[44px] bg-[#7CFC00] hover:bg-lime-400 text-[#002B1B] font-bold text-xs rounded-xl flex items-center justify-center gap-1.5 cursor-pointer touch-press"
+              className="w-full min-h-[44px] bg-gradient-to-r from-[#00F2FE] to-[#38BDF8] text-[#0B1120] font-black text-xs rounded-xl flex items-center justify-center gap-1.5 cursor-pointer shadow-[0_0_15px_rgba(0,242,254,0.3)] active:scale-95 transition-all"
             >
-              <UserCheck className="w-4 h-4" />
+              <UserCheck className="w-4 h-4 stroke-[2.5]" />
               Build Teams with Available Players ({availableCount} Ready)
             </button>
           </div>

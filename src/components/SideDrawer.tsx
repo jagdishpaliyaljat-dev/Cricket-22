@@ -79,16 +79,16 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
       />
 
       {/* Drawer Container */}
-      <div className="absolute inset-y-0 left-0 w-[84%] max-w-[310px] bg-white border-r border-[#DFE7F2] shadow-2xl flex flex-col text-[#172033] animate-in slide-in-from-left duration-200">
+      <div className="absolute inset-y-0 left-0 w-[84%] max-w-[310px] bg-[#0B1120] border-r border-white/10 shadow-2xl flex flex-col text-white animate-in slide-in-from-left duration-200">
         {/* Drawer Header */}
-        <div className="p-4 flex items-center justify-between border-b border-[#0B3F91] bg-[#1554B8] text-white">
+        <div className="p-4 flex items-center justify-between border-b border-white/10 bg-[#060A14] text-white">
           <div className="flex items-center gap-2.5">
             <Logo variant="full" className="h-8" />
           </div>
 
           <button
             onClick={onClose}
-            className="p-1.5 text-white/80 hover:text-white rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+            className="p-1.5 text-slate-400 hover:text-white rounded-xl hover:bg-white/10 transition-colors cursor-pointer"
             title="Close Drawer"
           >
             <X className="w-5 h-5 stroke-[2.2]" />
@@ -101,24 +101,24 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
             onClose();
             onOpenProfileMenu();
           }}
-          className="mx-3 mt-3.5 p-3 bg-[#EAF2FF] hover:bg-[#1554B8] border border-[#DFE7F2] rounded-2xl flex items-center justify-between cursor-pointer transition-all shadow-xs group"
+          className="mx-3 mt-3.5 p-3.5 bg-slate-800/80 hover:bg-slate-800 border border-white/10 hover:border-[#00F2FE]/40 rounded-2xl flex items-center justify-between cursor-pointer transition-all shadow-md group"
         >
           <div className="flex items-center gap-3 min-w-0">
             <img
               src={avatarUrl}
               alt={playerName}
-              className="w-11 h-11 rounded-full object-cover border-2 border-[#1554B8] shadow-xs bg-white"
+              className="w-11 h-11 rounded-full object-cover border-2 border-[#00F2FE]/50 shadow-[0_0_10px_rgba(0,242,254,0.3)] bg-slate-900"
             />
             <div className="min-w-0">
-              <h3 className="font-sans font-bold text-sm text-[#172033] group-hover:text-white truncate leading-tight">
+              <h3 className="font-sans font-bold text-sm text-white group-hover:text-[#00F2FE] transition-colors truncate leading-tight">
                 {playerName}
               </h3>
-              <p className="text-[11px] text-[#718096] group-hover:text-[#EAF2FF] font-medium truncate mt-0.5">
+              <p className="text-[11px] text-slate-400 font-medium truncate mt-0.5">
                 {playerRole}
               </p>
             </div>
           </div>
-          <ChevronRight className="w-4 h-4 text-[#1554B8] group-hover:text-white group-hover:translate-x-0.5 transition-all shrink-0" />
+          <ChevronRight className="w-4 h-4 text-[#00F2FE] group-hover:translate-x-0.5 transition-all shrink-0" />
         </div>
 
         {/* Navigation Content */}
@@ -142,13 +142,13 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
                   }}
                   className={`w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                     isActive
-                      ? 'bg-[#1554B8] text-white shadow-xs'
-                      : 'text-[#718096] hover:bg-[#EAF2FF] hover:text-[#172033]'
+                      ? 'bg-[#00F2FE]/15 text-[#00F2FE] border border-[#00F2FE]/30 shadow-xs'
+                      : 'text-slate-400 hover:bg-white/5 hover:text-white'
                   }`}
                 >
                   <Icon
                     className={`w-4.5 h-4.5 shrink-0 ${
-                      isActive ? 'text-white stroke-[2.4]' : 'text-[#718096] stroke-[1.8]'
+                      isActive ? 'text-[#00F2FE] stroke-[2.4]' : 'text-slate-400 stroke-[1.8]'
                     }`}
                   />
                   <span>{item.label}</span>
@@ -158,7 +158,7 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
           </div>
 
           {/* Subtle horizontal divider */}
-          <div className="border-t border-[#DFE7F2] my-3 mx-1" />
+          <div className="border-t border-white/10 my-3 mx-1" />
 
           {/* Secondary Navigation */}
           <div className="space-y-1">
@@ -171,9 +171,9 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
                     onClose();
                     alert(`${item.label} section coming soon.`);
                   }}
-                  className="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-[#718096] hover:bg-[#EAF2FF] hover:text-[#172033] transition-all cursor-pointer"
+                  className="w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-400 hover:bg-white/5 hover:text-white transition-all cursor-pointer"
                 >
-                  <Icon className="w-4.5 h-4.5 text-[#718096] shrink-0 stroke-[1.8]" />
+                  <Icon className="w-4.5 h-4.5 text-slate-400 shrink-0 stroke-[1.8]" />
                   <span>{item.label}</span>
                 </button>
               );
@@ -182,7 +182,7 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="p-3 border-t border-[#DFE7F2] bg-white space-y-2">
+        <div className="p-3 border-t border-white/10 bg-[#060A14] space-y-2">
           <div className="px-1">
             <InstallPWA />
           </div>
@@ -199,7 +199,7 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
                   }
                 }
               }}
-              className="w-full bg-[#EAF2FF] hover:bg-red-50 border border-[#DFE7F2] text-[#D94343] font-bold text-xs py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-xs"
+              className="w-full bg-slate-800/80 hover:bg-red-950/60 border border-white/10 text-red-400 font-bold text-xs py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-xs"
             >
               <LogOut className="w-4 h-4 stroke-[2.2]" />
               <span>Log Out</span>
@@ -213,10 +213,10 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
                 }
               }}
               disabled={isSigningIn}
-              className="w-full bg-[#1554B8] hover:bg-[#0B3F91] disabled:bg-[#1554B8]/50 text-white font-bold text-xs py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-xs"
+              className="w-full bg-[#00F2FE] hover:bg-[#38BDF8] disabled:opacity-50 text-slate-950 font-black text-xs py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-md"
             >
               {isSigningIn ? (
-                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <div className="w-4 h-4 border-2 border-slate-950/30 border-t-slate-950 rounded-full animate-spin" />
               ) : (
                 <LogIn className="w-4 h-4 stroke-[2.2]" />
               )}

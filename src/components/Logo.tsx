@@ -161,8 +161,8 @@ export const Logo: React.FC<LogoProps> = ({
       )}
 
       {renderText && (
-        <span className="font-extrabold text-slate-900 dark:text-white text-lg tracking-tight flex items-baseline">
-          Local<span className="text-blue-600 dark:text-blue-400 font-black ml-0.5">XI</span>
+        <span className="font-black text-white text-lg tracking-tight flex items-baseline font-display">
+          LOCAL<span className="text-[#00F2FE] font-black ml-0.5">XI</span>
         </span>
       )}
     </div>

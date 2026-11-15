@@ -206,24 +206,24 @@ function LocalXIContent() {
   }
 
   return (
-    <div className="h-screen bg-[#F2F6FC] text-[#172033] flex flex-col font-sans pb-[calc(4.75rem+env(safe-area-inset-bottom,0px))] md:pb-8 relative overflow-x-hidden">
+    <div className="min-h-screen bg-[#0B1120] text-slate-100 flex flex-col font-sans pb-[calc(5rem+env(safe-area-inset-bottom,0px))] md:pb-8 relative overflow-x-hidden">
       {/* Automated In-App Notifications */}
       <NotificationManager />
       <OfflineIndicator />
 
       {/* 30-Minute Match Reminder Toast / Banner */}
       {activeAlert && (
-        <div className="bg-white border border-[#DFE7F2] text-[#172033] px-4 py-3 shadow-xl relative z-50 flex items-center justify-between gap-3 font-sans animate-in slide-in-from-top duration-200 rounded-2xl mx-3 mt-3">
+        <div className="stadium-card-glow border border-[#00F2FE]/40 text-white px-4 py-3 shadow-xl relative z-50 flex items-center justify-between gap-3 font-sans animate-in slide-in-from-top duration-200 rounded-2xl mx-3 mt-3">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="w-9 h-9 rounded-2xl bg-[#EAF2FF] text-[#1554B8] border border-[#1554B8]/20 flex items-center justify-center shrink-0 shadow-xs">
+            <div className="w-9 h-9 rounded-2xl bg-[#00F2FE]/15 text-[#00F2FE] border border-[#00F2FE]/30 flex items-center justify-center shrink-0 shadow-xs">
               <Bell className="w-4.5 h-4.5" />
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-1.5">
-                <span className="font-bold text-[11px] uppercase tracking-wider text-[#1554B8]">Match Starting Soon</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#1554B8] animate-pulse" />
+                <span className="font-bold text-[11px] uppercase tracking-wider text-[#00F2FE]">Match Starting Soon</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00F2FE] animate-pulse" />
               </div>
-              <p className="text-xs font-semibold truncate text-[#172033] mt-0.5">{activeAlert.message}</p>
+              <p className="text-xs font-semibold truncate text-white mt-0.5">{activeAlert.message}</p>
             </div>
           </div>
           <div className="flex items-center gap-2 shrink-0">
@@ -232,13 +232,13 @@ function LocalXIContent() {
                 setDetailedMatch(activeAlert.match);
                 dismissAlert();
               }}
-              className="px-3 py-1.5 bg-[#1554B8] text-white font-bold text-xs rounded-xl cursor-pointer hover:bg-[#0B3F91] shadow-xs transition-colors"
+              className="px-3 py-1.5 bg-gradient-to-r from-[#00F2FE] to-[#38BDF8] text-[#0B1120] font-black text-xs rounded-xl cursor-pointer hover:opacity-95 shadow-[0_0_12px_rgba(0,242,254,0.3)] transition-all"
             >
               View
             </button>
             <button
               onClick={dismissAlert}
-              className="p-1 text-[#718096] hover:text-[#172033] hover:bg-[#F2F6FC] rounded-lg transition-colors cursor-pointer"
+              className="p-1 text-slate-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
               title="Dismiss"
             >
               <X className="w-4 h-4" />
@@ -247,8 +247,8 @@ function LocalXIContent() {
         </div>
       )}
 
-      {/* Atmospheric lighting backdrop */}
-      <div className="pointer-events-none fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-md h-96 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#2878E5]/15 via-[#1554B8]/5 to-transparent z-0" />
+      {/* Atmospheric stadium lighting backdrop */}
+      <div className="pointer-events-none fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-md h-96 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#00F2FE]/15 via-[#0B1120]/40 to-transparent z-0" />
 
       {/* Display global header ONLY on the Home page */}
       {currentTab === 'home' && !detailedMatch && !selectedPlayer && !subMenuView && (
@@ -275,25 +275,25 @@ function LocalXIContent() {
         const activeInnings = liveMatch.currentInnings === 2 ? liveMatch.innings2 : liveMatch.innings1;
         const scoreStr = activeInnings ? `${activeInnings.totalRuns}/${activeInnings.wickets} (${activeInnings.legalOvers}.${activeInnings.legalBalls} ov)` : null;
         return (
-          <div className="bg-[#1554B8] border-b border-[#0B3F91] px-3 sm:px-4 py-1.5 transition-all relative z-10 text-white shadow-xs">
+          <div className="bg-[#111A2E]/90 border-b border-white/10 px-3 sm:px-4 py-2 transition-all relative z-10 text-white shadow-md backdrop-blur-md">
             <div className="max-w-md mx-auto flex items-center justify-between gap-2 text-xs">
               <div className="flex items-center gap-2 min-w-0 flex-1 truncate">
-                <span className="flex items-center gap-1 shrink-0 bg-[#D94343] text-white font-mono font-bold text-[9.5px] px-1.5 py-0.5 rounded-full uppercase tracking-wider">
+                <span className="flex items-center gap-1 shrink-0 bg-[#EF4444] text-white font-mono font-bold text-[9.5px] px-2 py-0.5 rounded-full uppercase tracking-wider shadow-[0_0_8px_#EF4444]">
                   <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                   LIVE
                 </span>
-                <span className="text-white font-medium truncate text-[11px] sm:text-xs">
+                <span className="text-slate-200 font-semibold truncate text-[11px] sm:text-xs">
                   {liveMatch.title}
                 </span>
                 {scoreStr && (
-                  <span className="font-mono text-[#EAF2FF] font-bold text-[11px] shrink-0">
+                  <span className="font-mono text-[#00F2FE] font-bold text-[11px] shrink-0">
                     · {scoreStr}
                   </span>
                 )}
               </div>
               <button
                 onClick={() => setDetailedMatch(liveMatch)}
-                className="text-white font-bold text-[11px] hover:underline shrink-0 cursor-pointer flex items-center gap-0.5"
+                className="text-[#00F2FE] font-bold text-[11px] hover:underline shrink-0 cursor-pointer flex items-center gap-1 touch-press"
               >
                 <span>Scorecard</span>
                 <span aria-hidden="true">→</span>

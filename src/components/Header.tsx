@@ -33,27 +33,27 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-[#1554B8] text-white backdrop-blur-md border-b border-[#0B3F91] shadow-sm">
+      <header className="sticky top-0 z-40 bg-[#0B1120]/90 text-white backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/30">
         {/* Main Header Bar */}
-        <div className="max-w-md mx-auto px-4 h-14 flex items-center justify-between gap-3">
+        <div className="max-w-md mx-auto px-4 h-15 flex items-center justify-between gap-3">
           {/* Left: Hamburger + Brand */}
           <div className="flex items-center gap-2.5 shrink-0">
             {onOpenDrawer && (
               <button
                 onClick={onOpenDrawer}
-                className="p-1 -ml-1 text-white hover:text-white/80 rounded-lg transition-colors cursor-pointer"
+                className="p-2 -ml-1 text-slate-300 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer touch-press"
                 title="Open Menu"
               >
-                <Menu className="w-5.5 h-5.5 stroke-[2.2]" />
+                <Menu className="w-5 h-5 stroke-[2.2]" />
               </button>
             )}
 
             <button
               onClick={() => setCurrentTab('home')}
-              className="flex items-center text-left shrink-0 cursor-pointer focus:outline-none group ml-1"
+              className="flex items-center text-left shrink-0 cursor-pointer focus:outline-none group ml-0.5 touch-press"
               title="LocalXI Home"
             >
-              <Logo variant="full" className="h-8" />
+              <Logo variant="full" className="h-8.5" />
             </button>
           </div>
 
@@ -63,12 +63,12 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Bell Icon with Red Dot */}
             <button
               onClick={() => setIsNotifOpen(true)}
-              className="relative p-1.5 text-white/90 hover:text-white rounded-full hover:bg-white/10 transition-colors cursor-pointer"
+              className="relative p-2 text-slate-300 hover:text-white rounded-xl hover:bg-white/10 transition-colors cursor-pointer touch-press"
               title="Notifications"
             >
               <Bell className="w-5 h-5 stroke-[2]" />
-              {/* Red notification dot */}
-              <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-[#D94343] rounded-full border-2 border-[#1554B8]" />
+              {/* Glowing notification dot */}
+              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-[#EF4444] rounded-full shadow-[0_0_8px_#EF4444]" />
             </button>
 
             {/* Profile Avatar or Login Button */}
@@ -78,13 +78,13 @@ export const Header: React.FC<HeaderProps> = ({
                   if (onOpenProfile) onOpenProfile();
                   else setCurrentTab('profile');
                 }}
-                className="relative rounded-full focus:outline-none transition-transform active:scale-95 cursor-pointer"
+                className="relative rounded-full focus:outline-none transition-transform active:scale-95 cursor-pointer touch-press p-0.5 border border-[#00F2FE]/40 shadow-[0_0_10px_rgba(0,242,254,0.25)]"
                 title="View Profile"
               >
                 <img
                   src={avatarUrl}
                   alt="Avatar"
-                  className="w-9 h-9 rounded-full object-cover border-2 border-white shadow-sm bg-[#EAF2FF]"
+                  className="w-8.5 h-8.5 rounded-full object-cover bg-slate-800"
                   referrerPolicy="no-referrer"
                 />
               </button>
@@ -92,10 +92,10 @@ export const Header: React.FC<HeaderProps> = ({
               <button
                 onClick={signInWithGoogle}
                 disabled={isSigningIn}
-                className="bg-white text-[#1554B8] hover:bg-[#EAF2FF] font-bold text-xs px-3 py-1.5 rounded-xl transition-all shadow-xs flex items-center gap-1.5 cursor-pointer active:scale-95 disabled:opacity-60"
+                className="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs px-3.5 py-1.5 rounded-xl transition-all shadow-sm flex items-center gap-1.5 cursor-pointer active:scale-95 disabled:opacity-60 backdrop-blur-md"
               >
                 {isSigningIn ? (
-                  <div className="w-3.5 h-3.5 border-2 border-[#1554B8]/30 border-t-[#1554B8] rounded-full animate-spin" />
+                  <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 ) : (
                   <img src="https://www.google.com/favicon.ico" alt="Google" className="w-3.5 h-3.5 bg-white rounded-full" />
                 )}

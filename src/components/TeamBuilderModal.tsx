@@ -81,9 +81,9 @@ export const TeamBuilderModal: React.FC<TeamBuilderModalProps> = ({
       }
     }
     loadAvailability();
-  }, [match.id, players]);
+  }, [match.id, players, match.teamA.playerIds, match.teamB.playerIds, playersMap, teamSize]);
 
-  // Handle Team Size change
+  // Handle Team Size Change
   const handleSizeChange = (newSize: number) => {
     setTeamSize(newSize);
     setErrorMsg(null);
@@ -98,7 +98,7 @@ export const TeamBuilderModal: React.FC<TeamBuilderModalProps> = ({
     }
   };
 
-  // Generate Balanced
+  // Re-run Balanced Team Generator
   const handleGenerateBalanced = () => {
     setErrorMsg(null);
     const result = generateBalancedTeams(availablePlayers, teamSize);
@@ -112,7 +112,7 @@ export const TeamBuilderModal: React.FC<TeamBuilderModalProps> = ({
     }
   };
 
-  // Generate Random
+  // Re-run Random Team Generator
   const handleGenerateRandom = () => {
     setErrorMsg(null);
     const result = generateRandomTeams(availablePlayers, teamSize);
@@ -166,13 +166,11 @@ export const TeamBuilderModal: React.FC<TeamBuilderModalProps> = ({
     setIsSaving(true);
     setErrorMsg(null);
 
-    setIsSaving(true);
     try {
       await updateMatch(match.id, {
         playersPerTeam: teamSize,
         rules: {
           ...match.rules,
-          // Ensure max wickets adapts to team size (playersPerTeam - 1)
           maxWickets: teamSize - 1,
         },
         teamA: {
@@ -201,40 +199,40 @@ export const TeamBuilderModal: React.FC<TeamBuilderModalProps> = ({
   const scoreB = teamB.reduce((sum, p) => sum + getPlayerRating(p), 0);
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-      <div className="bg-[#063D2E] border border-emerald-900 w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl my-auto max-h-[92vh] flex flex-col">
+    <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 overflow-y-auto font-sans text-slate-100">
+      <div className="bg-[#0B1120] border border-cyan-500/30 w-full max-w-4xl rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.8)] my-auto max-h-[92vh] flex flex-col">
         {/* Header */}
-        <div className="bg-[#002B1B] p-4 border-b border-emerald-900/60 flex items-center justify-between">
+        <div className="bg-[#131D33]/90 p-4 border-b border-white/10 flex items-center justify-between">
           <div>
-            <h2 className="font-display font-bold text-lg text-white">
+            <h2 className="font-display font-black text-lg text-white">
               Team Builder & Balance Generator
             </h2>
-            <div className="text-xs text-emerald-200/80 font-mono">
+            <div className="text-xs text-cyan-400 font-mono mt-0.5">
               {match.title} · {availablePlayers.length} Eligible Available Players
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-300 hover:text-white bg-emerald-950 rounded-xl"
+            className="p-1.5 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-xl transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Configuration Bar */}
-        <div className="p-4 bg-[#002B1B]/70 border-b border-emerald-900/40 space-y-3">
+        <div className="p-4 bg-[#131D33]/40 border-b border-white/10 space-y-3">
           {/* Team Size Selector */}
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1 text-xs">
-              <span className="text-slate-300 font-medium mr-1">Players/Team:</span>
+              <span className="text-slate-400 font-semibold mr-1">Players/Team:</span>
               {[5, 7, 8, 9, 10, 11].map((size) => (
                 <button
                   key={size}
                   onClick={() => handleSizeChange(size)}
-                  className={`px-3 py-1.5 rounded-lg font-mono font-bold transition-all cursor-pointer ${
+                  className={`px-3 py-1.5 rounded-xl font-mono font-black transition-all cursor-pointer ${
                     teamSize === size
-                      ? 'bg-[#7CFC00] text-[#002B1B]'
-                      : 'bg-emerald-950 text-slate-300 hover:text-white border border-emerald-900'
+                      ? 'bg-[#00F2FE] text-slate-950 shadow-[0_0_12px_rgba(0,242,254,0.4)]'
+                      : 'bg-[#131D33] text-slate-300 hover:text-white border border-white/10 hover:border-cyan-500/40'
                   }`}
                 >
                   {size}v{size}
@@ -253,7 +251,7 @@ export const TeamBuilderModal: React.FC<TeamBuilderModalProps> = ({
                       handleSizeChange(parsed);
                     }
                   }}
-                  className="w-16 bg-[#002B1B] text-white border border-emerald-800 rounded-lg px-2 py-1 text-xs font-mono"
+                  className="w-16 bg-[#131D33] text-white border border-white/10 rounded-xl px-2 py-1 text-xs font-mono focus:outline-none focus:border-[#00F2FE]"
                 />
               </div>
             </div>
@@ -262,14 +260,14 @@ export const TeamBuilderModal: React.FC<TeamBuilderModalProps> = ({
             <div className="flex items-center gap-2 text-xs w-full sm:w-auto">
               <button
                 onClick={handleGenerateBalanced}
-                className="flex-1 sm:flex-initial px-3 py-2 sm:py-1.5 bg-[#16A34A] hover:bg-green-600 text-white font-semibold rounded-xl flex items-center justify-center gap-1.5 shadow-xs cursor-pointer touch-press min-h-[40px] sm:min-h-0"
+                className="flex-1 sm:flex-initial px-3.5 py-2 sm:py-1.5 bg-gradient-to-r from-[#00F2FE] to-blue-600 hover:from-[#00F2FE]/90 hover:to-blue-600/90 text-slate-950 font-black rounded-xl flex items-center justify-center gap-1.5 shadow-[0_0_15px_rgba(0,242,254,0.3)] cursor-pointer touch-press"
               >
                 <Scale className="w-3.5 h-3.5 shrink-0" />
                 <span className="truncate">Balanced Generator</span>
               </button>
               <button
                 onClick={handleGenerateRandom}
-                className="flex-1 sm:flex-initial px-3 py-2 sm:py-1.5 bg-emerald-950 hover:bg-emerald-900 text-slate-200 border border-emerald-800 font-semibold rounded-xl flex items-center justify-center gap-1.5 cursor-pointer touch-press min-h-[40px] sm:min-h-0"
+                className="flex-1 sm:flex-initial px-3.5 py-2 sm:py-1.5 bg-[#131D33] hover:bg-white/10 text-slate-200 border border-white/10 font-bold rounded-xl flex items-center justify-center gap-1.5 cursor-pointer touch-press"
               >
                 <Shuffle className="w-3.5 h-3.5 shrink-0" />
                 <span className="truncate">Random Shuffle</span>
@@ -279,17 +277,17 @@ export const TeamBuilderModal: React.FC<TeamBuilderModalProps> = ({
 
           {/* Validation Notice or Generation Indicator */}
           {errorMsg ? (
-            <div className="p-2.5 rounded-xl bg-red-950/80 border border-red-700/60 text-xs text-red-200 flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+            <div className="p-2.5 rounded-2xl bg-rose-950/80 border border-rose-800/60 text-xs text-rose-200 flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
               <span>{errorMsg}</span>
             </div>
           ) : (
             <div className="text-xs text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-1 font-mono">
               <span className="truncate">
-                Mode: <strong className="text-white">{isBalancedGen ? 'Stat-Weighted Balanced' : 'Random Selection'}</strong>
+                Mode: <strong className="text-[#00F2FE]">{isBalancedGen ? 'Stat-Weighted Balanced' : 'Random Selection'}</strong>
               </span>
               <span className="text-[11px] sm:text-xs">
-                Rating Balance: Team A (<strong>{scoreA}</strong>) vs Team B (<strong>{scoreB}</strong>)
+                Rating Balance: Team A (<strong className="text-[#00F2FE]">{scoreA}</strong>) vs Team B (<strong className="text-amber-400">{scoreB}</strong>)
               </span>
             </div>
           )}
@@ -298,15 +296,15 @@ export const TeamBuilderModal: React.FC<TeamBuilderModalProps> = ({
         {/* Main Team Display: Team A & Team B split */}
         <div className="p-4 grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 overflow-y-auto">
           {/* TEAM A */}
-          <div className="bg-[#002B1B] rounded-2xl border border-emerald-900/60 p-3 flex flex-col">
-            <div className="flex items-center justify-between pb-2 mb-2 border-b border-emerald-800/40">
+          <div className="stadium-card rounded-2xl border border-cyan-500/30 p-3.5 flex flex-col">
+            <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/10">
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#7CFC00]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#00F2FE] shadow-[0_0_8px_#00F2FE]" />
                 <h3 className="font-bold text-sm text-white">
                   {match.teamA.name} ({teamA.length}/{teamSize})
                 </h3>
               </div>
-              <span className="text-[11px] font-mono text-emerald-300">
+              <span className="text-[11px] font-mono font-bold text-cyan-400">
                 Score: {scoreA}
               </span>
             </div>
@@ -315,18 +313,18 @@ export const TeamBuilderModal: React.FC<TeamBuilderModalProps> = ({
               {teamA.map((p, idx) => (
                 <div
                   key={p.id}
-                  className="bg-[#063D2E] p-2 rounded-xl border border-emerald-900/40 flex items-center justify-between text-xs hover:border-emerald-700/50"
+                  className="bg-[#0B1120] p-2.5 rounded-xl border border-white/10 flex items-center justify-between text-xs hover:border-cyan-500/40 transition-colors"
                 >
                   <div className="flex items-center gap-2 truncate">
-                    <span className="font-mono text-slate-400 text-[10px] w-4">
+                    <span className="font-mono text-slate-500 text-[10px] w-4">
                       {idx + 1}.
                     </span>
                     <div className="truncate">
-                      <div className="font-semibold text-white truncate">
+                      <div className="font-bold text-white truncate">
                         {p.fullName}
                       </div>
-                      <div className="text-[10px] text-emerald-200/80 capitalize">
-                        {p.playingRole.replace(/_/g, ' ')} · Rat: {getPlayerRating(p)}
+                      <div className="text-[10px] text-slate-400 capitalize">
+                        {p.playingRole.replace(/_/g, ' ')} · <span className="text-cyan-400 font-mono">Rat: {getPlayerRating(p)}</span>
                       </div>
                     </div>
                   </div>
@@ -335,14 +333,14 @@ export const TeamBuilderModal: React.FC<TeamBuilderModalProps> = ({
                     <button
                       onClick={() => handleMoveToTeamB(p)}
                       title="Move to Team B"
-                      className="p-1 text-slate-300 hover:text-white bg-[#002B1B] rounded-lg cursor-pointer"
+                      className="p-1.5 text-slate-300 hover:text-white bg-[#131D33] hover:bg-white/10 rounded-lg cursor-pointer transition-colors"
                     >
                       <ArrowLeftRight className="w-3.5 h-3.5" />
                     </button>
                     <button
                       onClick={() => handleMoveToReserves(p, 'A')}
                       title="Bench to Reserves"
-                      className="p-1 text-red-400 hover:text-red-300 bg-[#002B1B] rounded-lg cursor-pointer"
+                      className="p-1.5 text-rose-400 hover:text-rose-300 bg-[#131D33] hover:bg-rose-950/40 rounded-lg cursor-pointer transition-colors"
                     >
                       <X className="w-3.5 h-3.5" />
                     </button>
@@ -353,15 +351,15 @@ export const TeamBuilderModal: React.FC<TeamBuilderModalProps> = ({
           </div>
 
           {/* TEAM B */}
-          <div className="bg-[#002B1B] rounded-2xl border border-emerald-900/60 p-3 flex flex-col">
-            <div className="flex items-center justify-between pb-2 mb-2 border-b border-emerald-800/40">
+          <div className="stadium-card rounded-2xl border border-amber-500/30 p-3.5 flex flex-col">
+            <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/10">
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_8px_#F59E0B]" />
                 <h3 className="font-bold text-sm text-white">
                   {match.teamB.name} ({teamB.length}/{teamSize})
                 </h3>
               </div>
-              <span className="text-[11px] font-mono text-emerald-300">
+              <span className="text-[11px] font-mono font-bold text-amber-400">
                 Score: {scoreB}
               </span>
             </div>
@@ -370,18 +368,18 @@ export const TeamBuilderModal: React.FC<TeamBuilderModalProps> = ({
               {teamB.map((p, idx) => (
                 <div
                   key={p.id}
-                  className="bg-[#063D2E] p-2 rounded-xl border border-emerald-900/40 flex items-center justify-between text-xs hover:border-emerald-700/50"
+                  className="bg-[#0B1120] p-2.5 rounded-xl border border-white/10 flex items-center justify-between text-xs hover:border-amber-500/40 transition-colors"
                 >
                   <div className="flex items-center gap-2 truncate">
-                    <span className="font-mono text-slate-400 text-[10px] w-4">
+                    <span className="font-mono text-slate-500 text-[10px] w-4">
                       {idx + 1}.
                     </span>
                     <div className="truncate">
-                      <div className="font-semibold text-white truncate">
+                      <div className="font-bold text-white truncate">
                         {p.fullName}
                       </div>
-                      <div className="text-[10px] text-emerald-200/80 capitalize">
-                        {p.playingRole.replace(/_/g, ' ')} · Rat: {getPlayerRating(p)}
+                      <div className="text-[10px] text-slate-400 capitalize">
+                        {p.playingRole.replace(/_/g, ' ')} · <span className="text-amber-400 font-mono">Rat: {getPlayerRating(p)}</span>
                       </div>
                     </div>
                   </div>
@@ -390,14 +388,14 @@ export const TeamBuilderModal: React.FC<TeamBuilderModalProps> = ({
                     <button
                       onClick={() => handleMoveToTeamA(p)}
                       title="Move to Team A"
-                      className="p-1 text-slate-300 hover:text-white bg-[#002B1B] rounded-lg cursor-pointer"
+                      className="p-1.5 text-slate-300 hover:text-white bg-[#131D33] hover:bg-white/10 rounded-lg cursor-pointer transition-colors"
                     >
                       <ArrowLeftRight className="w-3.5 h-3.5" />
                     </button>
                     <button
                       onClick={() => handleMoveToReserves(p, 'B')}
                       title="Bench to Reserves"
-                      className="p-1 text-red-400 hover:text-red-300 bg-[#002B1B] rounded-lg cursor-pointer"
+                      className="p-1.5 text-rose-400 hover:text-rose-300 bg-[#131D33] hover:bg-rose-950/40 rounded-lg cursor-pointer transition-colors"
                     >
                       <X className="w-3.5 h-3.5" />
                     </button>
@@ -410,28 +408,29 @@ export const TeamBuilderModal: React.FC<TeamBuilderModalProps> = ({
 
         {/* RESERVES SECTION */}
         {reserves.length > 0 && (
-          <div className="px-4 py-2.5 bg-[#002B1B]/80 border-t border-emerald-950 text-xs">
-            <div className="font-semibold text-emerald-300 mb-1.5">
+          <div className="px-4 py-2.5 bg-[#131D33]/80 border-t border-white/10 text-xs">
+            <div className="font-bold text-cyan-400 mb-1.5">
               Available Reserves ({reserves.length}):
             </div>
             <div className="flex flex-wrap gap-2 max-h-24 overflow-y-auto">
               {reserves.map((p) => (
                 <div
                   key={p.id}
-                  className="bg-[#063D2E] px-2.5 py-1 rounded-lg border border-emerald-900 text-slate-200 flex items-center gap-2"
+                  className="bg-[#0B1120] px-3 py-1 rounded-xl border border-white/10 text-slate-200 flex items-center gap-2"
                 >
-                  <span>{p.fullName}</span>
+                  <span className="font-medium">{p.fullName}</span>
                   <div className="flex items-center gap-1 font-mono text-[10px]">
                     <button
                       onClick={() => handleAddFromReserves(p, 'A')}
-                      className="hover:text-[#7CFC00]"
+                      className="text-[#00F2FE] hover:underline font-bold"
                       title="Add to Team A"
                     >
                       +A
                     </button>
+                    <span className="text-slate-600">|</span>
                     <button
                       onClick={() => handleAddFromReserves(p, 'B')}
-                      className="hover:text-emerald-400"
+                      className="text-amber-400 hover:underline font-bold"
                       title="Add to Team B"
                     >
                       +B
@@ -444,30 +443,30 @@ export const TeamBuilderModal: React.FC<TeamBuilderModalProps> = ({
         )}
 
         {/* Footer Action */}
-        <div className="p-3.5 sm:p-4 bg-[#002B1B] border-t border-emerald-900/60 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3">
+        <div className="p-3.5 sm:p-4 bg-[#131D33] border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3">
           <button
             type="button"
             onClick={handleClearSquads}
-            className="px-3 py-2 bg-red-950 hover:bg-red-900 border border-red-800 text-red-300 text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 cursor-pointer"
+            className="px-3 py-2 bg-rose-950/40 hover:bg-rose-900/50 border border-rose-800 text-rose-300 text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
           >
-            <X className="w-3.5 h-3.5 text-red-400" />
-            <span>Clear Squad (स्क्वाड साफ़ करें)</span>
+            <X className="w-3.5 h-3.5 text-rose-400" />
+            <span>Clear Squad</span>
           </button>
 
           <div className="flex flex-col-reverse sm:flex-row items-center gap-2">
             <button
               onClick={onClose}
-              className="w-full sm:w-auto px-4 py-2 text-xs font-semibold text-slate-300 hover:text-white cursor-pointer text-center"
+              className="w-full sm:w-auto px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white cursor-pointer text-center transition-colors"
             >
               Cancel
             </button>
             <button
               disabled={isSaving}
               onClick={handleConfirmTeams}
-              className="w-full sm:w-auto min-h-[44px] px-5 py-2 bg-[#7CFC00] hover:bg-lime-400 text-[#002B1B] font-bold text-xs rounded-xl flex items-center justify-center gap-2 cursor-pointer touch-press shadow-sm"
+              className="w-full sm:w-auto min-h-[44px] px-5 py-2 bg-gradient-to-r from-emerald-400 to-teal-500 hover:from-emerald-300 hover:to-teal-400 text-slate-950 font-black text-xs rounded-xl flex items-center justify-center gap-2 cursor-pointer touch-press shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all active:scale-95"
             >
               <Check className="w-4 h-4" />
-              Save Squad Data (स्क्वाड सेव करें)
+              <span>Save Squad Data</span>
             </button>
           </div>
         </div>

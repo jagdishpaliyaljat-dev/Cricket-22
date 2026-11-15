@@ -772,7 +772,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
             </div>
 
             <div className="flex items-center gap-3">
-              <button className="relative p-1.5 text-white/90 hover:text-white rounded-full hover:bg-white/10 cursor-pointer">
+              <button className="relative p-1.5 text-white/90 hover:text-white rounded-full hover:stadium-card/10 cursor-pointer">
                 <Bell className="w-5 h-5" />
                 <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-[#FF263D] rounded-full border-2 border-[#003626]" />
               </button>
@@ -814,7 +814,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
               className={`py-2 px-2 text-center rounded-lg transition-all cursor-pointer ${
                 statusTab === 'completed'
                   ? 'bg-[#1554B8] text-white font-bold shadow-xs'
-                  : 'text-[#718096] hover:text-[#172033]'
+                  : 'text-slate-400 hover:text-slate-100'
               }`}
             >
               Completed ({completedMatches.length})
@@ -824,29 +824,29 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
           {/* SCREEN 1 C: SEARCH AND FILTER */}
           <div className="flex items-center gap-2">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#718096]" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input
                 type="text"
                 placeholder="Search matches..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-white border border-[#DFE7F2] rounded-xl pl-9 pr-3 py-2 text-xs text-[#172033] focus:outline-none focus:border-[#1554B8]"
+                className="w-full stadium-card border border-white/10 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-100 focus:outline-none focus:border-[#00F2FE]/50"
               />
             </div>
-            <button className="bg-white border border-[#DFE7F2] p-2 rounded-xl text-[#718096] hover:text-[#172033] cursor-pointer">
+            <button className="stadium-card border border-white/10 p-2 rounded-xl text-slate-400 hover:text-slate-100 cursor-pointer">
               <Filter className="w-4.5 h-4.5" />
             </button>
           </div>
 
           {/* SCREEN 1 D: CURRENTLY LIVE SECTION */}
           <div className="space-y-3">
-            <h2 className="font-display font-bold text-sm text-[#172033] uppercase tracking-wider text-[#1554B8] flex items-center gap-1.5">
+            <h2 className="font-display font-bold text-sm text-slate-100 uppercase tracking-wider text-[#00F2FE] flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-[#D94343] animate-pulse" />
               <span>Currently Live</span>
             </h2>
 
             {filteredMatches.length === 0 ? (
-              <div className="bg-white border border-[#DFE7F2] rounded-2xl p-6 text-center text-xs text-[#718096]">
+              <div className="stadium-card border border-white/10 rounded-2xl p-6 text-center text-xs text-slate-400">
                 No {statusTab} matches found.
               </div>
             ) : (
@@ -862,12 +862,12 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                   : `0.0 / ${m.oversPerInnings}`;
 
                 return (
-                  <div key={m.id} className="bg-white border border-[#DFE7F2] rounded-2xl p-4 shadow-xs space-y-3 relative">
+                  <div key={m.id} className="stadium-card border border-white/10 rounded-2xl p-4 shadow-xs space-y-3 relative">
                     {/* Top Tag Row */}
-                    <div className="flex items-center justify-between border-b border-[#DFE7F2] pb-2.5">
+                    <div className="flex items-center justify-between border-b border-white/10 pb-2.5">
                       <div className="flex items-center gap-2">
                         {isLive && (
-                          <span className="bg-[#D94343]/10 border border-[#D94343]/30 text-[#D94343] text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 uppercase tracking-wider">
+                          <span className="bg-[#D94343]/10 border border-[#D94343]/30 text-[#EF4444] text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 uppercase tracking-wider">
                             <span className="w-1.5 h-1.5 rounded-full bg-[#D94343] animate-pulse" />
                             LIVE
                           </span>
@@ -878,34 +878,34 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                           </span>
                         )}
                         {isCompleted && (
-                          <span className="bg-[#718096]/10 border border-[#718096]/30 text-[#718096] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+                          <span className="bg-[#718096]/10 border border-[#718096]/30 text-slate-400 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
                             COMPLETED
                           </span>
                         )}
 
-                        <span className="text-xs font-mono font-bold text-[#172033]">
+                        <span className="text-xs font-mono font-bold text-slate-100">
                           {m.playersPerTeam}v{m.playersPerTeam}
                         </span>
-                        <span className="text-xs text-[#718096] font-mono">• {m.oversPerInnings} Overs</span>
-                        <span className="text-xs font-bold text-[#1554B8] font-mono">• {m.title}</span>
+                        <span className="text-xs text-slate-400 font-mono">• {m.oversPerInnings} Overs</span>
+                        <span className="text-xs font-bold text-[#00F2FE] font-mono">• {m.title}</span>
                       </div>
 
                       <div className="relative">
                         <button
                           onClick={() => setActiveCardMenuId(activeCardMenuId === m.id ? null : m.id)}
-                          className="text-[#718096] hover:text-[#172033] p-1 cursor-pointer"
+                          className="text-slate-400 hover:text-slate-100 p-1 cursor-pointer"
                         >
                           <MoreVertical className="w-4 h-4" />
                         </button>
                         {activeCardMenuId === m.id && (
-                          <div className="absolute right-0 top-6 z-20 bg-white border border-[#DFE7F2] rounded-xl shadow-lg py-1 w-32 text-xs font-semibold">
+                          <div className="absolute right-0 top-6 z-20 stadium-card border border-white/10 rounded-xl shadow-lg py-1 w-32 text-xs font-semibold">
                             <button
                               onClick={() => {
                                 setActiveCardMenuId(null);
                                 setSelectedMatch(m);
                                 setActiveTab('scoring');
                               }}
-                              className="w-full text-left px-3 py-1.5 hover:bg-[#EAF2FF] text-[#1554B8]"
+                              className="w-full text-left px-3 py-1.5 hover:bg-[#131E32]/90 text-[#00F2FE]"
                             >
                               Live Scoring
                             </button>
@@ -915,7 +915,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                                 setSelectedMatch(m);
                                 setActiveTab('scorecard');
                               }}
-                              className="w-full text-left px-3 py-1.5 hover:bg-[#EAF2FF] text-[#172033]"
+                              className="w-full text-left px-3 py-1.5 hover:bg-[#131E32]/90 text-slate-100"
                             >
                               Full Scorecard
                             </button>
@@ -925,15 +925,15 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                     </div>
 
                     {/* Teams and Score Header */}
-                    <div className="flex items-center justify-between text-xs font-bold text-[#172033]">
+                    <div className="flex items-center justify-between text-xs font-bold text-slate-100">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-[#1554B8]/10 text-[#1554B8] flex items-center justify-center font-black">
+                        <div className="w-8 h-8 rounded-full bg-[#1554B8]/10 text-[#00F2FE] flex items-center justify-center font-black">
                           {m.teamA.name.substring(0, 2).toUpperCase()}
                         </div>
                         <span className="text-sm">{m.teamA.name}</span>
                       </div>
 
-                      <span className="font-mono text-[#718096] text-xs font-bold">VS</span>
+                      <span className="font-mono text-slate-400 text-xs font-bold">VS</span>
 
                       <div className="flex items-center gap-2">
                         <span className="text-sm">{m.teamB.name}</span>
@@ -945,28 +945,28 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
 
                     {/* Score and Overs Big Numbers */}
                     {isLive && (
-                      <div className="flex items-baseline justify-between bg-[#F2F6FC] p-2.5 rounded-xl border border-[#DFE7F2]">
+                      <div className="flex items-baseline justify-between stadium-card/5 p-2.5 rounded-xl border border-white/10">
                         <div>
-                          <span className="text-[10px] text-[#718096] font-bold block uppercase font-mono">Current Score</span>
-                          <span className="font-mono font-black text-2xl text-[#172033] tracking-tight">{scoreStr}</span>
+                          <span className="text-[10px] text-slate-400 font-bold block uppercase font-mono">Current Score</span>
+                          <span className="font-mono font-black text-2xl text-slate-100 tracking-tight">{scoreStr}</span>
                         </div>
                         <div className="text-right">
-                          <span className="text-[10px] text-[#718096] font-bold block uppercase font-mono">Overs</span>
-                          <span className="font-mono font-bold text-sm text-[#1554B8]">{oversStr}</span>
+                          <span className="text-[10px] text-slate-400 font-bold block uppercase font-mono">Overs</span>
+                          <span className="font-mono font-bold text-sm text-[#00F2FE]">{oversStr}</span>
                         </div>
                       </div>
                     )}
 
                     {/* Venue & Toss */}
-                    <div className="text-[11px] text-[#718096] space-y-1">
+                    <div className="text-[11px] text-slate-400 space-y-1">
                       <div className="flex items-center gap-1">
-                        <MapPin className="w-3.5 h-3.5 text-[#1554B8]" />
+                        <MapPin className="w-3.5 h-3.5 text-[#00F2FE]" />
                         <span>Venue: {m.venue}</span>
                       </div>
                       {m.toss && (
                         <div>
                           Toss:{' '}
-                          <span className="font-semibold text-[#172033]">
+                          <span className="font-semibold text-slate-100">
                             {m.toss.winnerTeamId === m.teamA.id ? m.teamA.name : m.teamB.name} ({m.toss.decision === 'bat' ? 'Bat' : 'Field'})
                           </span>
                         </div>
@@ -974,8 +974,8 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                     </div>
 
                     {/* Status & Open Live Scoring Button */}
-                    <div className="pt-2 border-t border-[#DFE7F2] flex items-center justify-between">
-                      <span className="text-xs text-[#21864A] font-bold flex items-center gap-1">
+                    <div className="pt-2 border-t border-white/10 flex items-center justify-between">
+                      <span className="text-xs text-emerald-400 font-bold flex items-center gap-1">
                         <span className="w-2 h-2 rounded-full bg-[#21864A]" />
                         Live Scoring Active
                       </span>
@@ -1005,17 +1005,17 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
   // RENDER SCREENS 2, 3, 4: LIVE SCORING INTERFACE
   // =========================================================================
   return (
-    <div className="bg-[#F2F6FC] text-[#172033] min-h-screen font-sans antialiased pb-20 relative pt-safe">
+    <div className="stadium-card/5 text-slate-100 min-h-screen font-sans antialiased pb-20 relative pt-safe">
       {/* Dynamic Feedback Banner */}
       {panelNotice && (
-        <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-white border border-[#DFE7F2] text-[#172033] px-4 py-2.5 rounded-2xl shadow-xl text-xs font-bold flex items-center justify-between gap-3 transition-all animate-in fade-in">
+        <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 stadium-card border border-white/10 text-slate-100 px-4 py-2.5 rounded-2xl shadow-xl text-xs font-bold flex items-center justify-between gap-3 transition-all animate-in fade-in">
           <div className="flex items-center gap-2">
             <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${
               panelNotice.type === 'error' ? 'bg-[#D94343]' : panelNotice.type === 'success' ? 'bg-[#21864A]' : 'bg-[#1554B8]'
             }`} />
             <span>{panelNotice.message}</span>
           </div>
-          <button onClick={() => setPanelNotice(null)} className="cursor-pointer text-xs font-bold text-[#718096] hover:text-[#172033]">
+          <button onClick={() => setPanelNotice(null)} className="cursor-pointer text-xs font-bold text-slate-400 hover:text-slate-100">
             ✕
           </button>
         </div>
@@ -1039,7 +1039,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                 Live Scoring
                 {saveStatus !== 'idle' && (
                   <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-black uppercase tracking-tighter ${
-                    saveStatus === 'saving' ? 'bg-white/20 text-white' : 
+                    saveStatus === 'saving' ? 'stadium-card/20 text-white' : 
                     saveStatus === 'saved' ? 'bg-green-400 text-[#003626]' : 
                     'bg-red-500 text-white'
                   }`}>
@@ -1063,13 +1063,13 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
               </span>
             )}
             <span className="bg-[#D94343] text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 uppercase tracking-wider shadow-xs">
-              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full stadium-card animate-pulse" />
               LIVE
             </span>
             <button
               onClick={() => setActiveTab('settings')}
               className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
-                activeTab === 'settings' ? 'bg-white text-[#1554B8]' : 'text-white/80 hover:text-white'
+                activeTab === 'settings' ? 'stadium-card text-[#00F2FE]' : 'text-white/80 hover:text-white'
               }`}
             >
               <SettingsIcon className="w-5 h-5" />
@@ -1131,7 +1131,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
         </div>
       </div>
 
-      <div className="sticky top-12 z-30 bg-white border-b border-[#DFE7F2]">
+      <div className="sticky top-12 z-30 stadium-card border-b border-white/10">
         <div className="max-w-md mx-auto flex gap-1 overflow-x-auto no-scrollbar px-2 py-1.5">
           {[
             { id: 'scoring', label: 'Scoring' },
@@ -1148,7 +1148,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                 className={`py-1.5 px-4 whitespace-nowrap rounded-full text-[11px] font-bold transition-all cursor-pointer ${
                   isActive
                     ? 'bg-[#1554B8] text-white shadow-xs'
-                    : 'bg-transparent text-[#718096] hover:text-[#172033]'
+                    : 'bg-transparent text-slate-400 hover:text-slate-100'
                 }`}
               >
                 {tab.label}
@@ -1195,10 +1195,10 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
               <>
                 <div className="grid grid-cols-1 gap-2">
               {/* Batsmen Summary */}
-              <div className="bg-white border border-[#DFE7F2] rounded-2xl p-3 shadow-xs">
+              <div className="stadium-card border border-white/10 rounded-2xl p-3 shadow-xs">
                 <table className="w-full text-left">
                   <thead>
-                    <tr className="text-[9px] font-bold text-[#718096] uppercase tracking-wider border-b border-[#DFE7F2]">
+                    <tr className="text-[9px] font-bold text-slate-400 uppercase tracking-wider border-b border-white/10">
                       <th className="pb-1.5">Batsmen</th>
                       <th className="pb-1.5 text-center w-8">R</th>
                       <th className="pb-1.5 text-center w-8">B</th>
@@ -1208,29 +1208,29 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[#DFE7F2]">
-                    <tr className="text-[11px] font-bold text-[#172033]">
+                    <tr className="text-[11px] font-bold text-slate-100">
                       <td className="py-2 flex items-center gap-1.5 min-w-0">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#1554B8] shrink-0" />
-                        <span className="text-[#172033] truncate font-bold">
+                        <span className="text-slate-100 truncate font-bold">
                           {playersMap[strikerId]?.fullName || 'Striker'}*
                         </span>
                       </td>
-                      <td className="py-2 text-center text-[#172033] tabular-nums font-extrabold">{strikerStat?.runs || 0}</td>
-                      <td className="py-2 text-center text-[#718096] tabular-nums">{strikerStat?.balls || 0}</td>
-                      <td className="py-2 text-center text-[#718096] tabular-nums">{strikerStat?.fours || 0}</td>
-                      <td className="py-2 text-center text-[#718096] tabular-nums">{strikerStat?.sixes || 0}</td>
-                      <td className="py-2 text-right text-[#1554B8] tabular-nums font-bold">
+                      <td className="py-2 text-center text-slate-100 tabular-nums font-extrabold">{strikerStat?.runs || 0}</td>
+                      <td className="py-2 text-center text-slate-400 tabular-nums">{strikerStat?.balls || 0}</td>
+                      <td className="py-2 text-center text-slate-400 tabular-nums">{strikerStat?.fours || 0}</td>
+                      <td className="py-2 text-center text-slate-400 tabular-nums">{strikerStat?.sixes || 0}</td>
+                      <td className="py-2 text-right text-[#00F2FE] tabular-nums font-bold">
                         {calculateStrikeRate(strikerStat?.runs || 0, strikerStat?.balls || 0)}
                       </td>
                     </tr>
-                    <tr className="text-[11px] font-medium text-[#718096]">
+                    <tr className="text-[11px] font-medium text-slate-400">
                       <td className="py-2 flex items-center gap-1.5 min-w-0">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#DFE7F2] shrink-0" />
                         <span className="truncate">
                           {playersMap[nonStrikerId]?.fullName || 'Non-Striker'}
                         </span>
                       </td>
-                      <td className="py-2 text-center text-[#172033] tabular-nums font-semibold">{nonStrikerStat?.runs || 0}</td>
+                      <td className="py-2 text-center text-slate-100 tabular-nums font-semibold">{nonStrikerStat?.runs || 0}</td>
                       <td className="py-2 text-center tabular-nums">{nonStrikerStat?.balls || 0}</td>
                       <td className="py-2 text-center tabular-nums">{nonStrikerStat?.fours || 0}</td>
                       <td className="py-2 text-center tabular-nums">{nonStrikerStat?.sixes || 0}</td>
@@ -1243,10 +1243,10 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
               </div>
 
               {/* Bowler Summary */}
-              <div className="bg-white border border-[#DFE7F2] rounded-2xl p-3 shadow-xs">
+              <div className="stadium-card border border-white/10 rounded-2xl p-3 shadow-xs">
                 <table className="w-full text-left">
                   <thead>
-                    <tr className="text-[9px] font-bold text-[#718096] uppercase tracking-wider border-b border-[#DFE7F2]">
+                    <tr className="text-[9px] font-bold text-slate-400 uppercase tracking-wider border-b border-white/10">
                       <th className="pb-1.5">Bowler</th>
                       <th className="pb-1.5 text-center w-10">O</th>
                       <th className="pb-1.5 text-center w-8">M</th>
@@ -1256,20 +1256,20 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="text-[11px] font-bold text-[#172033]">
+                    <tr className="text-[11px] font-bold text-slate-100">
                       <td className="py-2 flex items-center gap-1.5 min-w-0">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#1554B8] shrink-0" />
-                        <span className="text-[#172033] truncate">
+                        <span className="text-slate-100 truncate">
                           {playersMap[bowlerId]?.fullName || 'Bowler'}
                         </span>
                       </td>
-                      <td className="py-2 text-center text-[#172033] tabular-nums">
+                      <td className="py-2 text-center text-slate-100 tabular-nums">
                         {formatOvers(bowlerStat?.balls || 0, selectedMatch.rules.legalBallsPerOver || 6)}
                       </td>
-                      <td className="py-2 text-center text-[#718096] tabular-nums">{bowlerStat?.maidens || 0}</td>
-                      <td className="py-2 text-center text-[#718096] tabular-nums">{bowlerStat?.runsConceded || 0}</td>
-                      <td className="py-2 text-center text-[#21864A] tabular-nums font-extrabold">{bowlerStat?.wickets || 0}</td>
-                      <td className="py-2 text-right text-[#718096] tabular-nums">
+                      <td className="py-2 text-center text-slate-400 tabular-nums">{bowlerStat?.maidens || 0}</td>
+                      <td className="py-2 text-center text-slate-400 tabular-nums">{bowlerStat?.runsConceded || 0}</td>
+                      <td className="py-2 text-center text-emerald-400 tabular-nums font-extrabold">{bowlerStat?.wickets || 0}</td>
+                      <td className="py-2 text-right text-slate-400 tabular-nums">
                         {calculateEconomy(bowlerStat?.runsConceded || 0, bowlerStat?.balls || 0, selectedMatch.rules.legalBallsPerOver || 6)}
                       </td>
                     </tr>
@@ -1279,14 +1279,14 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
             </div>
 
             {/* RECENT BALLS */}
-            <div className="bg-white border border-[#DFE7F2] rounded-2xl p-3 flex flex-col gap-2 shadow-xs">
-              <span className="text-[9px] font-bold text-[#718096] uppercase tracking-wider">Recent Balls</span>
+            <div className="stadium-card border border-white/10 rounded-2xl p-3 flex flex-col gap-2 shadow-xs">
+              <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Recent Balls</span>
               <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
                 {[...balls].slice(-10).map((b, i) => {
-                  let colorClass = 'bg-[#F2F6FC] text-[#172033] border-[#DFE7F2]';
+                  let colorClass = 'stadium-card/5 text-slate-100 border-white/10';
                   let label = b.runsBatter.toString();
                   if (b.isWicket) { colorClass = 'bg-[#D94343] text-white border-[#D94343]'; label = 'W'; }
-                  else if (b.runsBatter === 6) { colorClass = 'bg-[#1554B8] text-white border-[#1554B8]'; }
+                  else if (b.runsBatter === 6) { colorClass = 'bg-[#1554B8] text-white border-[#00F2FE]/50'; }
                   else if (b.runsBatter === 4) { colorClass = 'bg-[#2878E5] text-white border-[#2878E5]'; }
                   else if (b.extraType === 'wide') { colorClass = 'bg-[#E99A27] text-white border-[#E99A27]'; label = `${b.extraRuns}w`; }
                   else if (b.extraType === 'noBall') { colorClass = 'bg-[#E99A27] text-white border-[#E99A27]'; label = `${b.runsBatter + 1}n`; }
@@ -1297,10 +1297,10 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                     </div>
                   );
                 })}
-                {balls.length === 0 && <span className="text-[10px] text-[#718096] font-bold uppercase italic mt-1">First ball pending...</span>}
+                {balls.length === 0 && <span className="text-[10px] text-slate-400 font-bold uppercase italic mt-1">First ball pending...</span>}
               </div>
               {balls.length > 0 && (
-                <div className="text-xs text-[#1554B8] font-bold mt-2 bg-[#F2F6FC] p-2 rounded-xl border border-[#DFE7F2]">
+                <div className="text-xs text-[#00F2FE] font-bold mt-2 stadium-card/5 p-2 rounded-xl border border-white/10">
                   {balls[balls.length - 1].commentary}
                 </div>
               )}
@@ -1315,7 +1315,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                         key={run}
                         disabled={isSaving}
                         onClick={() => handleScoreBall(run)}
-                        className="h-13 bg-white hover:bg-[#EAF2FF] border border-[#DFE7F2] text-[#172033] font-black text-xl rounded-2xl flex items-center justify-center cursor-pointer active:scale-95 transition-all shadow-xs"
+                        className="h-13 stadium-card hover:bg-[#131E32]/90 border border-white/10 text-slate-100 font-black text-xl rounded-2xl flex items-center justify-center cursor-pointer active:scale-95 transition-all shadow-xs"
                       >
                         {run}
                       </button>
@@ -1339,14 +1339,14 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                     <button
                       disabled={isSaving}
                       onClick={() => handleScoreBall(0, 'noBall', 0)}
-                      className="h-13 bg-white hover:bg-[#EAF2FF] border border-[#DFE7F2] text-[#1554B8] font-black text-base rounded-2xl flex items-center justify-center cursor-pointer active:scale-95 transition-all shadow-xs"
+                      className="h-13 stadium-card hover:bg-[#131E32]/90 border border-white/10 text-[#00F2FE] font-black text-base rounded-2xl flex items-center justify-center cursor-pointer active:scale-95 transition-all shadow-xs"
                     >
                       NB
                     </button>
                     <button
                       disabled={isSaving}
                       onClick={() => handleScoreBall(0, 'wide', 0)}
-                      className="h-13 bg-white hover:bg-[#EAF2FF] border border-[#DFE7F2] text-[#1554B8] font-black text-base rounded-2xl flex items-center justify-center cursor-pointer active:scale-95 transition-all shadow-xs"
+                      className="h-13 stadium-card hover:bg-[#131E32]/90 border border-white/10 text-[#00F2FE] font-black text-base rounded-2xl flex items-center justify-center cursor-pointer active:scale-95 transition-all shadow-xs"
                     >
                       WD
                     </button>
@@ -1355,14 +1355,14 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                     <button
                       disabled={isSaving}
                       onClick={() => { setSelectedExtraType('bye'); setShowExtrasModal(true); }}
-                      className="h-13 bg-white hover:bg-[#EAF2FF] border border-[#DFE7F2] text-[#172033] font-bold text-xs uppercase rounded-2xl flex items-center justify-center cursor-pointer active:scale-95 transition-all shadow-xs"
+                      className="h-13 stadium-card hover:bg-[#131E32]/90 border border-white/10 text-slate-100 font-bold text-xs uppercase rounded-2xl flex items-center justify-center cursor-pointer active:scale-95 transition-all shadow-xs"
                     >
                       BYE
                     </button>
                     <button
                       disabled={isSaving}
                       onClick={() => { setSelectedExtraType('legBye'); setShowExtrasModal(true); }}
-                      className="h-13 bg-white hover:bg-[#EAF2FF] border border-[#DFE7F2] text-[#172033] font-bold text-xs uppercase rounded-2xl flex items-center justify-center cursor-pointer active:scale-95 transition-all shadow-xs"
+                      className="h-13 stadium-card hover:bg-[#131E32]/90 border border-white/10 text-slate-100 font-bold text-xs uppercase rounded-2xl flex items-center justify-center cursor-pointer active:scale-95 transition-all shadow-xs"
                     >
                       LB
                     </button>
@@ -1383,10 +1383,10 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                   </div>
 
                   {/* THIS OVER SUMMARY */}
-                  <div className="bg-white border border-[#DFE7F2] rounded-2xl p-3 space-y-2 shadow-xs">
+                  <div className="stadium-card border border-white/10 rounded-2xl p-3 space-y-2 shadow-xs">
                     <div className="flex items-center justify-between">
-                      <span className="text-[9px] font-bold text-[#718096] uppercase tracking-wider">This Over</span>
-                      <span className="text-[9px] font-bold text-[#1554B8] uppercase tracking-wider">Bowler: {playersMap[bowlerId]?.fullName || 'Bowler'}</span>
+                      <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">This Over</span>
+                      <span className="text-[9px] font-bold text-[#00F2FE] uppercase tracking-wider">Bowler: {playersMap[bowlerId]?.fullName || 'Bowler'}</span>
                     </div>
                     <div className="flex gap-2 overflow-x-auto no-scrollbar py-1">
                       {(() => {
@@ -1397,10 +1397,10 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                         return (
                           <>
                             {currentOverBalls.map((b, i) => {
-                              let circleColor = 'bg-[#F2F6FC] text-[#172033] border-[#DFE7F2]';
+                              let circleColor = 'stadium-card/5 text-slate-100 border-white/10';
                               let ballLabel = b.runsBatter.toString();
                               if (b.isWicket) { circleColor = 'bg-[#D94343] text-white border-[#D94343]'; ballLabel = 'W'; }
-                              else if (b.runsBatter === 6) { circleColor = 'bg-[#1554B8] text-white border-[#1554B8]'; }
+                              else if (b.runsBatter === 6) { circleColor = 'bg-[#1554B8] text-white border-[#00F2FE]/50'; }
                               else if (b.runsBatter === 4) { circleColor = 'bg-[#2878E5] text-white border-[#2878E5]'; }
                               else if (b.extraType === 'wide') { circleColor = 'bg-[#E99A27] text-white border-[#E99A27]'; ballLabel = 'wd'; }
                               else if (b.extraType === 'noBall') { circleColor = 'bg-[#E99A27] text-white border-[#E99A27]'; ballLabel = 'nb'; }
@@ -1413,7 +1413,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                             })}
                             {/* Empty slots for remaining balls in over */}
                             {Array.from({ length: Math.max(0, (selectedMatch.rules.legalBallsPerOver || 6) - currentOverBalls.filter(b => b.isLegal).length) }).map((_, i) => (
-                              <div key={`empty-${i}`} className="w-8 h-8 rounded-full border border-[#DFE7F2] bg-[#F2F6FC] flex items-center justify-center text-[#718096] text-[10px] shrink-0">
+                              <div key={`empty-${i}`} className="w-8 h-8 rounded-full border border-white/10 stadium-card/5 flex items-center justify-center text-slate-400 text-[10px] shrink-0">
                                 •
                               </div>
                             ))}
@@ -1440,14 +1440,14 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                     </button>
                     <button
                       onClick={() => setShowSelectNextBowlerModal(true)}
-                      className="py-3 bg-white hover:bg-[#EAF2FF] border border-[#DFE7F2] text-[#1554B8] font-bold text-[11px] uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 transition-all active:scale-95 shadow-xs"
+                      className="py-3 stadium-card hover:bg-[#131E32]/90 border border-white/10 text-[#00F2FE] font-bold text-[11px] uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 transition-all active:scale-95 shadow-xs"
                     >
                       <RefreshCw className="w-4 h-4" />
                       Change Bowler
                     </button>
                     <button
                       onClick={() => setShowFinalizeModal(true)}
-                      className="py-3 bg-white hover:bg-[#EAF2FF] border border-[#DFE7F2] text-[#718096] hover:text-[#172033] font-bold text-[11px] uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 transition-all active:scale-95 shadow-xs"
+                      className="py-3 stadium-card hover:bg-[#131E32]/90 border border-white/10 text-slate-400 hover:text-slate-100 font-bold text-[11px] uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 transition-all active:scale-95 shadow-xs"
                     >
                       <Flag className="w-4 h-4" />
                       End Match
@@ -1459,7 +1459,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                         setWicketType('retired_out');
                         setShowWicketModal(true);
                       }}
-                      className="py-3 bg-white hover:bg-[#EAF2FF] border border-[#DFE7F2] text-[#718096] hover:text-[#172033] font-bold text-[11px] uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 transition-all active:scale-95 shadow-xs"
+                      className="py-3 stadium-card hover:bg-[#131E32]/90 border border-white/10 text-slate-400 hover:text-slate-100 font-bold text-[11px] uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 transition-all active:scale-95 shadow-xs"
                     >
                       <UserX className="w-4 h-4" />
                       Retire Batsman
@@ -1477,11 +1477,11 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
         {activeTab === 'scorecard' && (
           <div className="space-y-4">
             {/* SCREEN 3 C: INNINGS SELECTOR */}
-            <div className="grid grid-cols-2 gap-2 bg-white p-1.5 rounded-2xl border border-[#DFE7F2] text-xs font-bold shadow-xs">
+            <div className="grid grid-cols-2 gap-2 stadium-card p-1.5 rounded-2xl border border-white/10 text-xs font-bold shadow-xs">
               <button
                 onClick={() => setScorecardInningsView(1)}
                 className={`py-2 text-center rounded-xl transition-all cursor-pointer ${
-                  scorecardInningsView === 1 ? 'bg-[#1554B8] text-white' : 'text-[#718096] hover:text-[#172033]'
+                  scorecardInningsView === 1 ? 'bg-[#1554B8] text-white' : 'text-slate-400 hover:text-slate-100'
                 }`}
               >
                 {selectedMatch.teamA.name} (Batting)
@@ -1489,7 +1489,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
               <button
                 onClick={() => setScorecardInningsView(2)}
                 className={`py-2 text-center rounded-xl transition-all cursor-pointer ${
-                  scorecardInningsView === 2 ? 'bg-[#1554B8] text-white' : 'text-[#718096] hover:text-[#172033]'
+                  scorecardInningsView === 2 ? 'bg-[#1554B8] text-white' : 'text-slate-400 hover:text-slate-100'
                 }`}
               >
                 {selectedMatch.teamB.name} (Bowling)
@@ -1497,15 +1497,15 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
             </div>
 
             {/* SCREEN 3 D: BATTING TABLE */}
-            <div className="bg-white border border-[#DFE7F2] rounded-2xl p-4 space-y-3 shadow-xs">
-              <h3 className="font-bold text-sm text-[#1554B8] border-b border-[#DFE7F2] pb-2">
+            <div className="stadium-card border border-white/10 rounded-2xl p-4 space-y-3 shadow-xs">
+              <h3 className="font-bold text-sm text-[#00F2FE] border-b border-white/10 pb-2">
                 Batting Scorecard
               </h3>
 
               <div className="overflow-x-auto no-scrollbar">
                 <table className="w-full text-xs font-mono text-left">
                   <thead>
-                    <tr className="text-[#718096] border-b border-[#DFE7F2]">
+                    <tr className="text-slate-400 border-b border-white/10">
                       <th className="py-2 pr-2 font-sans font-bold">Batsman</th>
                       <th className="py-2 px-1 text-center font-bold">R</th>
                       <th className="py-2 px-1 text-center font-bold">B</th>
@@ -1514,26 +1514,26 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                       <th className="py-2 pl-1 text-right font-bold">SR</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#DFE7F2] text-[#172033]">
+                  <tbody className="divide-y divide-[#DFE7F2] text-slate-100">
                     {currentInningsSummary && Object.keys(currentInningsSummary.batters).length > 0 ? (
                       Object.values(currentInningsSummary.batters).map((b) => (
-                        <tr key={b.playerId} className="hover:bg-[#F2F6FC]">
+                        <tr key={b.playerId} className="hover:stadium-card/5">
                           <td className="py-2.5 pr-2">
-                            <div className="font-bold text-[#172033] font-sans">{b.playerName}</div>
-                            <div className="text-[10px] text-[#718096]">
+                            <div className="font-bold text-slate-100 font-sans">{b.playerName}</div>
+                            <div className="text-[10px] text-slate-400">
                               {b.isOut ? b.dismissal || 'Out' : 'Not Out'}
                             </div>
                           </td>
-                          <td className="py-2.5 px-1 text-center font-bold text-[#172033]">{b.runs}</td>
-                          <td className="py-2.5 px-1 text-center text-[#718096]">{b.balls}</td>
-                          <td className="py-2.5 px-1 text-center text-[#718096]">{b.fours}</td>
-                          <td className="py-2.5 px-1 text-center text-[#718096]">{b.sixes}</td>
-                          <td className="py-2.5 pl-1 text-right text-[#1554B8] font-bold">{b.strikeRate}</td>
+                          <td className="py-2.5 px-1 text-center font-bold text-slate-100">{b.runs}</td>
+                          <td className="py-2.5 px-1 text-center text-slate-400">{b.balls}</td>
+                          <td className="py-2.5 px-1 text-center text-slate-400">{b.fours}</td>
+                          <td className="py-2.5 px-1 text-center text-slate-400">{b.sixes}</td>
+                          <td className="py-2.5 pl-1 text-right text-[#00F2FE] font-bold">{b.strikeRate}</td>
                         </tr>
                       ))
                     ) : (
                       <tr>
-                        <td colSpan={6} className="py-8 text-center text-[#718096] font-bold italic">
+                        <td colSpan={6} className="py-8 text-center text-slate-400 font-bold italic">
                           No batting data yet for this innings.
                         </td>
                       </tr>
@@ -1543,51 +1543,51 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
               </div>
 
               {/* SCREEN 3 E & F: EXTRAS AND TOTAL */}
-              <div className="pt-2 border-t border-[#DFE7F2] text-xs font-mono space-y-1">
-                <div className="flex justify-between text-[#718096]">
+              <div className="pt-2 border-t border-white/10 text-xs font-mono space-y-1">
+                <div className="flex justify-between text-slate-400">
                   <span>Extras</span>
                   <span>
                     (W {currentInningsSummary?.extras.wides || 2}, NB {currentInningsSummary?.extras.noBalls || 1}, B {currentInningsSummary?.extras.byes || 0}, LB {currentInningsSummary?.extras.legByes || 1}) Total: {currentInningsSummary?.extras.total || 4}
                   </span>
                 </div>
-                <div className="flex justify-between font-bold text-[#172033] text-sm pt-1">
+                <div className="flex justify-between font-bold text-slate-100 text-sm pt-1">
                   <span>Total</span>
-                  <span className="text-[#1554B8] font-black">{totalRuns}/{wickets} ({oversStr} Overs)</span>
+                  <span className="text-[#00F2FE] font-black">{totalRuns}/{wickets} ({oversStr} Overs)</span>
                 </div>
               </div>
             </div>
 
             {/* SCREEN 3 G: FALL OF WICKETS */}
-            <div className="bg-white border border-[#DFE7F2] rounded-2xl p-4 space-y-3 shadow-xs">
-              <h3 className="font-bold text-sm text-[#1554B8] border-b border-[#DFE7F2] pb-2">
+            <div className="stadium-card border border-white/10 rounded-2xl p-4 space-y-3 shadow-xs">
+              <h3 className="font-bold text-sm text-[#00F2FE] border-b border-white/10 pb-2">
                 Fall of Wickets
               </h3>
 
-              <div className="space-y-1.5 font-mono text-xs text-[#172033]">
+              <div className="space-y-1.5 font-mono text-xs text-slate-100">
                 {currentInningsSummary?.fallOfWickets && currentInningsSummary.fallOfWickets.length > 0 ? (
                   currentInningsSummary.fallOfWickets.map((fow) => (
-                    <div key={fow.wicketNumber} className="flex items-center justify-between py-1 bg-[#F2F6FC] px-2.5 rounded-xl border border-[#DFE7F2]">
-                      <span className="font-bold text-[#172033]">#{fow.wicketNumber} - {fow.score}</span>
-                      <span className="text-[#718096]">Player: {playersMap[fow.playerOutId]?.fullName || 'Dismissed Batter'}</span>
-                      <span className="text-[#1554B8] font-bold">Over {fow.over}</span>
+                    <div key={fow.wicketNumber} className="flex items-center justify-between py-1 stadium-card/5 px-2.5 rounded-xl border border-white/10">
+                      <span className="font-bold text-slate-100">#{fow.wicketNumber} - {fow.score}</span>
+                      <span className="text-slate-400">Player: {playersMap[fow.playerOutId]?.fullName || 'Dismissed Batter'}</span>
+                      <span className="text-[#00F2FE] font-bold">Over {fow.over}</span>
                     </div>
                   ))
                 ) : (
-                  <div className="py-4 text-center text-[#718096] font-bold italic">No wickets fallen yet.</div>
+                  <div className="py-4 text-center text-slate-400 font-bold italic">No wickets fallen yet.</div>
                 )}
               </div>
             </div>
 
             {/* SCREEN 3 H: BOWLING TABLE */}
-            <div className="bg-white border border-[#DFE7F2] rounded-2xl p-4 space-y-3 shadow-xs">
-              <h3 className="font-bold text-sm text-[#1554B8] border-b border-[#DFE7F2] pb-2">
+            <div className="stadium-card border border-white/10 rounded-2xl p-4 space-y-3 shadow-xs">
+              <h3 className="font-bold text-sm text-[#00F2FE] border-b border-white/10 pb-2">
                 Bowling Figures
               </h3>
 
               <div className="overflow-x-auto no-scrollbar">
                 <table className="w-full text-xs font-mono text-left whitespace-nowrap">
                   <thead>
-                    <tr className="text-[#718096] border-b border-[#DFE7F2]">
+                    <tr className="text-slate-400 border-b border-white/10">
                       <th className="py-2 pr-2 font-sans font-bold">Bowler</th>
                       <th className="py-2 px-1 text-center font-bold">O</th>
                       <th className="py-2 px-1 text-center font-bold">M</th>
@@ -1596,21 +1596,21 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                       <th className="py-2 pl-1 text-right font-bold">Econ</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#DFE7F2] text-[#172033]">
+                  <tbody className="divide-y divide-[#DFE7F2] text-slate-100">
                     {currentInningsSummary && Object.keys(currentInningsSummary.bowlers).length > 0 ? (
                       Object.values(currentInningsSummary.bowlers).map((bw) => (
                         <tr key={bw.playerId}>
-                          <td className="py-2.5 pr-2 font-bold text-[#172033] font-sans">{bw.playerName}</td>
-                          <td className="py-2.5 px-1 text-center text-[#718096]">{bw.overs}</td>
-                          <td className="py-2.5 px-1 text-center text-[#718096]">{bw.maidens}</td>
-                          <td className="py-2.5 px-1 text-center text-[#718096]">{bw.runsConceded}</td>
-                          <td className="py-2.5 px-1 text-center font-bold text-[#21864A]">{bw.wickets}</td>
-                          <td className="py-2.5 pl-1 text-right text-[#718096]">{bw.economy}</td>
+                          <td className="py-2.5 pr-2 font-bold text-slate-100 font-sans">{bw.playerName}</td>
+                          <td className="py-2.5 px-1 text-center text-slate-400">{bw.overs}</td>
+                          <td className="py-2.5 px-1 text-center text-slate-400">{bw.maidens}</td>
+                          <td className="py-2.5 px-1 text-center text-slate-400">{bw.runsConceded}</td>
+                          <td className="py-2.5 px-1 text-center font-bold text-emerald-400">{bw.wickets}</td>
+                          <td className="py-2.5 pl-1 text-right text-slate-400">{bw.economy}</td>
                         </tr>
                       ))
                     ) : (
                       <tr>
-                        <td colSpan={6} className="py-8 text-center text-[#718096] font-bold italic">
+                        <td colSpan={6} className="py-8 text-center text-slate-400 font-bold italic">
                           No bowling data yet for this innings.
                         </td>
                       </tr>
@@ -1625,30 +1625,30 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
         {/* TAB 3: STATS */}
         {activeTab === 'stats' && (
           <div className="space-y-4">
-            <div className="bg-white border border-[#DFE7F2] rounded-2xl p-4 space-y-3 shadow-xs">
-              <h3 className="font-bold text-sm text-[#1554B8] border-b border-[#DFE7F2] pb-2">
+            <div className="stadium-card border border-white/10 rounded-2xl p-4 space-y-3 shadow-xs">
+              <h3 className="font-bold text-sm text-[#00F2FE] border-b border-white/10 pb-2">
                 Live Match Statistics
               </h3>
 
               <div className="grid grid-cols-2 gap-3 font-mono text-xs">
-                <div className="bg-[#F2F6FC] p-3 rounded-xl border border-[#DFE7F2]">
-                  <span className="text-[#718096] text-[10px] block font-sans uppercase font-bold">Current Score</span>
-                  <span className="text-xl font-black text-[#172033]">{totalRuns}/{wickets}</span>
+                <div className="stadium-card/5 p-3 rounded-xl border border-white/10">
+                  <span className="text-slate-400 text-[10px] block font-sans uppercase font-bold">Current Score</span>
+                  <span className="text-xl font-black text-slate-100">{totalRuns}/{wickets}</span>
                 </div>
 
-                <div className="bg-[#F2F6FC] p-3 rounded-xl border border-[#DFE7F2]">
-                  <span className="text-[#718096] text-[10px] block font-sans uppercase font-bold">Overs Bowled</span>
-                  <span className="text-xl font-black text-[#1554B8]">{oversStr}</span>
+                <div className="stadium-card/5 p-3 rounded-xl border border-white/10">
+                  <span className="text-slate-400 text-[10px] block font-sans uppercase font-bold">Overs Bowled</span>
+                  <span className="text-xl font-black text-[#00F2FE]">{oversStr}</span>
                 </div>
 
-                <div className="bg-[#F2F6FC] p-3 rounded-xl border border-[#DFE7F2]">
-                  <span className="text-[#718096] text-[10px] block font-sans uppercase font-bold">Run Rate</span>
-                  <span className="text-xl font-black text-[#172033]">{currentRR}</span>
+                <div className="stadium-card/5 p-3 rounded-xl border border-white/10">
+                  <span className="text-slate-400 text-[10px] block font-sans uppercase font-bold">Run Rate</span>
+                  <span className="text-xl font-black text-slate-100">{currentRR}</span>
                 </div>
 
-                <div className="bg-[#F2F6FC] p-3 rounded-xl border border-[#DFE7F2]">
-                  <span className="text-[#718096] text-[10px] block font-sans uppercase font-bold">Target Runs</span>
-                  <span className="text-xl font-black text-[#1554B8]">{targetRuns}</span>
+                <div className="stadium-card/5 p-3 rounded-xl border border-white/10">
+                  <span className="text-slate-400 text-[10px] block font-sans uppercase font-bold">Target Runs</span>
+                  <span className="text-xl font-black text-[#00F2FE]">{targetRuns}</span>
                 </div>
               </div>
             </div>
@@ -1659,8 +1659,8 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
         {activeTab === 'settings' && (
           <div className="space-y-4">
             {/* MATCH CONTROLS */}
-            <div className="bg-white border border-[#DFE7F2] rounded-2xl p-4 space-y-3 shadow-xs">
-              <h3 className="font-bold text-sm text-[#1554B8] border-b border-[#DFE7F2] pb-2">
+            <div className="stadium-card border border-white/10 rounded-2xl p-4 space-y-3 shadow-xs">
+              <h3 className="font-bold text-sm text-[#00F2FE] border-b border-white/10 pb-2">
                 Match Controls
               </h3>
 
@@ -1673,8 +1673,8 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                   }}
                   className={`p-3 rounded-xl border flex items-center gap-2 font-bold text-xs cursor-pointer ${
                     isMatchPaused
-                      ? 'bg-[#1554B8] text-white border-[#1554B8]'
-                      : 'bg-[#F2F6FC] text-[#E99A27] border-[#DFE7F2]'
+                      ? 'bg-[#1554B8] text-white border-[#00F2FE]/50'
+                      : 'stadium-card/5 text-[#E99A27] border-white/10'
                   }`}
                 >
                   <Pause className="w-4 h-4 shrink-0" />
@@ -1688,7 +1688,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                       showNotice('Match scoring stopped.', 'info');
                     }
                   }}
-                  className="p-3 bg-[#F2F6FC] border border-[#DFE7F2] text-[#D94343] rounded-xl flex items-center gap-2 font-bold text-xs cursor-pointer hover:bg-red-50"
+                  className="p-3 stadium-card/5 border border-white/10 text-[#EF4444] rounded-xl flex items-center gap-2 font-bold text-xs cursor-pointer hover:bg-red-50"
                 >
                   <StopCircle className="w-4 h-4 shrink-0" />
                   <span>Stop Match</span>
@@ -1697,18 +1697,18 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                 {/* 3. Swap Innings */}
                 <button
                   onClick={() => setShowInningsTransitionModal(true)}
-                  className="p-3 bg-[#F2F6FC] border border-[#DFE7F2] text-[#172033] hover:bg-[#EAF2FF] rounded-xl flex items-center gap-2 font-bold text-xs cursor-pointer"
+                  className="p-3 stadium-card/5 border border-white/10 text-slate-100 hover:bg-[#131E32]/90 rounded-xl flex items-center gap-2 font-bold text-xs cursor-pointer"
                 >
-                  <Repeat className="w-4 h-4 text-[#1554B8] shrink-0" />
+                  <Repeat className="w-4 h-4 text-[#00F2FE] shrink-0" />
                   <span>Swap Innings</span>
                 </button>
 
                 {/* 4. Edit Score */}
                 <button
                   onClick={() => setShowEditScoreModal(true)}
-                  className="p-3 bg-[#F2F6FC] border border-[#DFE7F2] text-[#172033] hover:bg-[#EAF2FF] rounded-xl flex items-center gap-2 font-bold text-xs cursor-pointer"
+                  className="p-3 stadium-card/5 border border-white/10 text-slate-100 hover:bg-[#131E32]/90 rounded-xl flex items-center gap-2 font-bold text-xs cursor-pointer"
                 >
-                  <Edit3 className="w-4 h-4 text-[#1554B8] shrink-0" />
+                  <Edit3 className="w-4 h-4 text-[#00F2FE] shrink-0" />
                   <span>Edit Score</span>
                 </button>
 
@@ -1717,46 +1717,46 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                   onClick={() => {
                     showNotice('Over adjustment mode active.', 'info');
                   }}
-                  className="p-3 bg-[#F2F6FC] border border-[#DFE7F2] text-[#172033] hover:bg-[#EAF2FF] rounded-xl flex items-center gap-2 font-bold text-xs cursor-pointer"
+                  className="p-3 stadium-card/5 border border-white/10 text-slate-100 hover:bg-[#131E32]/90 rounded-xl flex items-center gap-2 font-bold text-xs cursor-pointer"
                 >
-                  <Sliders className="w-4 h-4 text-[#1554B8] shrink-0" />
+                  <Sliders className="w-4 h-4 text-[#00F2FE] shrink-0" />
                   <span>Edit Over</span>
                 </button>
 
                 {/* 6. Match Notes */}
                 <button
                   onClick={() => setShowMatchNotesModal(true)}
-                  className="p-3 bg-[#F2F6FC] border border-[#DFE7F2] text-[#172033] hover:bg-[#EAF2FF] rounded-xl flex items-center gap-2 font-bold text-xs cursor-pointer"
+                  className="p-3 stadium-card/5 border border-white/10 text-slate-100 hover:bg-[#131E32]/90 rounded-xl flex items-center gap-2 font-bold text-xs cursor-pointer"
                 >
-                  <FileText className="w-4 h-4 text-[#1554B8] shrink-0" />
+                  <FileText className="w-4 h-4 text-[#00F2FE] shrink-0" />
                   <span>Match Notes</span>
                 </button>
               </div>
             </div>
 
             {/* OVER SETTINGS */}
-            <div className="bg-white border border-[#DFE7F2] rounded-2xl p-4 space-y-3 shadow-xs">
-              <h3 className="font-bold text-sm text-[#1554B8] border-b border-[#DFE7F2] pb-2">
+            <div className="stadium-card border border-white/10 rounded-2xl p-4 space-y-3 shadow-xs">
+              <h3 className="font-bold text-sm text-[#00F2FE] border-b border-white/10 pb-2">
                 Over Settings
               </h3>
 
               <div className="grid grid-cols-2 gap-3 text-xs">
                 <div>
-                  <label className="text-[#718096] block mb-1">Overs per Match</label>
+                  <label className="text-slate-400 block mb-1">Overs per Match</label>
                   <input
                     type="text"
                     readOnly
                     value={`${selectedMatch.oversPerInnings} Overs`}
-                    className="w-full bg-[#F2F6FC] border border-[#DFE7F2] rounded-xl px-3 py-2 text-[#172033] font-mono"
+                    className="w-full stadium-card/5 border border-white/10 rounded-xl px-3 py-2 text-slate-100 font-mono"
                   />
                 </div>
                 <div>
-                  <label className="text-[#718096] block mb-1">Current Over</label>
+                  <label className="text-slate-400 block mb-1">Current Over</label>
                   <input
                     type="text"
                     readOnly
                     value={oversStr.split('.')[0]}
-                    className="w-full bg-[#F2F6FC] border border-[#DFE7F2] rounded-xl px-3 py-2 text-[#172033] font-mono"
+                    className="w-full stadium-card/5 border border-white/10 rounded-xl px-3 py-2 text-slate-100 font-mono"
                   />
                 </div>
               </div>
@@ -1770,17 +1770,17 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
             </div>
 
             {/* SQUAD MANAGEMENT */}
-            <div className="bg-white border border-[#DFE7F2] rounded-2xl p-4 space-y-4 shadow-xs">
-              <div className="flex items-center justify-between border-b border-[#DFE7F2] pb-2">
-                <h3 className="font-bold text-sm text-[#1554B8]">Squad Management</h3>
-                <span className="text-[10px] bg-[#EAF2FF] text-[#1554B8] px-2 py-0.5 rounded-full font-bold border border-[#DFE7F2]">Active Lineup</span>
+            <div className="stadium-card border border-white/10 rounded-2xl p-4 space-y-4 shadow-xs">
+              <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                <h3 className="font-bold text-sm text-[#00F2FE]">Squad Management</h3>
+                <span className="text-[10px] bg-[#131E32]/90 text-[#00F2FE] px-2 py-0.5 rounded-full font-bold border border-white/10">Active Lineup</span>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 {/* Team A Squad */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-bold text-[#718096] uppercase tracking-wider">{selectedMatch.teamA.name}</span>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{selectedMatch.teamA.name}</span>
                     <button
                       onClick={() => {
                         setQuickAddType('teamA');
@@ -1794,7 +1794,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                   </div>
                   <div className="max-h-32 overflow-y-auto no-scrollbar space-y-1">
                     {selectedMatch.teamA.playerIds.map(pId => (
-                      <div key={pId} className="text-[10px] text-[#172033] bg-[#F2F6FC] px-2 py-1.5 rounded-lg border border-[#DFE7F2] flex items-center justify-between">
+                      <div key={pId} className="text-[10px] text-slate-100 stadium-card/5 px-2 py-1.5 rounded-lg border border-white/10 flex items-center justify-between">
                         <span className="truncate">{playersMap[pId]?.fullName || pId}</span>
                         { (pId === strikerId || pId === nonStrikerId) && <div className="w-1.5 h-1.5 rounded-full bg-[#1554B8]" /> }
                       </div>
@@ -1805,7 +1805,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                 {/* Team B Squad */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-bold text-[#718096] uppercase tracking-wider">{selectedMatch.teamB.name}</span>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{selectedMatch.teamB.name}</span>
                     <button
                       onClick={() => {
                         setQuickAddType('teamB');
@@ -1819,7 +1819,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                   </div>
                   <div className="max-h-32 overflow-y-auto no-scrollbar space-y-1">
                     {selectedMatch.teamB.playerIds.map(pId => (
-                      <div key={pId} className="text-[10px] text-[#172033] bg-[#F2F6FC] px-2 py-1.5 rounded-lg border border-[#DFE7F2] flex items-center justify-between">
+                      <div key={pId} className="text-[10px] text-slate-100 stadium-card/5 px-2 py-1.5 rounded-lg border border-white/10 flex items-center justify-between">
                         <span className="truncate">{playersMap[pId]?.fullName || pId}</span>
                         { pId === bowlerId && <div className="w-1.5 h-1.5 rounded-full bg-[#1554B8]" /> }
                       </div>
@@ -1830,12 +1830,12 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
             </div>
 
             {/* LIVE SCORING SETTINGS SWITCHES */}
-            <div className="bg-white border border-[#DFE7F2] rounded-2xl p-4 space-y-3 shadow-xs">
-              <h3 className="font-bold text-sm text-[#1554B8] border-b border-[#DFE7F2] pb-2">
+            <div className="stadium-card border border-white/10 rounded-2xl p-4 space-y-3 shadow-xs">
+              <h3 className="font-bold text-sm text-[#00F2FE] border-b border-white/10 pb-2">
                 Live Scoring Settings
               </h3>
 
-              <div className="space-y-3 text-xs text-[#172033]">
+              <div className="space-y-3 text-xs text-slate-100">
                 {[
                   { label: 'Auto Switch Strike', val: autoSwitchStrike, setter: setAutoSwitchStrike },
                   { label: 'Show Commentary', val: showCommentary, setter: setShowCommentary },
@@ -1852,7 +1852,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                       }`}
                     >
                       <span
-                        className={`absolute top-1 w-4 h-4 rounded-full transition-transform bg-white shadow-xs ${
+                        className={`absolute top-1 w-4 h-4 rounded-full transition-transform stadium-card shadow-xs ${
                           sw.val ? 'right-1' : 'left-1'
                         }`}
                       />
@@ -1876,17 +1876,17 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
       {/* MODAL 0: OVER COMPLETE NEXT BOWLER SELECTOR MODAL */}
       {showSelectNextBowlerModal && selectedMatch && (
         <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 overflow-y-auto animate-in fade-in">
-          <div className="bg-white border border-[#DFE7F2] rounded-3xl w-full max-w-md p-4 sm:p-5 space-y-4 shadow-2xl text-[#172033] my-auto">
-            <div className="flex items-center justify-between border-b border-[#DFE7F2] pb-3">
+          <div className="stadium-card border border-white/10 rounded-3xl w-full max-w-md p-4 sm:p-5 space-y-4 shadow-2xl text-slate-100 my-auto">
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
               <div className="flex items-center gap-2.5">
-                <div className="w-10 h-10 rounded-2xl bg-[#EAF2FF] border border-[#DFE7F2] flex items-center justify-center shrink-0">
-                  <Activity className="w-5 h-5 text-[#1554B8]" />
+                <div className="w-10 h-10 rounded-2xl bg-[#131E32]/90 border border-white/10 flex items-center justify-center shrink-0">
+                  <Activity className="w-5 h-5 text-[#00F2FE]" />
                 </div>
                 <div>
-                  <h3 className="font-display font-black text-base sm:text-lg text-[#172033] leading-tight">
+                  <h3 className="font-display font-black text-base sm:text-lg text-slate-100 leading-tight">
                     Over {lastCompletedOverNumber} Complete! (ओवर समाप्त)
                   </h3>
-                  <p className="text-[11px] text-[#718096]">
+                  <p className="text-[11px] text-slate-400">
                     Select bowler for Over {lastCompletedOverNumber + 1}
                   </p>
                 </div>
@@ -1894,7 +1894,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
               <button
                 type="button"
                 onClick={() => setShowSelectNextBowlerModal(false)}
-                className="text-[#718096] hover:text-[#172033] p-1 cursor-pointer"
+                className="text-slate-400 hover:text-slate-100 p-1 cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1902,7 +1902,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
 
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-bold text-[#1554B8]">
+                <label className="text-xs font-bold text-[#00F2FE]">
                   Select Next Bowler (अगला बॉलर चुनें) *
                 </label>
                 <button
@@ -1931,8 +1931,8 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                       onClick={() => setNextBowlerSelectionId(pId)}
                       className={`w-full p-2.5 sm:p-3 rounded-2xl border text-left flex items-center justify-between gap-2 transition-all cursor-pointer ${
                         isSelected
-                          ? 'bg-[#1554B8] text-white border-[#1554B8] font-bold shadow-xs'
-                          : 'bg-[#F2F6FC] text-[#172033] border-[#DFE7F2] hover:border-[#1554B8]'
+                          ? 'bg-[#1554B8] text-white border-[#00F2FE]/50 font-bold shadow-xs'
+                          : 'stadium-card/5 text-slate-100 border-white/10 hover:border-[#00F2FE]/50'
                       }`}
                     >
                       <div className="min-w-0 flex-1">
@@ -1940,13 +1940,13 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                           <span>{playersMap[pId]?.fullName || pId}</span>
                           {isPreviousBowler && (
                             <span className={`text-[10px] px-1.5 py-0.2 rounded font-mono ${
-                              isSelected ? 'bg-white/20 text-white' : 'bg-[#EAF2FF] text-[#1554B8]'
+                              isSelected ? 'stadium-card/20 text-white' : 'bg-[#131E32]/90 text-[#00F2FE]'
                             }`}>
                               Prev Bowler
                             </span>
                           )}
                         </div>
-                        <div className={`text-[10.5px] ${isSelected ? 'text-white/80' : 'text-[#718096]'} font-mono`}>
+                        <div className={`text-[10.5px] ${isSelected ? 'text-white/80' : 'text-slate-400'} font-mono`}>
                           {playersMap[pId]?.bowlingStyle?.replace(/_/g, ' ') || 'Bowler'}
                         </div>
                       </div>
@@ -1955,9 +1955,9 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                 })}
               </div>
 
-              <div className="bg-[#F2F6FC] rounded-xl p-2.5 border border-[#DFE7F2] text-[#718096] text-[11px] flex items-center justify-between">
-                <span>Previous Bowler: <strong className="text-[#172033]">{playersMap[bowlerId]?.fullName || bowlerId}</strong></span>
-                <span className="text-[#21864A] font-semibold">Ends Swapped ✓</span>
+              <div className="stadium-card/5 rounded-xl p-2.5 border border-white/10 text-slate-400 text-[11px] flex items-center justify-between">
+                <span>Previous Bowler: <strong className="text-slate-100">{playersMap[bowlerId]?.fullName || bowlerId}</strong></span>
+                <span className="text-emerald-400 font-semibold">Ends Swapped ✓</span>
               </div>
             </div>
 
@@ -1976,21 +1976,21 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
       {/* MODAL 1: WICKET DISMISSAL MODAL */}
       {showWicketModal && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white border border-[#DFE7F2] rounded-3xl w-full max-w-md p-5 space-y-4 text-[#172033]">
-            <div className="flex items-center justify-between border-b border-[#DFE7F2] pb-3">
-              <h3 className="font-bold text-base text-[#1554B8]">Record Wicket</h3>
-              <button onClick={() => setShowWicketModal(false)} className="text-[#718096] hover:text-[#172033] cursor-pointer">
+          <div className="stadium-card border border-white/10 rounded-3xl w-full max-w-md p-5 space-y-4 text-slate-100">
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+              <h3 className="font-bold text-base text-[#00F2FE]">Record Wicket</h3>
+              <button onClick={() => setShowWicketModal(false)} className="text-slate-400 hover:text-slate-100 cursor-pointer">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="space-y-3 text-xs">
               <div>
-                <label className="text-[#718096] block mb-1">Dismissal Type</label>
+                <label className="text-slate-400 block mb-1">Dismissal Type</label>
                 <select
                   value={wicketType}
                   onChange={(e) => setWicketType(e.target.value as WicketType)}
-                  className="w-full bg-[#F2F6FC] border border-[#DFE7F2] rounded-xl px-3 py-2 text-[#172033]"
+                  className="w-full stadium-card/5 border border-white/10 rounded-xl px-3 py-2 text-slate-100"
                 >
                   <option value="caught">Caught</option>
                   <option value="bowled">Bowled</option>
@@ -2002,11 +2002,11 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
               </div>
 
               <div>
-                <label className="text-[#718096] block mb-1">Dismissed Player</label>
+                <label className="text-slate-400 block mb-1">Dismissed Player</label>
                 <select
                   value={dismissedPlayerId}
                   onChange={(e) => setDismissedPlayerId(e.target.value)}
-                  className="w-full bg-[#F2F6FC] border border-[#DFE7F2] rounded-xl px-3 py-2 text-[#172033]"
+                  className="w-full stadium-card/5 border border-white/10 rounded-xl px-3 py-2 text-slate-100"
                 >
                   <option value={strikerId}>{playersMap[strikerId]?.fullName || 'Striker'}</option>
                   <option value={nonStrikerId}>{playersMap[nonStrikerId]?.fullName || 'Non-Striker'}</option>
@@ -2016,7 +2016,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
               {/* Incoming Batter Section */}
               {remainingBatters.length > 0 ? (
                 <div>
-                  <label className="text-[#718096] block mb-1 font-bold text-[#1554B8] flex items-center justify-between">
+                  <label className="text-slate-400 block mb-1 font-bold text-[#00F2FE] flex items-center justify-between">
                     <span>Select Incoming Batter (नया बैट्समैन चुनें) *</span>
                     <button
                       type="button"
@@ -2033,7 +2033,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                   <select
                     value={newBatterId}
                     onChange={(e) => setNewBatterId(e.target.value)}
-                    className="w-full bg-[#F2F6FC] border border-[#DFE7F2] rounded-xl px-3 py-2 text-[#172033] focus:outline-none focus:border-[#1554B8]"
+                    className="w-full stadium-card/5 border border-white/10 rounded-xl px-3 py-2 text-slate-100 focus:outline-none focus:border-[#00F2FE]/50"
                   >
                     <option value="">Select incoming batter...</option>
                     {remainingBatters.map((pId) => (
@@ -2048,7 +2048,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                   <div className="font-bold text-[#E99A27] flex items-center gap-1">
                     ⭐️ Last Remaining Batter (आखिरी अकेला खिलाड़ी)
                   </div>
-                  <p className="text-[11px] text-[#718096] font-sans">
+                  <p className="text-[11px] text-slate-400 font-sans">
                     No unbatted players left in squad. The surviving player will play solo as a Single Batter until dismissed!
                   </p>
                 </div>
@@ -2101,32 +2101,32 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
       {/* MODAL 2: EDIT SCORE CORRECTION MODAL */}
       {showEditScoreModal && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white border border-[#DFE7F2] rounded-3xl w-full max-w-md p-5 space-y-4 text-[#172033]">
-            <div className="flex items-center justify-between border-b border-[#DFE7F2] pb-3">
-              <h3 className="font-bold text-base text-[#1554B8]">Edit Score Correction</h3>
-              <button onClick={() => setShowEditScoreModal(false)} className="text-[#718096] hover:text-[#172033] cursor-pointer">
+          <div className="stadium-card border border-white/10 rounded-3xl w-full max-w-md p-5 space-y-4 text-slate-100">
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+              <h3 className="font-bold text-base text-[#00F2FE]">Edit Score Correction</h3>
+              <button onClick={() => setShowEditScoreModal(false)} className="text-slate-400 hover:text-slate-100 cursor-pointer">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="space-y-3 text-xs">
               <div>
-                <label className="text-[#718096] block mb-1">Total Runs</label>
+                <label className="text-slate-400 block mb-1">Total Runs</label>
                 <input
                   type="number"
                   value={editScoreRuns || totalRuns}
                   onChange={(e) => setEditScoreRuns(parseInt(e.target.value) || 0)}
-                  className="w-full bg-[#F2F6FC] border border-[#DFE7F2] rounded-xl px-3 py-2 text-[#172033] font-mono"
+                  className="w-full stadium-card/5 border border-white/10 rounded-xl px-3 py-2 text-slate-100 font-mono"
                 />
               </div>
 
               <div>
-                <label className="text-[#718096] block mb-1">Total Wickets</label>
+                <label className="text-slate-400 block mb-1">Total Wickets</label>
                 <input
                   type="number"
                   value={editScoreWickets || wickets}
                   onChange={(e) => setEditScoreWickets(parseInt(e.target.value) || 0)}
-                  className="w-full bg-[#F2F6FC] border border-[#DFE7F2] rounded-xl px-3 py-2 text-[#172033] font-mono"
+                  className="w-full stadium-card/5 border border-white/10 rounded-xl px-3 py-2 text-slate-100 font-mono"
                 />
               </div>
 
@@ -2147,30 +2147,30 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
       {/* MODAL 3: FINALIZE MATCH MODAL */}
       {showFinalizeModal && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white border border-[#DFE7F2] rounded-3xl w-full max-w-md p-5 space-y-4 text-[#172033]">
-            <div className="flex items-center justify-between border-b border-[#DFE7F2] pb-3">
-              <h3 className="font-bold text-base text-[#1554B8]">End Match & Save Records</h3>
-              <button onClick={() => setShowFinalizeModal(false)} className="text-[#718096] hover:text-[#172033] cursor-pointer">
+          <div className="stadium-card border border-white/10 rounded-3xl w-full max-w-md p-5 space-y-4 text-slate-100">
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+              <h3 className="font-bold text-base text-[#00F2FE]">End Match & Save Records</h3>
+              <button onClick={() => setShowFinalizeModal(false)} className="text-slate-400 hover:text-slate-100 cursor-pointer">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="space-y-3 text-xs">
-              <div className="bg-[#EAF2FF] border border-[#DFE7F2] rounded-2xl p-4 text-center">
-                <p className="text-[#1554B8] font-black text-sm uppercase mb-1">
+              <div className="bg-[#131E32]/90 border border-white/10 rounded-2xl p-4 text-center">
+                <p className="text-[#00F2FE] font-black text-sm uppercase mb-1">
                   {selectedMatch?.result?.summaryText || 'Match Completed'}
                 </p>
-                <p className="text-[11px] text-[#718096]">
+                <p className="text-[11px] text-slate-400">
                   The match has ended based on game logic. Finalizing will lock scoring and update player career stats.
                 </p>
               </div>
 
               <div>
-                <label className="text-[#718096] block mb-1">Player of the Match (Optional)</label>
+                <label className="text-slate-400 block mb-1">Player of the Match (Optional)</label>
                 <select
                   value={potmId}
                   onChange={(e) => setPotmId(e.target.value)}
-                  className="w-full bg-[#F2F6FC] border border-[#DFE7F2] rounded-xl px-3 py-2 text-[#172033]"
+                  className="w-full stadium-card/5 border border-white/10 rounded-xl px-3 py-2 text-slate-100"
                 >
                   <option value="">Select POTM</option>
                   {players.map((p) => (
@@ -2193,14 +2193,14 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
       {/* MODAL 4: INNINGS TRANSITION MODAL */}
       {showInningsTransitionModal && selectedMatch && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white border border-[#DFE7F2] rounded-3xl w-full max-w-lg p-6 space-y-5 text-[#172033] shadow-2xl my-auto">
-            <div className="flex items-center justify-between border-b border-[#DFE7F2] pb-3">
+          <div className="stadium-card border border-white/10 rounded-3xl w-full max-w-lg p-6 space-y-5 text-slate-100 shadow-2xl my-auto">
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
               <div>
-                <h3 className="font-bold text-lg text-[#1554B8] flex items-center gap-2">
+                <h3 className="font-bold text-lg text-[#00F2FE] flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-[#1554B8] animate-pulse" />
                   1st Innings Complete! (पहली पारी समाप्त)
                 </h3>
-                <p className="text-[11px] text-[#718096]">
+                <p className="text-[11px] text-slate-400">
                   Score: {selectedMatch.innings1?.totalRuns}/{selectedMatch.innings1?.wickets} in {selectedMatch.innings1?.legalOvers} overs.
                   Set up opening players for the 2nd Innings.
                 </p>
@@ -2208,9 +2208,9 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
             </div>
 
             <div className="space-y-4 text-xs">
-              <div className="bg-[#EAF2FF] border border-[#DFE7F2] rounded-2xl p-4 text-center">
-                <p className="text-[11px] font-bold text-[#718096] uppercase tracking-widest mb-1">Target for 2nd Innings</p>
-                <p className="text-2xl font-display font-black text-[#1554B8]">
+              <div className="bg-[#131E32]/90 border border-white/10 rounded-2xl p-4 text-center">
+                <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1">Target for 2nd Innings</p>
+                <p className="text-2xl font-display font-black text-[#00F2FE]">
                   {(selectedMatch.innings1?.totalRuns || 0) + 1} Runs
                 </p>
               </div>
@@ -2218,7 +2218,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
               {/* Opening Batsmen for 2nd Innings */}
               <div className="grid grid-cols-2 gap-3 pt-2">
                 <div>
-                  <label className="text-[#718096] font-bold block mb-1 flex items-center justify-between">
+                  <label className="text-slate-400 font-bold block mb-1 flex items-center justify-between">
                     <span>Striker ({bowlingTeam?.name}) *</span>
                     <button
                       type="button"
@@ -2234,7 +2234,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                   <select
                     value={inn2Striker}
                     onChange={(e) => setInn2Striker(e.target.value)}
-                    className="w-full bg-[#F2F6FC] border border-[#DFE7F2] rounded-xl px-3 py-2 text-[#172033] font-semibold focus:outline-none focus:border-[#1554B8]"
+                    className="w-full stadium-card/5 border border-white/10 rounded-xl px-3 py-2 text-slate-100 font-semibold focus:outline-none focus:border-[#00F2FE]/50"
                   >
                     <option value="">Select striker...</option>
                     {(bowlingTeam?.playerIds || [])
@@ -2248,13 +2248,13 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                 </div>
 
                 <div>
-                  <label className="text-[#718096] font-bold block mb-1">
+                  <label className="text-slate-400 font-bold block mb-1">
                     Non-Striker ({bowlingTeam?.name}) *
                   </label>
                   <select
                     value={inn2NonStriker}
                     onChange={(e) => setInn2NonStriker(e.target.value)}
-                    className="w-full bg-[#F2F6FC] border border-[#DFE7F2] rounded-xl px-3 py-2 text-[#172033] font-semibold focus:outline-none focus:border-[#1554B8]"
+                    className="w-full stadium-card/5 border border-white/10 rounded-xl px-3 py-2 text-slate-100 font-semibold focus:outline-none focus:border-[#00F2FE]/50"
                   >
                     <option value="">Select non-striker...</option>
                     {(bowlingTeam?.playerIds || [])
@@ -2270,7 +2270,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
 
               {/* Opening Bowler for 2nd Innings */}
               <div>
-                <label className="text-[#718096] font-bold block mb-1 flex items-center justify-between">
+                <label className="text-slate-400 font-bold block mb-1 flex items-center justify-between">
                   <span>Opening Bowler ({battingTeam?.name}) *</span>
                   <button
                     type="button"
@@ -2286,7 +2286,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                 <select
                   value={inn2Bowler}
                   onChange={(e) => setInn2Bowler(e.target.value)}
-                  className="w-full bg-[#F2F6FC] border border-[#DFE7F2] rounded-xl px-3 py-2 text-[#172033] font-semibold focus:outline-none focus:border-[#1554B8]"
+                  className="w-full stadium-card/5 border border-white/10 rounded-xl px-3 py-2 text-slate-100 font-semibold focus:outline-none focus:border-[#00F2FE]/50"
                 >
                   <option value="">Select opening bowler...</option>
                   {(battingTeam?.playerIds || []).map((pId) => (
@@ -2312,29 +2312,29 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
       {/* TOSS & OPENING PLAYERS SETUP MODAL */}
       {showTossSetupModal && selectedMatch && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white border border-[#DFE7F2] rounded-3xl w-full max-w-lg p-6 space-y-5 text-[#172033] shadow-2xl my-auto">
-            <div className="flex items-center justify-between border-b border-[#DFE7F2] pb-3">
+          <div className="stadium-card border border-white/10 rounded-3xl w-full max-w-lg p-6 space-y-5 text-slate-100 shadow-2xl my-auto">
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
               <div>
-                <h3 className="font-bold text-lg text-[#1554B8] flex items-center gap-2">
+                <h3 className="font-bold text-lg text-[#00F2FE] flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-[#1554B8] animate-pulse" />
                   Match Initialization & Toss Setup
                 </h3>
-                <p className="text-[11px] text-[#718096]">Configure toss winner, batting decision, and opening players before live scoring.</p>
+                <p className="text-[11px] text-slate-400">Configure toss winner, batting decision, and opening players before live scoring.</p>
               </div>
             </div>
 
             <div className="space-y-4 text-xs">
               {/* Toss Winner */}
               <div>
-                <label className="text-[#718096] font-bold block mb-1.5">1. Toss Won By (किसने टॉस जीता?)</label>
+                <label className="text-slate-400 font-bold block mb-1.5">1. Toss Won By (किसने टॉस जीता?)</label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     type="button"
                     onClick={() => setSetupTossWinnerId(selectedMatch.teamA.id)}
                     className={`py-2.5 px-3 rounded-xl border text-center font-bold transition-all cursor-pointer ${
                       setupTossWinnerId === selectedMatch.teamA.id
-                        ? 'bg-[#1554B8] border-[#1554B8] text-white shadow-xs'
-                        : 'bg-[#F2F6FC] border-[#DFE7F2] text-[#172033] hover:bg-[#EAF2FF]'
+                        ? 'bg-[#1554B8] border-[#00F2FE]/50 text-white shadow-xs'
+                        : 'stadium-card/5 border-white/10 text-slate-100 hover:bg-[#131E32]/90'
                     }`}
                   >
                     {selectedMatch.teamA.name}
@@ -2344,8 +2344,8 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                     onClick={() => setSetupTossWinnerId(selectedMatch.teamB.id)}
                     className={`py-2.5 px-3 rounded-xl border text-center font-bold transition-all cursor-pointer ${
                       setupTossWinnerId === selectedMatch.teamB.id
-                        ? 'bg-[#1554B8] border-[#1554B8] text-white shadow-xs'
-                        : 'bg-[#F2F6FC] border-[#DFE7F2] text-[#172033] hover:bg-[#EAF2FF]'
+                        ? 'bg-[#1554B8] border-[#00F2FE]/50 text-white shadow-xs'
+                        : 'stadium-card/5 border-white/10 text-slate-100 hover:bg-[#131E32]/90'
                     }`}
                   >
                     {selectedMatch.teamB.name}
@@ -2355,15 +2355,15 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
 
               {/* Toss Decision */}
               <div>
-                <label className="text-[#718096] font-bold block mb-1.5">2. Elected To (टॉस के बाद क्या फैसला लिया?)</label>
+                <label className="text-slate-400 font-bold block mb-1.5">2. Elected To (टॉस के बाद क्या फैसला लिया?)</label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     type="button"
                     onClick={() => setSetupTossDecision('bat')}
                     className={`py-2.5 px-3 rounded-xl border text-center font-bold transition-all cursor-pointer ${
                       setupTossDecision === 'bat'
-                        ? 'bg-[#1554B8] border-[#1554B8] text-white shadow-xs'
-                        : 'bg-[#F2F6FC] border-[#DFE7F2] text-[#172033]'
+                        ? 'bg-[#1554B8] border-[#00F2FE]/50 text-white shadow-xs'
+                        : 'stadium-card/5 border-white/10 text-slate-100'
                     }`}
                   >
                     Bat First (पहले बल्लेबाजी)
@@ -2373,8 +2373,8 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                     onClick={() => setSetupTossDecision('bowl')}
                     className={`py-2.5 px-3 rounded-xl border text-center font-bold transition-all cursor-pointer ${
                       setupTossDecision === 'bowl'
-                        ? 'bg-[#1554B8] border-[#1554B8] text-white shadow-xs'
-                        : 'bg-[#F2F6FC] border-[#DFE7F2] text-[#172033]'
+                        ? 'bg-[#1554B8] border-[#00F2FE]/50 text-white shadow-xs'
+                        : 'stadium-card/5 border-white/10 text-slate-100'
                     }`}
                   >
                     Bowl First (पहले गेंदबाजी)
@@ -2383,9 +2383,9 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
               </div>
 
               {/* Opening Batsmen */}
-              <div className="grid grid-cols-2 gap-3 pt-2 border-t border-[#DFE7F2]">
+              <div className="grid grid-cols-2 gap-3 pt-2 border-t border-white/10">
                 <div>
-                  <label className="text-[#718096] font-bold block mb-1 flex items-center justify-between">
+                  <label className="text-slate-400 font-bold block mb-1 flex items-center justify-between">
                     <span>Striker ({setupBattingTeam?.name || 'Batting Team'}) *</span>
                     <button
                       type="button"
@@ -2401,7 +2401,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                   <select
                     value={setupStrikerId}
                     onChange={(e) => setSetupStrikerId(e.target.value)}
-                    className="w-full bg-[#F2F6FC] border border-[#DFE7F2] rounded-xl px-3 py-2 text-[#172033] font-semibold focus:outline-none focus:border-[#1554B8]"
+                    className="w-full stadium-card/5 border border-white/10 rounded-xl px-3 py-2 text-slate-100 font-semibold focus:outline-none focus:border-[#00F2FE]/50"
                   >
                     <option value="">Select striker...</option>
                     {(setupBattingTeam?.playerIds || [])
@@ -2415,13 +2415,13 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                 </div>
 
                 <div>
-                  <label className="text-[#718096] font-bold block mb-1">
+                  <label className="text-slate-400 font-bold block mb-1">
                     Non-Striker ({setupBattingTeam?.name || 'Batting Team'}) *
                   </label>
                   <select
                     value={setupNonStrikerId}
                     onChange={(e) => setSetupNonStrikerId(e.target.value)}
-                    className="w-full bg-[#F2F6FC] border border-[#DFE7F2] rounded-xl px-3 py-2 text-[#172033] font-semibold focus:outline-none focus:border-[#1554B8]"
+                    className="w-full stadium-card/5 border border-white/10 rounded-xl px-3 py-2 text-slate-100 font-semibold focus:outline-none focus:border-[#00F2FE]/50"
                   >
                     <option value="">Select non-striker...</option>
                     {(setupBattingTeam?.playerIds || [])
@@ -2437,7 +2437,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
 
               {/* Opening Bowler */}
               <div>
-                <label className="text-[#718096] font-bold block mb-1 flex items-center justify-between">
+                <label className="text-slate-400 font-bold block mb-1 flex items-center justify-between">
                   <span>First Over Bowler ({setupBowlingTeam?.name || 'Bowling Team'}) *</span>
                   <button
                     type="button"
@@ -2453,7 +2453,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                 <select
                   value={setupBowlerId}
                   onChange={(e) => setSetupBowlerId(e.target.value)}
-                  className="w-full bg-[#F2F6FC] border border-[#DFE7F2] rounded-xl px-3 py-2 text-[#172033] font-semibold focus:outline-none focus:border-[#1554B8]"
+                  className="w-full stadium-card/5 border border-white/10 rounded-xl px-3 py-2 text-slate-100 font-semibold focus:outline-none focus:border-[#00F2FE]/50"
                 >
                   <option value="">Select opening bowler...</option>
                   {(setupBowlingTeam?.playerIds || []).map((pId) => (
@@ -2479,17 +2479,17 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
       {/* QUICK ADD PLAYER MODAL */}
       {showQuickAddPlayerModal && (
         <div className="fixed inset-0 z-[110] bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in zoom-in-95 duration-200">
-          <div className="bg-white border border-[#DFE7F2] rounded-3xl w-full max-w-sm p-6 space-y-5 shadow-2xl text-[#172033]">
-            <div className="flex items-center justify-between border-b border-[#DFE7F2] pb-3">
+          <div className="stadium-card border border-white/10 rounded-3xl w-full max-w-sm p-6 space-y-5 shadow-2xl text-slate-100">
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-[#EAF2FF] flex items-center justify-center border border-[#DFE7F2]">
-                  <UserPlus className="w-5 h-5 text-[#1554B8]" />
+                <div className="w-10 h-10 rounded-2xl bg-[#131E32]/90 flex items-center justify-center border border-white/10">
+                  <UserPlus className="w-5 h-5 text-[#00F2FE]" />
                 </div>
                 <div>
-                  <h3 className="font-display font-black text-lg text-[#172033] leading-tight uppercase tracking-tight">
+                  <h3 className="font-display font-black text-lg text-slate-100 leading-tight uppercase tracking-tight">
                     Quick Add Player
                   </h3>
-                  <p className="text-[10px] text-[#1554B8] font-bold uppercase tracking-widest">
+                  <p className="text-[10px] text-[#00F2FE] font-bold uppercase tracking-widest">
                     {quickAddType === 'batting' ? `Adding to ${battingTeam?.name || 'Batting Team'}` : 
                      quickAddType === 'bowling' ? `Adding to ${bowlingTeam?.name || 'Bowling Team'}` :
                      quickAddType === 'teamA' ? `Adding to ${selectedMatch?.teamA.name}` :
@@ -2499,7 +2499,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
               </div>
               <button 
                 onClick={() => setShowQuickAddPlayerModal(false)} 
-                className="text-[#718096] hover:text-[#172033] p-1 cursor-pointer transition-colors"
+                className="text-slate-400 hover:text-slate-100 p-1 cursor-pointer transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -2507,7 +2507,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
 
             <div className="space-y-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[#718096] uppercase tracking-wider ml-1">
+                <label className="text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">
                   Player Full Name (खिलाड़ी का पूरा नाम)
                 </label>
                 <input
@@ -2516,18 +2516,18 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
                   value={newPlayerName}
                   onChange={(e) => setNewPlayerName(e.target.value)}
                   placeholder="e.g. Rohit Sharma"
-                  className="w-full bg-[#F2F6FC] border-2 border-[#DFE7F2] focus:border-[#1554B8] rounded-2xl px-4 py-3.5 text-[#172033] font-bold text-sm placeholder:text-[#718096] transition-all outline-none"
+                  className="w-full stadium-card/5 border-2 border-white/10 focus:border-[#00F2FE]/50 rounded-2xl px-4 py-3.5 text-slate-100 font-bold text-sm placeholder:text-slate-400 transition-all outline-none"
                 />
               </div>
 
-              <div className="bg-[#F2F6FC] rounded-2xl p-4 border border-[#DFE7F2] space-y-2">
+              <div className="stadium-card/5 rounded-2xl p-4 border border-white/10 space-y-2">
                 <div className="flex items-start gap-2.5">
-                  <div className="mt-0.5 p-1 bg-[#EAF2FF] rounded-lg">
-                    <Activity className="w-3.5 h-3.5 text-[#1554B8]" />
+                  <div className="mt-0.5 p-1 bg-[#131E32]/90 rounded-lg">
+                    <Activity className="w-3.5 h-3.5 text-[#00F2FE]" />
                   </div>
                   <div>
-                    <span className="text-[11px] font-bold text-[#172033] block">Auto-Roster Management</span>
-                    <p className="text-[10px] text-[#718096] leading-relaxed">
+                    <span className="text-[11px] font-bold text-slate-100 block">Auto-Roster Management</span>
+                    <p className="text-[10px] text-slate-400 leading-relaxed">
                       This player will be added to the {quickAddType === 'batting' ? 'batting' : 'bowling'} team's permanent squad and today's match roster instantly.
                     </p>
                   </div>
@@ -2537,7 +2537,7 @@ export const LiveScoringPanel: React.FC<LiveScoringPanelProps> = ({
               <button
                 disabled={isAddingPlayer || !newPlayerName.trim()}
                 onClick={handleQuickAddPlayer}
-                className="w-full py-4 bg-[#1554B8] hover:bg-[#0B3F91] disabled:bg-[#DFE7F2] disabled:text-[#718096] disabled:cursor-not-allowed text-white font-black text-sm rounded-2xl flex items-center justify-center gap-2 shadow-xs transition-all active:scale-[0.98] cursor-pointer uppercase tracking-widest"
+                className="w-full py-4 bg-[#1554B8] hover:bg-[#0B3F91] disabled:bg-[#DFE7F2] disabled:text-slate-400 disabled:cursor-not-allowed text-white font-black text-sm rounded-2xl flex items-center justify-center gap-2 shadow-xs transition-all active:scale-[0.98] cursor-pointer uppercase tracking-widest"
               >
                 {isAddingPlayer ? (
                   <div className="flex items-center gap-2">

@@ -23,13 +23,13 @@ export const DeveloperIntroPopup: React.FC<DeveloperIntroPopupProps> = ({ onClos
   }, [onClose]);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-white border border-[#DFE7F2] rounded-3xl w-full max-w-sm p-6 text-center space-y-4 shadow-2xl relative overflow-hidden text-[#172033] animate-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+      <div className="bg-[#0F172A] border border-white/15 rounded-3xl w-full max-w-sm p-6 text-center space-y-4 shadow-2xl relative overflow-hidden text-slate-100 animate-in zoom-in-95 duration-200">
         {/* Subtle decorative glow */}
-        <div className="absolute -top-12 -right-12 w-32 h-32 bg-[#1554B8]/10 rounded-full blur-2xl pointer-events-none" />
+        <div className="absolute -top-12 -right-12 w-32 h-32 bg-[#00F2FE]/15 rounded-full blur-2xl pointer-events-none" />
 
         {/* Logo */}
-        <div className="flex justify-center mb-1 bg-[#1554B8] py-2 px-4 rounded-2xl max-w-fit mx-auto shadow-xs">
+        <div className="flex justify-center mb-1 bg-[#131E32]/90 border border-white/10 py-2 px-4 rounded-2xl max-w-fit mx-auto shadow-sm">
           <Logo variant="full" className="h-7 text-white" />
         </div>
 
@@ -39,39 +39,39 @@ export const DeveloperIntroPopup: React.FC<DeveloperIntroPopupProps> = ({ onClos
             <img
               src={developerInfo.photoUrl}
               alt={developerInfo.name}
-              className="w-full h-full rounded-full object-cover border-2 border-[#1554B8] shadow-md bg-[#EAF2FF]"
+              className="w-full h-full rounded-full object-cover border-2 border-[#00F2FE] shadow-[0_0_15px_rgba(0,242,254,0.3)] bg-slate-800"
               onError={(e) => {
                 // Fallback on error
                 (e.target as HTMLElement).style.display = 'none';
               }}
             />
           ) : (
-            <div className="w-full h-full rounded-full bg-[#EAF2FF] border-2 border-[#1554B8] flex items-center justify-center text-[#1554B8] font-bold text-xl shadow-md">
+            <div className="w-full h-full rounded-full bg-slate-800 border-2 border-[#00F2FE] flex items-center justify-center text-[#00F2FE] font-bold text-xl shadow-[0_0_15px_rgba(0,242,254,0.3)]">
               ZD
             </div>
           )}
-          <div className="absolute bottom-0 right-0 bg-[#1554B8] text-white p-1 rounded-full shadow-sm">
-            <Award className="w-3.5 h-3.5" />
+          <div className="absolute bottom-0 right-0 bg-gradient-to-r from-[#00F2FE] to-[#38BDF8] text-[#0B1120] p-1 rounded-full shadow-sm">
+            <Award className="w-3.5 h-3.5 stroke-[2.5]" />
           </div>
         </div>
 
         {/* Developer Details */}
         <div className="space-y-1">
-          <h3 className="font-display font-bold text-lg text-[#172033] tracking-tight">
+          <h3 className="font-display font-black text-lg text-white tracking-tight">
             {developerInfo.name}
           </h3>
-          <p className="text-xs font-semibold text-[#1554B8] uppercase tracking-wider">
+          <p className="text-xs font-bold text-[#00F2FE] uppercase tracking-wider">
             {developerInfo.designation}
           </p>
         </div>
 
         {/* Welcome Message */}
-        <p className="text-xs text-[#718096] leading-relaxed px-2">
+        <p className="text-xs text-slate-300 leading-relaxed px-2">
           &ldquo;{developerInfo.introduction}&rdquo;
         </p>
 
         {/* Footer Brand Tag */}
-        <div className="pt-3 border-t border-[#DFE7F2] text-[10px] font-mono text-[#718096] tracking-widest uppercase">
+        <div className="pt-3 border-t border-white/10 text-[10px] font-mono text-slate-400 tracking-widest uppercase">
           LOCALXI — YOUR LOCAL CRICKET COMMUNITY
         </div>
       </div>

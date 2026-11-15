@@ -49,8 +49,8 @@ export const PlayerProfileView: React.FC<PlayerProfileViewProps> = ({
       setIsLoadingMatches(true);
       fetchPlayerMatchStats(player.id)
         .then((stats) => {
-          const sorted = (stats || []).sort((a, b) => 
-            new Date(b.matchDate).getTime() - new Date(a.matchDate).getTime()
+          const sorted = (stats || []).sort(
+            (a, b) => new Date(b.matchDate).getTime() - new Date(a.matchDate).getTime()
           );
           setRecentMatches(sorted);
         })
@@ -103,39 +103,37 @@ export const PlayerProfileView: React.FC<PlayerProfileViewProps> = ({
   };
 
   const formatRole = (r?: string) => {
-    if (!r) return 'Club Player';
+    if (!r) return 'Batter';
     return r.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
   };
 
-  const handleShare = async () => {
+  const handleShare = () => {
     if (navigator.share) {
-      try {
-        await navigator.share({
-          title: `${player.fullName} - LocalXI Player Profile`,
-          text: `Check out ${player.fullName}'s career cricket profile on LocalXI: ${runsCount} runs, ${wicketsCount} wickets.`,
-          url: window.location.href,
-        });
-      } catch {}
+      navigator.share({
+        title: `${player.fullName} - Player Profile`,
+        text: `Check out ${player.fullName}'s cricket stats on LocalXI!`,
+        url: window.location.href,
+      }).catch(() => {});
     } else {
       navigator.clipboard?.writeText(window.location.href);
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#F2F6FC] pb-12 font-sans overflow-x-hidden text-[#172033]">
+    <div className="min-h-screen bg-[#0B1120] pb-24 font-sans overflow-x-hidden text-slate-100">
       {/* ================= CLEAN SINGLE STICKY HEADER ================= */}
-      <header className="sticky top-0 z-40 bg-[#1554B8] text-white border-b border-[#0B3F91] shadow-sm">
+      <header className="sticky top-0 z-40 bg-[#0B1120]/90 backdrop-blur-xl border-b border-white/10 text-white">
         <div className="max-w-md mx-auto px-4 h-14 flex items-center justify-between gap-3">
           <button
             onClick={onBack}
-            className="p-1.5 -ml-1 text-white hover:bg-white/10 rounded-xl transition-colors cursor-pointer"
+            className="p-2 -ml-1 text-slate-300 hover:text-white hover:bg-white/10 rounded-2xl transition-colors cursor-pointer"
             title="Back"
           >
-            <ArrowLeft className="w-5.5 h-5.5 stroke-[2.2]" />
+            <ArrowLeft className="w-5 h-5 stroke-[2.2]" />
           </button>
 
           <div className="flex-1 min-w-0 text-center">
-            <h1 className="font-sans font-bold text-sm tracking-tight text-white leading-tight truncate uppercase">
+            <h1 className="font-display font-black text-sm tracking-wide text-white leading-tight truncate uppercase">
               Player Profile
             </h1>
           </div>
@@ -143,36 +141,45 @@ export const PlayerProfileView: React.FC<PlayerProfileViewProps> = ({
           <div className="relative">
             <button
               onClick={() => setShowMenu(!showMenu)}
-              className="p-1.5 text-white/90 hover:text-white hover:bg-white/10 rounded-xl transition-colors cursor-pointer"
+              className="p-2 text-slate-300 hover:text-white hover:bg-white/10 rounded-2xl transition-colors cursor-pointer"
               title="More options"
             >
-              <MoreVertical className="w-5.5 h-5.5 stroke-[2]" />
+              <MoreVertical className="w-5 h-5 stroke-[2]" />
             </button>
             {showMenu && (
-              <div className="absolute right-0 top-10 z-50 bg-white border border-[#DFE7F2] rounded-2xl shadow-xl py-1.5 w-44 text-xs font-bold text-[#172033] overflow-hidden animate-in fade-in zoom-in-95 duration-100">
+              <div className="absolute right-0 top-11 z-50 bg-[#131D33] border border-white/10 rounded-2xl shadow-2xl py-1.5 w-44 text-xs font-bold text-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-100">
                 {onEditPlayer && (
                   <button
-                    onClick={() => { setShowMenu(false); onEditPlayer(player); }}
-                    className="w-full text-left px-4 py-2.5 hover:bg-[#F2F6FC] flex items-center gap-2.5 transition-colors cursor-pointer border-b border-[#DFE7F2]"
+                    onClick={() => {
+                      setShowMenu(false);
+                      onEditPlayer(player);
+                    }}
+                    className="w-full text-left px-4 py-2.5 hover:bg-white/10 flex items-center gap-2.5 transition-colors cursor-pointer border-b border-white/10 text-slate-200"
                   >
-                    <Edit3 className="w-4 h-4 text-[#1554B8]" />
+                    <Edit3 className="w-4 h-4 text-[#00F2FE]" />
                     <span>Edit Profile</span>
                   </button>
                 )}
                 {onComparePlayer && (
                   <button
-                    onClick={() => { setShowMenu(false); onComparePlayer(player); }}
-                    className="w-full text-left px-4 py-2.5 hover:bg-[#F2F6FC] flex items-center gap-2.5 transition-colors cursor-pointer border-b border-[#DFE7F2]"
+                    onClick={() => {
+                      setShowMenu(false);
+                      onComparePlayer(player);
+                    }}
+                    className="w-full text-left px-4 py-2.5 hover:bg-white/10 flex items-center gap-2.5 transition-colors cursor-pointer border-b border-white/10 text-slate-200"
                   >
-                    <ArrowLeftRight className="w-4 h-4 text-[#1554B8]" />
+                    <ArrowLeftRight className="w-4 h-4 text-[#00F2FE]" />
                     <span>Compare Player</span>
                   </button>
                 )}
                 <button
-                  onClick={() => { setShowMenu(false); handleShare(); }}
-                  className="w-full text-left px-4 py-2.5 hover:bg-[#F2F6FC] flex items-center gap-2.5 transition-colors cursor-pointer text-[#172033]"
+                  onClick={() => {
+                    setShowMenu(false);
+                    handleShare();
+                  }}
+                  className="w-full text-left px-4 py-2.5 hover:bg-white/10 flex items-center gap-2.5 transition-colors cursor-pointer text-slate-200"
                 >
-                  <Share2 className="w-4 h-4 text-[#1554B8]" />
+                  <Share2 className="w-4 h-4 text-[#00F2FE]" />
                   <span>Share Profile</span>
                 </button>
               </div>
@@ -183,20 +190,20 @@ export const PlayerProfileView: React.FC<PlayerProfileViewProps> = ({
 
       <main className="max-w-md mx-auto p-4 space-y-4">
         {/* ================= PRIMARY PROFILE HERO CARD ================= */}
-        <div className="relative bg-[#1554B8] text-white border border-[#0B3F91] rounded-2xl p-4.5 shadow-md overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#2878E5]/30 via-[#1554B8]/80 to-[#0B3F91] pointer-events-none" />
-          
-          <div className="relative z-10 flex items-center gap-3.5">
+        <div className="stadium-card-glow rounded-3xl p-5 border border-cyan-500/30 relative overflow-hidden">
+          <div className="absolute -top-10 -right-10 w-36 h-36 bg-[#00F2FE]/15 rounded-full blur-2xl pointer-events-none" />
+
+          <div className="relative z-10 flex items-center gap-4">
             <div className="relative shrink-0">
-              <div className="w-20 h-20 rounded-2xl bg-white border-2 border-white flex items-center justify-center overflow-hidden shadow-md">
+              <div className="w-20 h-20 rounded-2xl bg-[#131D33] border-2 border-[#00F2FE] flex items-center justify-center overflow-hidden shadow-[0_0_15px_rgba(0,242,254,0.25)]">
                 {player.photoUrl ? (
                   <img src={player.photoUrl} alt={player.fullName} className="w-full h-full object-cover" />
                 ) : (
-                  <User className="w-10 h-10 text-[#1554B8]" />
+                  <User className="w-10 h-10 text-[#00F2FE]" />
                 )}
               </div>
               {jerseyDisplay && (
-                <div className="absolute -bottom-1 -right-1 bg-white text-[#1554B8] font-mono font-bold text-[10px] px-1.5 py-0.5 rounded-md border border-[#DFE7F2] shadow-xs">
+                <div className="absolute -bottom-1 -right-1 bg-[#00F2FE] text-slate-950 font-mono font-black text-[10px] px-1.5 py-0.5 rounded-lg shadow-sm">
                   {jerseyDisplay}
                 </div>
               )}
@@ -204,30 +211,30 @@ export const PlayerProfileView: React.FC<PlayerProfileViewProps> = ({
 
             <div className="flex-1 min-w-0 space-y-1">
               <div className="flex items-center justify-between gap-2">
-                <h2 className="text-lg font-bold text-white tracking-tight uppercase truncate">
+                <h2 className="text-lg font-black text-white tracking-tight uppercase truncate">
                   {player.fullName}
                 </h2>
                 <div
                   className={`w-2.5 h-2.5 rounded-full shrink-0 ${
-                    isAvailable ? 'bg-[#21864A] ring-2 ring-white' : 'bg-[#E99A27] ring-2 ring-white'
+                    isAvailable ? 'bg-emerald-400 ring-2 ring-emerald-500/30 animate-pulse' : 'bg-amber-400 ring-2 ring-amber-500/30'
                   }`}
                   title={isAvailable ? 'Available' : 'Unavailable'}
                 />
               </div>
 
-              <p className="text-xs text-[#EAF2FF] font-medium flex items-center gap-1.5">
-                <Shield className="w-3.5 h-3.5 text-white/80 shrink-0" />
+              <p className="text-xs text-slate-300 font-medium flex items-center gap-1.5">
+                <Shield className="w-3.5 h-3.5 text-[#00F2FE] shrink-0" />
                 <span className="truncate">{player.teamName || 'Free Agent'}</span>
               </p>
 
               <div className="flex flex-wrap gap-1.5 pt-1">
-                <span className="text-[10px] font-bold bg-white/20 text-white px-2 py-0.5 rounded-full border border-white/20 uppercase tracking-wider">
+                <span className="text-[10px] font-black bg-cyan-500/10 text-[#00F2FE] border border-cyan-500/30 px-2 py-0.5 rounded-full uppercase tracking-wider">
                   {formatRole(player.playingRole)}
                 </span>
-                <span className="text-[10px] font-bold bg-white/10 text-[#EAF2FF] px-2 py-0.5 rounded-full border border-white/20 uppercase tracking-wider">
+                <span className="text-[10px] font-bold bg-white/5 text-slate-300 border border-white/10 px-2 py-0.5 rounded-full uppercase tracking-wider">
                   {player.battingStyle?.split('_')[0] || 'RHB'}
                 </span>
-                <span className="text-[10px] font-bold bg-white/10 text-[#EAF2FF] px-2 py-0.5 rounded-full border border-white/20 uppercase tracking-wider">
+                <span className="text-[10px] font-bold bg-white/5 text-slate-300 border border-white/10 px-2 py-0.5 rounded-full uppercase tracking-wider">
                   {player.bowlingStyle?.split('_')[2] || 'MED'}
                 </span>
               </div>
@@ -250,14 +257,14 @@ export const PlayerProfileView: React.FC<PlayerProfileViewProps> = ({
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-1.5 py-2 px-3.5 rounded-xl whitespace-nowrap text-xs font-bold transition-all border cursor-pointer ${
+                className={`flex items-center gap-1.5 py-2 px-3.5 rounded-2xl whitespace-nowrap text-xs font-black transition-all cursor-pointer ${
                   isActive
-                    ? 'bg-[#1554B8] text-white border-[#1554B8] shadow-xs'
-                    : 'bg-white text-[#718096] border-[#DFE7F2] hover:text-[#172033] hover:border-[#1554B8]'
+                    ? 'bg-[#00F2FE] text-slate-950 shadow-[0_0_15px_rgba(0,242,254,0.35)]'
+                    : 'bg-[#131D33] text-slate-400 border border-white/10 hover:text-white hover:border-cyan-500/30'
                 }`}
               >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-[#718096]'}`} />
-                {tab.label}
+                <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-slate-950' : 'text-slate-400'}`} />
+                <span>{tab.label}</span>
               </button>
             );
           })}
@@ -270,81 +277,113 @@ export const PlayerProfileView: React.FC<PlayerProfileViewProps> = ({
             <div className="space-y-3.5">
               {/* Quick Summary Grid */}
               <div className="grid grid-cols-2 gap-3">
-                <div className="bg-white border border-[#DFE7F2] rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-xs">
-                  <span className="text-[10px] font-bold text-[#1554B8] uppercase tracking-wider mb-1">Matches</span>
-                  <span className="text-3xl font-bold text-[#172033] font-mono leading-none">{matchesCount}</span>
+                <div className="stadium-card rounded-2xl p-4 flex flex-col items-center justify-center text-center border border-white/10">
+                  <span className="text-[10px] font-black text-[#00F2FE] uppercase tracking-wider mb-1">
+                    Matches
+                  </span>
+                  <span className="text-3xl font-black text-white font-mono leading-none">
+                    {matchesCount}
+                  </span>
                 </div>
-                <div className="bg-white border border-[#DFE7F2] rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-xs">
-                  <span className="text-[10px] font-bold text-[#1554B8] uppercase tracking-wider mb-1">Innings</span>
-                  <span className="text-3xl font-bold text-[#172033] font-mono leading-none">{inningsCount}</span>
+                <div className="stadium-card rounded-2xl p-4 flex flex-col items-center justify-center text-center border border-white/10">
+                  <span className="text-[10px] font-black text-[#00F2FE] uppercase tracking-wider mb-1">
+                    Innings
+                  </span>
+                  <span className="text-3xl font-black text-white font-mono leading-none">
+                    {inningsCount}
+                  </span>
                 </div>
               </div>
 
               {/* Major Stats Row */}
               <div className="grid grid-cols-2 gap-3">
-                <div className="bg-white border border-[#DFE7F2] rounded-2xl p-4 space-y-1 shadow-xs">
+                <div className="stadium-card rounded-2xl p-4 space-y-1 border border-white/10">
                   <div className="flex items-center justify-between">
-                    <Target className="w-4 h-4 text-[#1554B8]" />
-                    <span className="text-[10px] font-bold text-[#718096] uppercase tracking-wider">Batting</span>
+                    <Target className="w-4 h-4 text-[#00F2FE]" />
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                      Batting
+                    </span>
                   </div>
                   <div className="pt-1">
-                    <span className="text-2xl font-bold text-[#172033] font-mono">{runsCount}</span>
-                    <span className="text-xs text-[#718096] font-medium ml-1">Runs</span>
+                    <span className="text-2xl font-black text-white font-mono">{runsCount}</span>
+                    <span className="text-xs text-slate-400 font-medium ml-1">Runs</span>
                   </div>
-                  <p className="text-[11px] font-bold text-[#1554B8] pt-1">{battingAvg} Avg • {strikeRate} SR</p>
+                  <p className="text-[11px] font-bold text-[#00F2FE] pt-1">
+                    {battingAvg} Avg • {strikeRate} SR
+                  </p>
                 </div>
 
-                <div className="bg-white border border-[#DFE7F2] rounded-2xl p-4 space-y-1 shadow-xs">
+                <div className="stadium-card rounded-2xl p-4 space-y-1 border border-white/10">
                   <div className="flex items-center justify-between">
-                    <Flame className="w-4 h-4 text-[#1554B8]" />
-                    <span className="text-[10px] font-bold text-[#718096] uppercase tracking-wider">Bowling</span>
+                    <Flame className="w-4 h-4 text-amber-400" />
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                      Bowling
+                    </span>
                   </div>
                   <div className="pt-1">
-                    <span className="text-2xl font-bold text-[#172033] font-mono">{wicketsCount}</span>
-                    <span className="text-xs text-[#718096] font-medium ml-1">Wkts</span>
+                    <span className="text-2xl font-black text-white font-mono">{wicketsCount}</span>
+                    <span className="text-xs text-slate-400 font-medium ml-1">Wkts</span>
                   </div>
-                  <p className="text-[11px] font-bold text-[#1554B8] pt-1">{bowlingEcon} Econ • {bowlingAvg} Avg</p>
+                  <p className="text-[11px] font-bold text-amber-400 pt-1">
+                    {bowlingEcon} Econ • {bowlingAvg} Avg
+                  </p>
                 </div>
               </div>
 
               {/* POTM / Achievement Card */}
-              <div className="bg-gradient-to-r from-[#1554B8] to-[#0B3F91] text-white border border-[#0B3F91] rounded-2xl p-4 flex items-center justify-between shadow-md">
+              <div className="stadium-card rounded-2xl p-4 border border-amber-500/30 flex items-center justify-between shadow-lg">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center border border-white/30">
-                    <Trophy className="w-5 h-5 text-white" />
+                  <div className="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center">
+                    <Trophy className="w-5 h-5 text-amber-400" />
                   </div>
                   <div>
-                    <h4 className="text-xs font-bold text-white uppercase tracking-wider">Player of the Match</h4>
-                    <p className="text-[11px] text-[#EAF2FF] font-medium">{potmAwards} Awards Won</p>
+                    <h4 className="text-xs font-black text-white uppercase tracking-wider">
+                      Player of the Match
+                    </h4>
+                    <p className="text-[11px] text-amber-300 font-medium">{potmAwards} Awards Won</p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <span className="text-[10px] font-bold text-[#EAF2FF] uppercase tracking-wider">Total Matches</span>
-                  <div className="text-sm font-mono font-bold text-white">{matchesCount}</div>
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                    Total Matches
+                  </span>
+                  <div className="text-sm font-mono font-black text-white">{matchesCount}</div>
                 </div>
               </div>
 
               {/* Recent Form Sparkline */}
-              <div className="bg-white border border-[#DFE7F2] rounded-2xl p-4 space-y-3 shadow-xs">
+              <div className="stadium-card rounded-2xl p-4 space-y-3 border border-white/10">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-[#1554B8] uppercase tracking-wider">Recent Form</span>
-                  <span className="text-[11px] text-[#718096] font-medium">Last 5 Innings</span>
+                  <span className="text-xs font-black text-[#00F2FE] uppercase tracking-wider">
+                    Recent Form
+                  </span>
+                  <span className="text-[11px] text-slate-400 font-medium">Last 5 Innings</span>
                 </div>
                 <div className="flex gap-2">
                   {recentMatches
-                    .filter(m => m.dismissalStatus !== 'Did not bat')
+                    .filter((m) => m.dismissalStatus !== 'Did not bat')
                     .slice(0, 5)
                     .reverse()
                     .map((m, i) => (
-                      <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                        <div className="w-full bg-[#F2F6FC] rounded-xl border border-[#DFE7F2] p-2 text-center group hover:border-[#1554B8] transition-colors">
-                          <span className="text-xs font-mono font-bold text-[#172033]">{m.battingRuns}</span>
+                      <div key={i} className="flex-1 flex flex-col items-center gap-1.5">
+                        <div className="w-full bg-[#0B1120] rounded-xl border border-white/10 p-2 text-center group hover:border-cyan-500/50 transition-colors">
+                          <span className="text-xs font-mono font-bold text-white">{m.battingRuns}</span>
                         </div>
-                        <div className={`w-2 h-2 rounded-full ${m.battingRuns >= 50 ? 'bg-[#E99A27]' : m.battingRuns >= 30 ? 'bg-[#1554B8]' : 'bg-[#718096]'}`} />
+                        <div
+                          className={`w-2 h-2 rounded-full ${
+                            m.battingRuns >= 50
+                              ? 'bg-amber-400 shadow-[0_0_6px_#F59E0B]'
+                              : m.battingRuns >= 30
+                              ? 'bg-[#00F2FE] shadow-[0_0_6px_#00F2FE]'
+                              : 'bg-slate-600'
+                          }`}
+                        />
                       </div>
                     ))}
-                  {recentMatches.filter(m => m.dismissalStatus !== 'Did not bat').length === 0 && (
-                    <span className="text-xs text-[#718096] italic font-medium py-2">No recent batting data recorded</span>
+                  {recentMatches.filter((m) => m.dismissalStatus !== 'Did not bat').length === 0 && (
+                    <span className="text-xs text-slate-400 italic font-medium py-2">
+                      No recent batting data recorded
+                    </span>
                   )}
                 </div>
               </div>
@@ -354,13 +393,13 @@ export const PlayerProfileView: React.FC<PlayerProfileViewProps> = ({
           {/* BATTING TAB */}
           {activeTab === 'batting' && (
             <div className="space-y-3.5">
-              <div className="bg-white border border-[#DFE7F2] rounded-2xl overflow-hidden shadow-xs">
-                <div className="p-3.5 bg-[#EAF2FF] border-b border-[#DFE7F2] flex justify-between items-center">
-                  <h3 className="text-xs font-bold text-[#1554B8] uppercase tracking-wider flex items-center gap-2">
+              <div className="stadium-card rounded-2xl overflow-hidden border border-white/10">
+                <div className="p-3.5 bg-white/5 border-b border-white/10 flex justify-between items-center">
+                  <h3 className="text-xs font-black text-[#00F2FE] uppercase tracking-wider flex items-center gap-2">
                     <Target className="w-4 h-4" /> Batting Career Stats
                   </h3>
                 </div>
-                <div className="grid grid-cols-2 divide-x divide-y divide-[#DFE7F2]">
+                <div className="grid grid-cols-2 divide-x divide-y divide-white/10">
                   {[
                     { label: 'Innings', val: inningsCount },
                     { label: 'Runs', val: runsCount },
@@ -372,20 +411,26 @@ export const PlayerProfileView: React.FC<PlayerProfileViewProps> = ({
                     { label: 'Hundreds', val: hundredsCount },
                   ].map((s) => (
                     <div key={s.label} className="p-3.5 text-center">
-                      <span className="text-[10px] font-bold text-[#718096] uppercase tracking-wider block mb-1">{s.label}</span>
-                      <span className="text-lg font-mono font-bold text-[#172033]">{s.val}</span>
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                        {s.label}
+                      </span>
+                      <span className="text-lg font-mono font-black text-white">{s.val}</span>
                     </div>
                   ))}
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <div className="bg-white border border-[#DFE7F2] rounded-2xl p-4 text-center shadow-xs">
-                  <span className="text-[10px] font-bold text-[#718096] uppercase tracking-wider block mb-1">Fours (4s)</span>
-                  <span className="text-xl font-mono font-bold text-[#1554B8]">{foursCount}</span>
+                <div className="stadium-card rounded-2xl p-4 text-center border border-white/10">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                    Fours (4s)
+                  </span>
+                  <span className="text-xl font-mono font-black text-[#00F2FE]">{foursCount}</span>
                 </div>
-                <div className="bg-white border border-[#DFE7F2] rounded-2xl p-4 text-center shadow-xs">
-                  <span className="text-[10px] font-bold text-[#718096] uppercase tracking-wider block mb-1">Sixes (6s)</span>
-                  <span className="text-xl font-mono font-bold text-[#1554B8]">{sixesCount}</span>
+                <div className="stadium-card rounded-2xl p-4 text-center border border-white/10">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                    Sixes (6s)
+                  </span>
+                  <span className="text-xl font-mono font-black text-amber-400">{sixesCount}</span>
                 </div>
               </div>
             </div>
@@ -394,13 +439,13 @@ export const PlayerProfileView: React.FC<PlayerProfileViewProps> = ({
           {/* BOWLING TAB */}
           {activeTab === 'bowling' && (
             <div className="space-y-3.5">
-              <div className="bg-white border border-[#DFE7F2] rounded-2xl overflow-hidden shadow-xs">
-                <div className="p-3.5 bg-[#EAF2FF] border-b border-[#DFE7F2] flex justify-between items-center">
-                  <h3 className="text-xs font-bold text-[#1554B8] uppercase tracking-wider flex items-center gap-2">
+              <div className="stadium-card rounded-2xl overflow-hidden border border-white/10">
+                <div className="p-3.5 bg-white/5 border-b border-white/10 flex justify-between items-center">
+                  <h3 className="text-xs font-black text-amber-400 uppercase tracking-wider flex items-center gap-2">
                     <Flame className="w-4 h-4" /> Bowling Career Stats
                   </h3>
                 </div>
-                <div className="grid grid-cols-2 divide-x divide-y divide-[#DFE7F2]">
+                <div className="grid grid-cols-2 divide-x divide-y divide-white/10">
                   {[
                     { label: 'Innings', val: matchesCount },
                     { label: 'Wickets', val: wicketsCount },
@@ -412,8 +457,10 @@ export const PlayerProfileView: React.FC<PlayerProfileViewProps> = ({
                     { label: 'Runs Conc', val: runsConceded },
                   ].map((s) => (
                     <div key={s.label} className="p-3.5 text-center">
-                      <span className="text-[10px] font-bold text-[#718096] uppercase tracking-wider block mb-1">{s.label}</span>
-                      <span className="text-lg font-mono font-bold text-[#172033]">{s.val}</span>
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                        {s.label}
+                      </span>
+                      <span className="text-lg font-mono font-black text-white">{s.val}</span>
                     </div>
                   ))}
                 </div>
@@ -426,60 +473,72 @@ export const PlayerProfileView: React.FC<PlayerProfileViewProps> = ({
             <div className="space-y-2.5">
               {isLoadingMatches ? (
                 <div className="flex flex-col items-center justify-center py-10 gap-3">
-                  <div className="w-7 h-7 border-3 border-[#1554B8] border-t-transparent rounded-full animate-spin" />
-                  <span className="text-xs font-bold text-[#718096]">Loading Match History...</span>
+                  <div className="w-7 h-7 border-3 border-cyan-500/20 border-t-[#00F2FE] rounded-full animate-spin" />
+                  <span className="text-xs font-bold text-slate-400 font-mono">
+                    Loading Match History...
+                  </span>
                 </div>
               ) : recentMatches.length === 0 ? (
-                <div className="bg-white border border-[#DFE7F2] rounded-2xl p-8 text-center shadow-xs">
-                  <Calendar className="w-9 h-9 text-[#718096] mx-auto mb-2 opacity-60" />
-                  <p className="text-xs font-bold text-[#718096]">No match history found for this player.</p>
+                <div className="stadium-card rounded-2xl p-8 text-center border border-white/10 space-y-2">
+                  <Calendar className="w-9 h-9 text-slate-600 mx-auto" />
+                  <p className="text-xs font-bold text-slate-400">No match history found for this player.</p>
                 </div>
               ) : (
                 recentMatches.map((stat) => (
                   <button
                     key={stat.id}
                     onClick={() => onSelectMatchDetails?.(stat.matchId)}
-                    className="w-full bg-white border border-[#DFE7F2] rounded-2xl p-3.5 text-left shadow-xs hover:border-[#1554B8] hover:bg-[#F2F6FC] transition-all cursor-pointer group"
+                    className="w-full stadium-card rounded-2xl p-3.5 text-left border border-white/10 hover:border-cyan-500/40 transition-all cursor-pointer group"
                   >
                     <div className="flex justify-between items-start mb-2">
                       <div>
-                        <div className="text-[10px] font-bold text-[#718096] uppercase tracking-wider mb-0.5">
+                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5 font-mono">
                           {format(new Date(stat.matchDate), 'MMM dd, yyyy')}
                         </div>
-                        <h4 className="text-sm font-bold text-[#172033] leading-tight uppercase group-hover:text-[#1554B8] transition-colors">
+                        <h4 className="text-sm font-black text-white leading-tight uppercase group-hover:text-[#00F2FE] transition-colors">
                           vs {stat.opponentName}
                         </h4>
                       </div>
-                      <ChevronRight className="w-5 h-5 text-[#718096] group-hover:text-[#1554B8]" />
+                      <ChevronRight className="w-5 h-5 text-slate-500 group-hover:text-[#00F2FE] transition-colors" />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#DFE7F2]">
+                    <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/10">
                       <div className="flex items-center gap-2">
-                        <div className="w-1.5 h-5 bg-[#1554B8] rounded-full" />
+                        <div className="w-1.5 h-5 bg-[#00F2FE] rounded-full" />
                         <div>
-                          <span className="text-[10px] font-bold text-[#718096] uppercase tracking-tight block leading-none">Batting</span>
-                          <span className="text-xs font-mono font-bold text-[#172033]">{stat.battingRuns}({stat.ballsFaced})</span>
+                          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tight block leading-none">
+                            Batting
+                          </span>
+                          <span className="text-xs font-mono font-bold text-white">
+                            {stat.battingRuns} ({stat.ballsFaced})
+                          </span>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
-                        <div className="w-1.5 h-5 bg-[#2878E5] rounded-full" />
+                        <div className="w-1.5 h-5 bg-amber-400 rounded-full" />
                         <div>
-                          <span className="text-[10px] font-bold text-[#718096] uppercase tracking-tight block leading-none">Bowling</span>
-                          <span className="text-xs font-mono font-bold text-[#172033]">{stat.wickets}/{stat.runsConceded}</span>
+                          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tight block leading-none">
+                            Bowling
+                          </span>
+                          <span className="text-xs font-mono font-bold text-white">
+                            {stat.wickets}/{stat.runsConceded}
+                          </span>
                         </div>
                       </div>
                     </div>
 
                     <div className="mt-2.5 flex items-center justify-between">
-                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
-                        stat.matchResult.toLowerCase().includes('won') 
-                          ? 'bg-[#21864A]/10 text-[#21864A] border border-[#21864A]/20' 
-                          : 'bg-[#E99A27]/10 text-[#E99A27] border border-[#E99A27]/20'
-                      }`}>
+                      <span
+                        className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider border ${
+                          stat.matchResult.toLowerCase().includes('won')
+                            ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+                            : 'bg-rose-500/10 text-rose-400 border-rose-500/30'
+                        }`}
+                      >
                         {stat.matchResult}
                       </span>
                       {stat.potmAward && (
-                        <span className="text-[10px] font-bold text-[#1554B8] flex items-center gap-1 uppercase">
+                        <span className="text-[10px] font-bold text-amber-400 flex items-center gap-1 uppercase">
                           <Trophy className="w-3 h-3" /> POTM
                         </span>
                       )}
@@ -493,30 +552,38 @@ export const PlayerProfileView: React.FC<PlayerProfileViewProps> = ({
           {/* BIO TAB */}
           {activeTab === 'bio' && (
             <div className="space-y-3.5">
-              <div className="bg-white border border-[#DFE7F2] rounded-2xl p-4.5 space-y-4 shadow-xs">
-                <h3 className="text-xs font-bold text-[#1554B8] uppercase tracking-wider flex items-center gap-2">
+              <div className="stadium-card rounded-2xl p-4.5 space-y-4 border border-white/10">
+                <h3 className="text-xs font-black text-[#00F2FE] uppercase tracking-wider flex items-center gap-2">
                   <User className="w-4 h-4" /> Personal Profile
                 </h3>
-                
+
                 <div className="space-y-2.5">
                   {[
                     { label: 'Batting Style', val: formatBatStyle(player.battingStyle) },
                     { label: 'Bowling Style', val: formatBowlStyle(player.bowlingStyle) },
                     { label: 'Playing Role', val: formatRole(player.playingRole) },
                     { label: 'Location', val: player.location || '—' },
-                    { label: 'Registered', val: format(new Date(player.registrationDate), 'MMM dd, yyyy') },
+                    {
+                      label: 'Registered',
+                      val: format(new Date(player.registrationDate), 'MMM dd, yyyy'),
+                    },
                   ].map((item) => (
-                    <div key={item.label} className="flex justify-between items-center border-b border-[#DFE7F2] pb-2">
-                      <span className="text-xs font-medium text-[#718096]">{item.label}</span>
-                      <span className="text-xs font-bold text-[#172033]">{item.val}</span>
+                    <div
+                      key={item.label}
+                      className="flex justify-between items-center border-b border-white/10 pb-2 text-xs"
+                    >
+                      <span className="font-medium text-slate-400">{item.label}</span>
+                      <span className="font-bold text-white">{item.val}</span>
                     </div>
                   ))}
                 </div>
 
                 {player.bio && (
                   <div className="pt-2">
-                    <span className="text-xs font-bold text-[#1554B8] uppercase tracking-wider block mb-2">Player Bio</span>
-                    <p className="text-xs text-[#718096] leading-relaxed italic bg-[#F2F6FC] p-3.5 rounded-xl border border-[#DFE7F2]">
+                    <span className="text-xs font-black text-[#00F2FE] uppercase tracking-wider block mb-2">
+                      Player Bio
+                    </span>
+                    <p className="text-xs text-slate-300 leading-relaxed italic bg-[#0B1120] p-3.5 rounded-xl border border-white/10">
                       "{player.bio}"
                     </p>
                   </div>

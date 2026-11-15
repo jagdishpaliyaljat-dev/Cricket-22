@@ -91,22 +91,22 @@ export const MyProfileView: React.FC<MyProfileViewProps> = ({
   };
 
   return (
-    <div className="space-y-3.5 max-w-md mx-auto px-4 pb-12 text-[#172033] animate-in fade-in duration-150 font-sans">
+    <div className="space-y-3.5 max-w-md mx-auto px-4 pb-12 text-slate-100 animate-in fade-in duration-150 font-sans">
       {/* ========================================================
           PROFILE HERO CARD (Primary Blue Brand Surface)
          ======================================================== */}
-      <div className="relative bg-[#1554B8] text-white border border-[#0B3F91] rounded-2xl p-4.5 shadow-md overflow-hidden">
+      <div className="relative stadium-card-glow text-white border border-[#00F2FE]/40 rounded-2xl p-4.5 shadow-md overflow-hidden">
         {/* Atmospheric subtle glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#2878E5]/30 via-[#1554B8]/80 to-[#0B3F91] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#00F2FE]/20 via-[#0F1E36]/80 to-[#0B1120] pointer-events-none" />
 
         {/* Top-right badges & buttons */}
         <div className="absolute top-3.5 right-3.5 flex items-center gap-2 z-10">
-          <span className="bg-white text-[#1554B8] font-bold text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-xs">
+          <span className="stadium-card text-[#00F2FE] font-bold text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-xs">
             Available
           </span>
           <button
             onClick={() => onEditProfile()}
-            className="w-7 h-7 rounded-xl bg-white/20 hover:bg-white/30 border border-white/30 flex items-center justify-center text-white transition-colors cursor-pointer shadow-xs"
+            className="w-7 h-7 rounded-xl stadium-card/20 hover:stadium-card/30 border border-white/30 flex items-center justify-center text-white transition-colors cursor-pointer shadow-xs"
             title="Edit Profile"
           >
             <Edit3 className="w-3.5 h-3.5" />
@@ -120,11 +120,11 @@ export const MyProfileView: React.FC<MyProfileViewProps> = ({
             <img
               src={avatarUrl}
               alt={fullName}
-              className="w-20 h-20 rounded-full object-cover border-2 border-white shadow-md bg-[#EAF2FF]"
+              className="w-20 h-20 rounded-full object-cover border-2 border-white shadow-md bg-[#00F2FE]/10"
             />
             <button
               onClick={() => setShowPhotoModal(true)}
-              className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-white text-[#1554B8] border border-[#DFE7F2] flex items-center justify-center hover:scale-105 transition-all cursor-pointer shadow-xs"
+              className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full stadium-card text-[#00F2FE] border border-white/10 flex items-center justify-center hover:scale-105 transition-all cursor-pointer shadow-xs"
               title="Change Profile Photo"
             >
               <Camera className="w-3.5 h-3.5" />
@@ -137,12 +137,12 @@ export const MyProfileView: React.FC<MyProfileViewProps> = ({
               {fullName}
             </h2>
 
-            <div className="flex items-center gap-1 text-[#EAF2FF] text-xs font-semibold">
+            <div className="flex items-center gap-1 text-slate-200 text-xs font-semibold">
               <User className="w-3.5 h-3.5 shrink-0 stroke-[2.4]" />
               <span className="truncate">{roleDisplay}</span>
             </div>
 
-            <p className="text-[11px] text-[#EAF2FF]/80 font-medium truncate pt-0.5">
+            <p className="text-[11px] text-slate-200/80 font-medium truncate pt-0.5">
               {battingStyleDisplay} • {bowlingStyleDisplay}
             </p>
           </div>
@@ -154,49 +154,49 @@ export const MyProfileView: React.FC<MyProfileViewProps> = ({
          ======================================================== */}
       <div
         onClick={() => onOpenStats('batting')}
-        className="bg-white hover:bg-[#F2F6FC] border border-[#DFE7F2] rounded-2xl p-3 shadow-xs grid grid-cols-4 gap-1 text-center transition-all cursor-pointer group hover:border-[#1554B8]"
+        className="stadium-card hover:bg-white/5 border border-white/10 rounded-2xl p-3 shadow-xs grid grid-cols-4 gap-1 text-center transition-all cursor-pointer group hover:border-[#00F2FE]/50"
         title="View Detailed Career Statistics"
       >
         {/* Column 1: Matches */}
         <div className="space-y-1">
-          <User className="w-4 h-4 text-[#1554B8] mx-auto stroke-[2.2]" />
-          <div className="font-sans font-bold text-lg sm:text-xl text-[#172033] leading-none">
+          <User className="w-4 h-4 text-[#00F2FE] mx-auto stroke-[2.2]" />
+          <div className="font-sans font-bold text-lg sm:text-xl text-slate-100 leading-none">
             {matchesCount}
           </div>
-          <div className="text-[10px] text-[#718096] font-medium leading-none">
+          <div className="text-[10px] text-slate-400 font-medium leading-none">
             Matches
           </div>
         </div>
 
         {/* Column 2: Runs */}
         <div className="space-y-1">
-          <BarChart2 className="w-4 h-4 text-[#1554B8] mx-auto stroke-[2.2]" />
-          <div className="font-sans font-bold text-lg sm:text-xl text-[#172033] leading-none">
+          <BarChart2 className="w-4 h-4 text-[#00F2FE] mx-auto stroke-[2.2]" />
+          <div className="font-sans font-bold text-lg sm:text-xl text-slate-100 leading-none">
             {runsCount}
           </div>
-          <div className="text-[10px] text-[#718096] font-medium leading-none">
+          <div className="text-[10px] text-slate-400 font-medium leading-none">
             Runs
           </div>
         </div>
 
         {/* Column 3: Wickets */}
         <div className="space-y-1">
-          <Trophy className="w-4 h-4 text-[#1554B8] mx-auto stroke-[2.2]" />
-          <div className="font-sans font-bold text-lg sm:text-xl text-[#172033] leading-none">
+          <Trophy className="w-4 h-4 text-[#00F2FE] mx-auto stroke-[2.2]" />
+          <div className="font-sans font-bold text-lg sm:text-xl text-slate-100 leading-none">
             {wicketsCount}
           </div>
-          <div className="text-[10px] text-[#718096] font-medium leading-none">
+          <div className="text-[10px] text-slate-400 font-medium leading-none">
             Wickets
           </div>
         </div>
 
         {/* Column 4: Fifties */}
         <div className="space-y-1">
-          <Award className="w-4 h-4 text-[#1554B8] mx-auto stroke-[2.2]" />
-          <div className="font-sans font-bold text-lg sm:text-xl text-[#172033] leading-none">
+          <Award className="w-4 h-4 text-[#00F2FE] mx-auto stroke-[2.2]" />
+          <div className="font-sans font-bold text-lg sm:text-xl text-slate-100 leading-none">
             {fiftiesCount}
           </div>
-          <div className="text-[10px] text-[#718096] font-medium leading-none">
+          <div className="text-[10px] text-slate-400 font-medium leading-none">
             Fifties
           </div>
         </div>
@@ -207,8 +207,8 @@ export const MyProfileView: React.FC<MyProfileViewProps> = ({
          ======================================================== */}
       <div className="grid grid-cols-2 gap-2.5">
         {/* Batting Style Card */}
-        <div className="bg-white border border-[#DFE7F2] rounded-2xl p-3 flex items-center gap-2.5 shadow-xs">
-          <div className="w-8 h-8 rounded-xl bg-[#EAF2FF] border border-[#DFE7F2] flex items-center justify-center shrink-0 text-[#1554B8]">
+        <div className="stadium-card border border-white/10 rounded-2xl p-3 flex items-center gap-2.5 shadow-xs">
+          <div className="w-8 h-8 rounded-xl bg-[#00F2FE]/10 border border-white/10 flex items-center justify-center shrink-0 text-[#00F2FE]">
             <svg
               className="w-4.5 h-4.5"
               viewBox="0 0 24 24"
@@ -223,18 +223,18 @@ export const MyProfileView: React.FC<MyProfileViewProps> = ({
             </svg>
           </div>
           <div className="min-w-0 flex-1">
-            <div className="text-[10px] text-[#718096] font-medium leading-tight">
+            <div className="text-[10px] text-slate-400 font-medium leading-tight">
               Batting Style
             </div>
-            <div className="font-bold text-xs text-[#172033] truncate mt-0.5">
+            <div className="font-bold text-xs text-slate-100 truncate mt-0.5">
               {battingStyleDisplay}
             </div>
           </div>
         </div>
 
         {/* Bowling Style Card */}
-        <div className="bg-white border border-[#DFE7F2] rounded-2xl p-3 flex items-center gap-2.5 shadow-xs">
-          <div className="w-8 h-8 rounded-xl bg-[#EAF2FF] border border-[#DFE7F2] flex items-center justify-center shrink-0 text-[#1554B8]">
+        <div className="stadium-card border border-white/10 rounded-2xl p-3 flex items-center gap-2.5 shadow-xs">
+          <div className="w-8 h-8 rounded-xl bg-[#00F2FE]/10 border border-white/10 flex items-center justify-center shrink-0 text-[#00F2FE]">
             <svg
               className="w-4.5 h-4.5"
               viewBox="0 0 24 24"
@@ -250,10 +250,10 @@ export const MyProfileView: React.FC<MyProfileViewProps> = ({
             </svg>
           </div>
           <div className="min-w-0 flex-1">
-            <div className="text-[10px] text-[#718096] font-medium leading-tight">
+            <div className="text-[10px] text-slate-400 font-medium leading-tight">
               Bowling Style
             </div>
-            <div className="font-bold text-xs text-[#172033] truncate mt-0.5">
+            <div className="font-bold text-xs text-slate-100 truncate mt-0.5">
               {bowlingStyleDisplay}
             </div>
           </div>
@@ -263,41 +263,41 @@ export const MyProfileView: React.FC<MyProfileViewProps> = ({
       {/* ========================================================
           E. PLAYER INFORMATION CARD (Joined, Location, Team)
          ======================================================== */}
-      <div className="bg-white border border-[#DFE7F2] rounded-2xl p-3 shadow-xs grid grid-cols-3 gap-2">
+      <div className="stadium-card border border-white/10 rounded-2xl p-3 shadow-xs grid grid-cols-3 gap-2">
         {/* Joined */}
         <div className="flex items-center gap-2 min-w-0">
-          <Calendar className="w-4 h-4 text-[#1554B8] shrink-0 stroke-[2.2]" />
+          <Calendar className="w-4 h-4 text-[#00F2FE] shrink-0 stroke-[2.2]" />
           <div className="min-w-0">
-            <div className="text-[10px] text-[#718096] font-medium leading-tight">
+            <div className="text-[10px] text-slate-400 font-medium leading-tight">
               Joined
             </div>
-            <div className="font-bold text-xs text-[#172033] truncate mt-0.5">
+            <div className="font-bold text-xs text-slate-100 truncate mt-0.5">
               {joinedDisplay}
             </div>
           </div>
         </div>
 
         {/* Location */}
-        <div className="flex items-center gap-2 min-w-0 border-l border-[#DFE7F2] pl-2">
-          <MapPin className="w-4 h-4 text-[#1554B8] shrink-0 stroke-[2.2]" />
+        <div className="flex items-center gap-2 min-w-0 border-l border-white/10 pl-2">
+          <MapPin className="w-4 h-4 text-[#00F2FE] shrink-0 stroke-[2.2]" />
           <div className="min-w-0">
-            <div className="text-[10px] text-[#718096] font-medium leading-tight">
+            <div className="text-[10px] text-slate-400 font-medium leading-tight">
               Location
             </div>
-            <div className="font-bold text-xs text-[#172033] truncate mt-0.5">
+            <div className="font-bold text-xs text-slate-100 truncate mt-0.5">
               {locationDisplay}
             </div>
           </div>
         </div>
 
         {/* Team */}
-        <div className="flex items-center gap-2 min-w-0 border-l border-[#DFE7F2] pl-2">
-          <Users className="w-4 h-4 text-[#1554B8] shrink-0 stroke-[2.2]" />
+        <div className="flex items-center gap-2 min-w-0 border-l border-white/10 pl-2">
+          <Users className="w-4 h-4 text-[#00F2FE] shrink-0 stroke-[2.2]" />
           <div className="min-w-0">
-            <div className="text-[10px] text-[#718096] font-medium leading-tight">
+            <div className="text-[10px] text-slate-400 font-medium leading-tight">
               Team
             </div>
-            <div className="font-bold text-xs text-[#172033] truncate mt-0.5">
+            <div className="font-bold text-xs text-slate-100 truncate mt-0.5">
               {teamDisplay}
             </div>
           </div>
@@ -307,24 +307,24 @@ export const MyProfileView: React.FC<MyProfileViewProps> = ({
       {/* ========================================================
           F. ABOUT ME CARD (Heading, Person icon, Edit icon, Bio)
          ======================================================== */}
-      <div className="bg-white border border-[#DFE7F2] rounded-2xl p-3.5 space-y-2 shadow-xs">
+      <div className="stadium-card border border-white/10 rounded-2xl p-3.5 space-y-2 shadow-xs">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <User className="w-4 h-4 text-[#1554B8] stroke-[2.2]" />
-            <h3 className="font-sans font-bold text-xs text-[#172033]">
+            <User className="w-4 h-4 text-[#00F2FE] stroke-[2.2]" />
+            <h3 className="font-sans font-bold text-xs text-slate-100">
               About Me
             </h3>
           </div>
           <button
             onClick={() => onEditProfile(true)}
-            className="text-[#718096] hover:text-[#1554B8] transition-colors p-1 cursor-pointer"
+            className="text-slate-400 hover:text-[#00F2FE] transition-colors p-1 cursor-pointer"
             title="Edit Biography"
           >
             <Edit3 className="w-3.5 h-3.5" />
           </button>
         </div>
 
-        <p className="text-xs text-[#718096] leading-relaxed">
+        <p className="text-xs text-slate-400 leading-relaxed">
           {bioDisplay}
         </p>
       </div>
@@ -332,22 +332,22 @@ export const MyProfileView: React.FC<MyProfileViewProps> = ({
       {/* ========================================================
           G. SETTINGS & PREFERENCES
          ======================================================== */}
-      <div className="bg-white border border-[#DFE7F2] rounded-2xl p-3.5 space-y-3 shadow-xs">
+      <div className="stadium-card border border-white/10 rounded-2xl p-3.5 space-y-3 shadow-xs">
         <div className="flex items-center gap-2">
-          <Bell className="w-4 h-4 text-[#1554B8] stroke-[2.2]" />
-          <h3 className="font-sans font-bold text-xs text-[#172033]">
+          <Bell className="w-4 h-4 text-[#00F2FE] stroke-[2.2]" />
+          <h3 className="font-sans font-bold text-xs text-slate-100">
             Preferences
           </h3>
         </div>
 
-        <div className="flex items-center justify-between p-2.5 bg-[#F2F6FC] rounded-xl border border-[#DFE7F2]/50">
+        <div className="flex items-center justify-between p-2.5 bg-white/5 rounded-xl border border-white/10/50">
           <div className="min-w-0">
-            <div className="font-bold text-xs text-[#172033]">Push Notifications</div>
-            <p className="text-[10px] text-[#718096] mt-0.5">Stay updated on match results and profile updates.</p>
+            <div className="font-bold text-xs text-slate-100">Push Notifications</div>
+            <p className="text-[10px] text-slate-400 mt-0.5">Stay updated on match results and profile updates.</p>
           </div>
           <button
             onClick={() => requestPushPermission()}
-            className="px-3 py-1.5 bg-[#1554B8] hover:bg-[#0B3F91] text-white font-bold text-[10px] rounded-lg cursor-pointer shadow-xs transition-colors"
+            className="px-3 py-1.5 stadium-card-glow hover:bg-[#0B3F91] text-white font-bold text-[10px] rounded-lg cursor-pointer shadow-xs transition-colors"
           >
             Enable
           </button>
@@ -361,23 +361,23 @@ export const MyProfileView: React.FC<MyProfileViewProps> = ({
       {/* Change Photo Modal */}
       {showPhotoModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
-          <div className="bg-white border border-[#DFE7F2] rounded-2xl w-full max-w-sm p-4 text-[#172033] space-y-3.5 shadow-2xl">
-            <h3 className="font-bold text-sm text-[#172033]">Change Profile Photo</h3>
+          <div className="stadium-card border border-white/10 rounded-2xl w-full max-w-sm p-4 text-slate-100 space-y-3.5 shadow-2xl">
+            <h3 className="font-bold text-sm text-slate-100">Change Profile Photo</h3>
             <form onSubmit={handleSavePhoto} className="space-y-3 text-xs">
               <div>
-                <label className="text-[#718096] block mb-1">Image URL</label>
+                <label className="text-slate-400 block mb-1">Image URL</label>
                 <input
                   type="url"
                   placeholder="https://..."
                   value={newPhotoUrl}
                   onChange={(e) => setNewPhotoUrl(e.target.value)}
-                  className="w-full bg-[#F2F6FC] border border-[#DFE7F2] rounded-xl px-3 py-2 text-[#172033] focus:outline-none focus:border-[#1554B8]"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-slate-100 focus:outline-none focus:border-[#1554B8]"
                 />
               </div>
 
               {/* Sample avatar presets */}
               <div>
-                <span className="text-[10.5px] text-[#718096] block mb-1.5">Or choose a preset avatar:</span>
+                <span className="text-[10.5px] text-slate-400 block mb-1.5">Or choose a preset avatar:</span>
                 <div className="flex gap-2">
                   {[
                     'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=250&h=250&q=80',
@@ -389,7 +389,7 @@ export const MyProfileView: React.FC<MyProfileViewProps> = ({
                       key={idx}
                       type="button"
                       onClick={() => setNewPhotoUrl(preset)}
-                      className="rounded-full overflow-hidden border-2 border-transparent hover:border-[#1554B8] cursor-pointer"
+                      className="rounded-full overflow-hidden border-2 border-transparent hover:border-[#00F2FE]/50 cursor-pointer"
                     >
                       <img src={preset} alt="preset" className="w-10 h-10 object-cover" />
                     </button>
@@ -401,13 +401,13 @@ export const MyProfileView: React.FC<MyProfileViewProps> = ({
                 <button
                   type="button"
                   onClick={() => setShowPhotoModal(false)}
-                  className="px-3 py-1.5 bg-[#F2F6FC] hover:bg-[#EAF2FF] border border-[#DFE7F2] text-[#172033] rounded-xl cursor-pointer"
+                  className="px-3 py-1.5 bg-white/5 hover:bg-[#00F2FE]/10 border border-white/10 text-slate-100 rounded-xl cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-3.5 py-1.5 bg-[#1554B8] hover:bg-[#0B3F91] text-white font-bold rounded-xl cursor-pointer"
+                  className="px-3.5 py-1.5 stadium-card-glow hover:bg-[#0B3F91] text-white font-bold rounded-xl cursor-pointer"
                 >
                   Save Photo
                 </button>

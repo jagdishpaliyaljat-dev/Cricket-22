@@ -54,10 +54,10 @@ interface ComputedPlayerMetrics {
   impactScore: number;
 }
 
-const COLOR_A = '#1554B8';
-const COLOR_A_LIGHT = '#EAF2FF';
-const COLOR_B = '#D97706';
-const COLOR_B_LIGHT = '#FEF3C7';
+const COLOR_A = '#00F2FE';
+const COLOR_A_LIGHT = 'rgba(0, 242, 254, 0.15)';
+const COLOR_B = '#F59E0B';
+const COLOR_B_LIGHT = 'rgba(245, 158, 11, 0.15)';
 
 function computeMetrics(player: Player): ComputedPlayerMetrics {
   const c = player.career || ({} as Player['career']);
@@ -157,7 +157,7 @@ const PlayerAvatar: React.FC<{
         referrerPolicy="no-referrer"
         onError={() => setImgFailed(true)}
         style={{ borderColor: accentColor }}
-        className={`${sizeClass} rounded-full object-cover border-2 shrink-0 bg-[#EAF2FF]`}
+        className={`${sizeClass} rounded-full object-cover border-2 shrink-0 bg-[#00F2FE]/15`}
       />
     );
   }
@@ -591,12 +591,12 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
 
   if (players.length < 2) {
     return (
-      <div className="max-w-3xl mx-auto px-4 py-6 font-sans text-[#172033]">
+      <div className="max-w-3xl mx-auto px-4 py-6 font-sans text-white">
         <div className="flex items-center gap-3 mb-4">
           {onBack && (
             <button
               onClick={onBack}
-              className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl bg-white border border-[#DFE7F2] text-[#172033] hover:border-[#1554B8] cursor-pointer"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl stadium-card border border-white/10 text-white hover:border-[#1554B8] cursor-pointer"
               aria-label="Back to players"
             >
               <ArrowLeft className="w-5 h-5" />
@@ -604,10 +604,10 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
           )}
           <h1 className="font-black text-2xl tracking-tight">Player Comparison</h1>
         </div>
-        <div className="bg-white border border-[#DFE7F2] rounded-2xl p-8 text-center space-y-3 shadow-xs">
-          <Users className="w-10 h-10 text-[#1554B8] mx-auto opacity-80" />
-          <h2 className="font-bold text-base text-[#172033]">Not Enough Players to Compare</h2>
-          <p className="text-xs text-[#718096] max-w-sm mx-auto">
+        <div className="stadium-card border border-white/10 rounded-2xl p-8 text-center space-y-3 shadow-xs">
+          <Users className="w-10 h-10 text-[#00F2FE] mx-auto opacity-80" />
+          <h2 className="font-bold text-base text-white">Not Enough Players to Compare</h2>
+          <p className="text-xs text-slate-400 max-w-sm mx-auto">
             Add at least two players to the directory to compare batting, bowling, and match-impact charts side-by-side.
           </p>
         </div>
@@ -639,24 +639,24 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
       .join(' ');
 
   return (
-    <div className="max-w-4xl mx-auto px-4 pb-10 space-y-5 font-sans text-[#172033] animate-in fade-in duration-150">
+    <div className="max-w-4xl mx-auto px-4 pb-10 space-y-5 font-sans text-white animate-in fade-in duration-150">
       {/* Header Row */}
       <div className="flex items-start justify-between gap-3 pt-1">
         <div className="flex items-start gap-2.5 min-w-0">
           {onBack && (
             <button
               onClick={onBack}
-              className="min-h-[44px] min-w-[44px] -ml-1 flex items-center justify-center rounded-xl bg-white border border-[#DFE7F2] text-[#172033] hover:border-[#1554B8] hover:text-[#1554B8] transition-colors cursor-pointer shrink-0 shadow-xs"
+              className="min-h-[44px] min-w-[44px] -ml-1 flex items-center justify-center rounded-xl stadium-card border border-white/10 text-white hover:border-[#1554B8] hover:text-[#00F2FE] transition-colors cursor-pointer shrink-0 shadow-xs"
               title="Back to Players"
             >
               <ArrowLeft className="w-5 h-5" />
             </button>
           )}
           <div className="min-w-0">
-            <h1 className="font-black text-2xl sm:text-3xl tracking-tight text-[#172033] leading-tight">
+            <h1 className="font-black text-2xl sm:text-3xl tracking-tight text-white leading-tight">
               Player Comparison
             </h1>
-            <p className="text-xs text-[#718096] mt-0.5">
+            <p className="text-xs text-slate-400 mt-0.5">
               Select two players from the directory to compare career impact side-by-side.
             </p>
           </div>
@@ -671,25 +671,25 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
             <button
               type="button"
               onClick={() => setPickerSlot('A')}
-              className="w-full text-left bg-white border border-[#DFE7F2] hover:border-[#1554B8] rounded-2xl p-3.5 shadow-xs transition-all cursor-pointer flex items-center gap-3 group min-h-[76px]"
+              className="w-full text-left stadium-card border border-white/10 hover:border-[#1554B8] rounded-2xl p-3.5 shadow-xs transition-all cursor-pointer flex items-center gap-3 group min-h-[76px]"
             >
               <PlayerAvatar player={playerA} accentColor={COLOR_A} sizeClass="w-12 h-12" />
               <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#1554B8]">
+                <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#00F2FE]">
                   <span>Player A</span>
                   <span aria-hidden="true">·</span>
-                  <span className="text-[#718096] font-medium truncate">
+                  <span className="text-slate-400 font-medium truncate">
                     {formatRoleLabel(playerA.playingRole)}
                   </span>
                 </div>
-                <div className="font-bold text-sm sm:text-base text-[#172033] truncate mt-0.5 group-hover:text-[#1554B8] transition-colors">
+                <div className="font-bold text-sm sm:text-base text-white truncate mt-0.5 group-hover:text-[#00F2FE] transition-colors">
                   {playerA.fullName}
                 </div>
-                <div className="text-[11px] text-[#718096] font-mono tabular-nums mt-0.5">
+                <div className="text-[11px] text-slate-400 font-mono tabular-nums mt-0.5">
                   {metricsA.matches} M · {metricsA.runs} R · {metricsA.wickets} W
                 </div>
               </div>
-              <ChevronDown className="w-4 h-4 text-[#718096] group-hover:text-[#1554B8] shrink-0" />
+              <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-[#00F2FE] shrink-0" />
             </button>
 
             {/* Swap Button */}
@@ -697,7 +697,7 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
               <button
                 type="button"
                 onClick={handleSwapPlayers}
-                className="min-h-[44px] min-w-[44px] px-3 rounded-xl bg-[#EAF2FF] hover:bg-[#1554B8] text-[#1554B8] hover:text-white border border-[#DFE7F2] flex items-center justify-center gap-1.5 text-xs font-bold transition-colors cursor-pointer shadow-xs"
+                className="min-h-[44px] min-w-[44px] px-3 rounded-xl bg-[#00F2FE]/15 hover:bg-[#1554B8] text-[#00F2FE] hover:text-white border border-white/10 flex items-center justify-center gap-1.5 text-xs font-bold transition-colors cursor-pointer shadow-xs"
                 title="Swap Player A and Player B"
               >
                 <ArrowLeftRight className="w-4 h-4" />
@@ -709,57 +709,57 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
             <button
               type="button"
               onClick={() => setPickerSlot('B')}
-              className="w-full text-left bg-white border border-[#DFE7F2] hover:border-[#D97706] rounded-2xl p-3.5 shadow-xs transition-all cursor-pointer flex items-center gap-3 group min-h-[76px]"
+              className="w-full text-left stadium-card border border-white/10 hover:border-[#D97706] rounded-2xl p-3.5 shadow-xs transition-all cursor-pointer flex items-center gap-3 group min-h-[76px]"
             >
               <PlayerAvatar player={playerB} accentColor={COLOR_B} sizeClass="w-12 h-12" />
               <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#B45309]">
+                <div className="flex items-center gap-1.5 text-[11px] font-bold text-amber-400">
                   <span>Player B</span>
                   <span aria-hidden="true">·</span>
-                  <span className="text-[#718096] font-medium truncate">
+                  <span className="text-slate-400 font-medium truncate">
                     {formatRoleLabel(playerB.playingRole)}
                   </span>
                 </div>
-                <div className="font-bold text-sm sm:text-base text-[#172033] truncate mt-0.5 group-hover:text-[#B45309] transition-colors">
+                <div className="font-bold text-sm sm:text-base text-white truncate mt-0.5 group-hover:text-amber-400 transition-colors">
                   {playerB.fullName}
                 </div>
-                <div className="text-[11px] text-[#718096] font-mono tabular-nums mt-0.5">
+                <div className="text-[11px] text-slate-400 font-mono tabular-nums mt-0.5">
                   {metricsB.matches} M · {metricsB.runs} R · {metricsB.wickets} W
                 </div>
               </div>
-              <ChevronDown className="w-4 h-4 text-[#718096] group-hover:text-[#B45309] shrink-0" />
+              <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-amber-400 shrink-0" />
             </button>
           </div>
 
           {/* Head-to-Head Lead Summary Bar */}
-          <div className="bg-white border border-[#DFE7F2] rounded-2xl p-4 shadow-xs space-y-2.5">
+          <div className="stadium-card border border-white/10 rounded-2xl p-4 shadow-xs space-y-2.5">
             <div className="flex items-center justify-between gap-2 text-xs">
               <div className="min-w-0">
-                <span className="font-bold text-[#1554B8] truncate block">
+                <span className="font-bold text-[#00F2FE] truncate block">
                   {playerA.fullName}
                 </span>
-                <span className="text-[#718096] font-mono tabular-nums text-[11px]">
+                <span className="text-slate-400 font-mono tabular-nums text-[11px]">
                   Leads {leadTally.a} of {leadTally.total} metrics
                 </span>
               </div>
 
               <div className="text-center shrink-0 px-2">
-                <span className="text-[11px] font-semibold text-[#718096] font-mono tabular-nums">
+                <span className="text-[11px] font-semibold text-slate-400 font-mono tabular-nums">
                   {leadTally.tie > 0 ? `${leadTally.tie} Tied` : 'Head-to-Head'}
                 </span>
               </div>
 
               <div className="min-w-0 text-right">
-                <span className="font-bold text-[#B45309] truncate block">
+                <span className="font-bold text-amber-400 truncate block">
                   {playerB.fullName}
                 </span>
-                <span className="text-[#718096] font-mono tabular-nums text-[11px]">
+                <span className="text-slate-400 font-mono tabular-nums text-[11px]">
                   Leads {leadTally.b} of {leadTally.total} metrics
                 </span>
               </div>
             </div>
 
-            <div className="h-2.5 w-full rounded-full overflow-hidden bg-[#F2F6FC] flex border border-[#DFE7F2]">
+            <div className="h-2.5 w-full rounded-full overflow-hidden stadium-card/5 flex border border-white/10">
               <div
                 style={{
                   width: `${leadTally.total > 0 ? (leadTally.a / leadTally.total) * 100 : 50}%`,
@@ -784,7 +784,7 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
           </div>
 
           {/* Segmented Category Filter */}
-          <div className="grid grid-cols-4 gap-1 p-1 bg-[#EAF2FF] border border-[#DFE7F2] rounded-xl text-xs font-semibold">
+          <div className="grid grid-cols-4 gap-1 p-1 bg-[#00F2FE]/15 border border-white/10 rounded-xl text-xs font-semibold">
             {(
               [
                 { id: 'overview', label: 'Overview', icon: BarChart2 },
@@ -803,7 +803,7 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
                   className={`min-h-[40px] px-2 py-1.5 rounded-lg flex items-center justify-center gap-1.5 transition-colors cursor-pointer whitespace-nowrap ${
                     isActive
                       ? 'bg-[#1554B8] text-white font-bold shadow-xs'
-                      : 'text-[#718096] hover:text-[#172033]'
+                      : 'text-slate-400 hover:text-white'
                   }`}
                 >
                   <Icon className="w-3.5 h-3.5 shrink-0" />
@@ -818,11 +818,11 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Left Chart: Radar Skill Profile (Overview) or Run Composition (Batting) or Bowling Profile (Bowling) */}
               {activeTab === 'overview' && (
-                <div className="bg-white border border-[#DFE7F2] rounded-2xl p-4 shadow-xs flex flex-col justify-between">
+                <div className="stadium-card border border-white/10 rounded-2xl p-4 shadow-xs flex flex-col justify-between">
                   <div className="flex items-center justify-between gap-2 mb-2">
                     <div>
-                      <h2 className="font-bold text-sm text-[#172033]">All-Round Skill Radar</h2>
-                      <p className="text-[11px] text-[#718096]">
+                      <h2 className="font-bold text-sm text-white">All-Round Skill Radar</h2>
+                      <p className="text-[11px] text-slate-400">
                         Scaled relative to squad benchmarks · Tap any axis
                       </p>
                     </div>
@@ -841,7 +841,7 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
                           key={ring}
                           points={polygonPoints(Array(radarAxesCount).fill(ring))}
                           fill="none"
-                          stroke="#DFE7F2"
+                          stroke="rgba(255, 255, 255, 0.15)"
                           strokeWidth={ring === 100 ? 1.4 : 1}
                         />
                       ))}
@@ -874,7 +874,7 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
                               textAnchor="middle"
                               dominantBaseline="middle"
                               className={`text-[10.5px] font-semibold select-none ${
-                                isSelected ? 'fill-[#1554B8] font-bold' : 'fill-[#718096]'
+                                isSelected ? 'fill-[#00F2FE] font-bold' : 'fill-[#94A3B8]'
                               }`}
                             >
                               {axis.label}
@@ -921,14 +921,14 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
 
                   {/* Interactive Axis Readout */}
                   {radarData[activeRadarAxis] && (
-                    <div className="mt-2 pt-2.5 border-t border-[#DFE7F2] flex items-center justify-between text-xs">
-                      <div className="font-mono tabular-nums font-bold text-[#1554B8]">
+                    <div className="mt-2 pt-2.5 border-t border-white/10 flex items-center justify-between text-xs">
+                      <div className="font-mono tabular-nums font-bold text-[#00F2FE]">
                         {radarData[activeRadarAxis].rawA}
                       </div>
-                      <div className="text-[11px] font-semibold text-[#718096]">
+                      <div className="text-[11px] font-semibold text-slate-400">
                         {radarData[activeRadarAxis].label}
                       </div>
-                      <div className="font-mono tabular-nums font-bold text-[#B45309]">
+                      <div className="font-mono tabular-nums font-bold text-amber-400">
                         {radarData[activeRadarAxis].rawB}
                       </div>
                     </div>
@@ -937,18 +937,18 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
               )}
 
               {activeTab === 'batting' && (
-                <div className="bg-white border border-[#DFE7F2] rounded-2xl p-4 shadow-xs flex flex-col justify-between space-y-4">
+                <div className="stadium-card border border-white/10 rounded-2xl p-4 shadow-xs flex flex-col justify-between space-y-4">
                   <div>
-                    <h2 className="font-bold text-sm text-[#172033]">Run Scoring Composition</h2>
-                    <p className="text-[11px] text-[#718096]">
+                    <h2 className="font-bold text-sm text-white">Run Scoring Composition</h2>
+                    <p className="text-[11px] text-slate-400">
                       Share of runs from Sixes (6s), Fours (4s), and Running (1s/2s/3s)
                     </p>
                   </div>
 
                   <div className="space-y-4">
                     {[
-                      { player: playerA, m: metricsA, color: COLOR_A, labelColor: 'text-[#1554B8]' },
-                      { player: playerB, m: metricsB, color: COLOR_B, labelColor: 'text-[#B45309]' },
+                      { player: playerA, m: metricsA, color: COLOR_A, labelColor: 'text-[#00F2FE]' },
+                      { player: playerB, m: metricsB, color: COLOR_B, labelColor: 'text-amber-400' },
                     ].map(({ player, m, labelColor }) => {
                       const runs6 = m.sixes * 6;
                       const runs4 = m.fours * 4;
@@ -962,11 +962,11 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
                         <div key={player.id} className="space-y-1.5">
                           <div className="flex items-center justify-between text-xs">
                             <span className={`font-bold truncate ${labelColor}`}>{player.fullName}</span>
-                            <span className="font-mono tabular-nums text-[#718096]">
+                            <span className="font-mono tabular-nums text-slate-400">
                               {m.runs} runs · {m.boundaryPct}% boundaries
                             </span>
                           </div>
-                          <div className="h-4 w-full rounded-lg overflow-hidden bg-[#F2F6FC] border border-[#DFE7F2] flex">
+                          <div className="h-4 w-full rounded-lg overflow-hidden stadium-card/5 border border-white/10 flex">
                             {m.runs > 0 ? (
                               <>
                                 <div
@@ -989,7 +989,7 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
                               <div className="w-full h-full bg-[#E2E8F0]" />
                             )}
                           </div>
-                          <div className="flex items-center justify-between text-[11px] font-mono tabular-nums text-[#718096]">
+                          <div className="flex items-center justify-between text-[11px] font-mono tabular-nums text-slate-400">
                             <span>6s: {runs6}r ({pct6}%)</span>
                             <span>4s: {runs4}r ({pct4}%)</span>
                             <span>1s–3s: {runsOther}r ({pctOther}%)</span>
@@ -999,7 +999,7 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
                     })}
                   </div>
 
-                  <div className="flex items-center gap-4 pt-2 border-t border-[#DFE7F2] text-[11px] text-[#718096]">
+                  <div className="flex items-center gap-4 pt-2 border-t border-white/10 text-[11px] text-slate-400">
                     <span className="flex items-center gap-1.5">
                       <span className="w-2.5 h-2.5 rounded-xs bg-[#1554B8]" /> Sixes
                     </span>
@@ -1014,18 +1014,18 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
               )}
 
               {activeTab === 'bowling' && (
-                <div className="bg-white border border-[#DFE7F2] rounded-2xl p-4 shadow-xs flex flex-col justify-between space-y-4">
+                <div className="stadium-card border border-white/10 rounded-2xl p-4 shadow-xs flex flex-col justify-between space-y-4">
                   <div>
-                    <h2 className="font-bold text-sm text-[#172033]">Bowling Efficiency Gauges</h2>
-                    <p className="text-[11px] text-[#718096]">
+                    <h2 className="font-bold text-sm text-white">Bowling Efficiency Gauges</h2>
+                    <p className="text-[11px] text-slate-400">
                       Wickets, economy rate, and best match bowling figures
                     </p>
                   </div>
 
                   <div className="grid grid-cols-2 gap-3">
                     {[
-                      { player: playerA, m: metricsA, color: COLOR_A, text: 'text-[#1554B8]', bg: COLOR_A_LIGHT },
-                      { player: playerB, m: metricsB, color: COLOR_B, text: 'text-[#B45309]', bg: COLOR_B_LIGHT },
+                      { player: playerA, m: metricsA, color: COLOR_A, text: 'text-[#00F2FE]', bg: COLOR_A_LIGHT },
+                      { player: playerB, m: metricsB, color: COLOR_B, text: 'text-amber-400', bg: COLOR_B_LIGHT },
                     ].map(({ player, m, color, text, bg }) => {
                       const econNormalized =
                         m.ballsBowled > 0 ? Math.min(100, Math.round((m.economy / 12) * 100)) : 0;
@@ -1037,7 +1037,7 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
                         <div
                           key={player.id}
                           style={{ backgroundColor: bg }}
-                          className="rounded-xl p-3 border border-[#DFE7F2] flex flex-col items-center text-center space-y-2"
+                          className="rounded-xl p-3 border border-white/10 flex flex-col items-center text-center space-y-2"
                         >
                           <span className={`font-bold text-xs truncate w-full ${text}`}>
                             {player.fullName}
@@ -1058,13 +1058,13 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
                               />
                             </svg>
                             <div className="absolute inset-0 flex flex-col items-center justify-center">
-                              <span className="font-mono tabular-nums font-bold text-sm text-[#172033]">
+                              <span className="font-mono tabular-nums font-bold text-sm text-white">
                                 {m.ballsBowled > 0 ? m.economy.toFixed(2) : '—'}
                               </span>
-                              <span className="text-[9.5px] text-[#718096] font-semibold">ECON</span>
+                              <span className="text-[9.5px] text-slate-400 font-semibold">ECON</span>
                             </div>
                           </div>
-                          <div className="text-[11px] font-mono tabular-nums text-[#172033]">
+                          <div className="text-[11px] font-mono tabular-nums text-white">
                             {m.wickets} Wkts · Best {m.bestBowlingLabel}
                           </div>
                         </div>
@@ -1075,11 +1075,11 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
               )}
 
               {/* Right Chart: Side-by-Side Grouped Vertical Bar Chart */}
-              <div className="bg-white border border-[#DFE7F2] rounded-2xl p-4 shadow-xs flex flex-col justify-between">
+              <div className="stadium-card border border-white/10 rounded-2xl p-4 shadow-xs flex flex-col justify-between">
                 <div className="flex items-center justify-between gap-2 mb-3">
                   <div>
-                    <h2 className="font-bold text-sm text-[#172033]">Head-to-Head Bar Chart</h2>
-                    <p className="text-[11px] text-[#718096]">
+                    <h2 className="font-bold text-sm text-white">Head-to-Head Bar Chart</h2>
+                    <p className="text-[11px] text-slate-400">
                       Each pair scaled to its higher value with exact figures
                     </p>
                   </div>
@@ -1087,18 +1087,18 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
 
                 {/* Legend */}
                 <div className="flex items-center gap-4 text-[11px] font-semibold mb-3">
-                  <span className="flex items-center gap-1.5 text-[#172033] truncate max-w-[140px]">
+                  <span className="flex items-center gap-1.5 text-white truncate max-w-[140px]">
                     <span className="w-2.5 h-2.5 rounded-xs shrink-0" style={{ backgroundColor: COLOR_A }} />
                     <span className="truncate">{playerA.fullName}</span>
                   </span>
-                  <span className="flex items-center gap-1.5 text-[#172033] truncate max-w-[140px]">
+                  <span className="flex items-center gap-1.5 text-white truncate max-w-[140px]">
                     <span className="w-2.5 h-2.5 rounded-xs shrink-0" style={{ backgroundColor: COLOR_B }} />
                     <span className="truncate">{playerB.fullName}</span>
                   </span>
                 </div>
 
                 {/* Grouped Bar Canvas */}
-                <div className="grid grid-cols-5 sm:grid-cols-6 gap-2 items-end h-44 pt-5 border-b border-[#DFE7F2] pb-2">
+                <div className="grid grid-cols-5 sm:grid-cols-6 gap-2 items-end h-44 pt-5 border-b border-white/10 pb-2">
                   {groupedBarItems.slice(0, 6).map((item) => {
                     const pairMax = Math.max(item.a, item.b, 1);
                     const pctA = item.a > 0 ? Math.max(8, Math.round((item.a / pairMax) * 100)) : 2;
@@ -1109,7 +1109,7 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
                         <div className="flex items-end justify-center gap-1 w-full flex-1">
                           {/* Bar A */}
                           <div className="flex flex-col items-center justify-end h-full w-4 sm:w-5">
-                            <span className="text-[9.5px] font-mono tabular-nums font-bold text-[#1554B8] mb-1">
+                            <span className="text-[9.5px] font-mono tabular-nums font-bold text-[#00F2FE] mb-1">
                               {item.fmtA}
                             </span>
                             <div
@@ -1120,7 +1120,7 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
 
                           {/* Bar B */}
                           <div className="flex flex-col items-center justify-end h-full w-4 sm:w-5">
-                            <span className="text-[9.5px] font-mono tabular-nums font-bold text-[#B45309] mb-1">
+                            <span className="text-[9.5px] font-mono tabular-nums font-bold text-amber-400 mb-1">
                               {item.fmtB}
                             </span>
                             <div
@@ -1129,7 +1129,7 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
                             />
                           </div>
                         </div>
-                        <span className="text-[10.5px] font-semibold text-[#718096] whitespace-nowrap">
+                        <span className="text-[10.5px] font-semibold text-slate-400 whitespace-nowrap">
                           {item.label}
                         </span>
                       </div>
@@ -1140,21 +1140,21 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
             </div>
           ) : (
             /* RECENT FORM LINE CHART TAB */
-            <div className="bg-white border border-[#DFE7F2] rounded-2xl p-4 shadow-xs space-y-4">
+            <div className="stadium-card border border-white/10 rounded-2xl p-4 shadow-xs space-y-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
-                  <h2 className="font-bold text-sm text-[#172033]">Recent Match Form (Last 6 Matches)</h2>
-                  <p className="text-[11px] text-[#718096]">
+                  <h2 className="font-bold text-sm text-white">Recent Match Form (Last 6 Matches)</h2>
+                  <p className="text-[11px] text-slate-400">
                     Match-by-match trajectory from recorded scorecards
                   </p>
                 </div>
 
-                <div className="flex items-center gap-1 p-1 bg-[#F2F6FC] border border-[#DFE7F2] rounded-lg text-xs">
+                <div className="flex items-center gap-1 p-1 stadium-card/5 border border-white/10 rounded-lg text-xs">
                   <button
                     type="button"
                     onClick={() => { setFormMetric('runs'); setSelectedFormIndex(null); }}
                     className={`px-3 py-1 rounded-md font-semibold cursor-pointer transition-colors ${
-                      formMetric === 'runs' ? 'bg-[#1554B8] text-white' : 'text-[#718096] hover:text-[#172033]'
+                      formMetric === 'runs' ? 'bg-[#1554B8] text-white' : 'text-slate-400 hover:text-white'
                     }`}
                   >
                     Runs
@@ -1163,7 +1163,7 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
                     type="button"
                     onClick={() => { setFormMetric('wickets'); setSelectedFormIndex(null); }}
                     className={`px-3 py-1 rounded-md font-semibold cursor-pointer transition-colors ${
-                      formMetric === 'wickets' ? 'bg-[#1554B8] text-white' : 'text-[#718096] hover:text-[#172033]'
+                      formMetric === 'wickets' ? 'bg-[#1554B8] text-white' : 'text-slate-400 hover:text-white'
                     }`}
                   >
                     Wickets
@@ -1172,15 +1172,15 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
               </div>
 
               {loadingForm ? (
-                <div className="py-12 text-center text-xs text-[#718096]">
+                <div className="py-12 text-center text-xs text-slate-400">
                   Loading recent match stats...
                 </div>
               ) : formError ? (
                 <div className="py-8 text-center text-xs text-[#D94343]">{formError}</div>
               ) : recentFormSeries.count === 0 ? (
                 <div className="py-10 text-center space-y-1.5">
-                  <p className="text-xs font-semibold text-[#172033]">No finalized match history yet</p>
-                  <p className="text-[11px] text-[#718096]">
+                  <p className="text-xs font-semibold text-white">No finalized match history yet</p>
+                  <p className="text-[11px] text-slate-400">
                     Recent match form charts appear once matches are scored and finalized.
                   </p>
                 </div>
@@ -1217,11 +1217,11 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
                       <div className="flex items-center gap-4 text-[11px] font-semibold">
                         <span className="flex items-center gap-1.5">
                           <span className="w-3 h-0.5 rounded-full inline-block" style={{ backgroundColor: COLOR_A }} />
-                          <span className="text-[#1554B8]">{playerA.fullName}</span>
+                          <span className="text-[#00F2FE]">{playerA.fullName}</span>
                         </span>
                         <span className="flex items-center gap-1.5">
                           <span className="w-3 h-0.5 rounded-full inline-block" style={{ backgroundColor: COLOR_B }} />
-                          <span className="text-[#B45309]">{playerB.fullName}</span>
+                          <span className="text-amber-400">{playerB.fullName}</span>
                         </span>
                       </div>
 
@@ -1231,8 +1231,8 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
                           const labelVal = Math.round(maxVal * frac);
                           return (
                             <g key={frac}>
-                              <line x1={padL} y1={y} x2={chartW - padR} y2={y} stroke="#DFE7F2" strokeDasharray="3 3" />
-                              <text x={padL - 6} y={y + 3} textAnchor="end" className="text-[10px] font-mono fill-[#718096]">
+                              <line x1={padL} y1={y} x2={chartW - padR} y2={y} stroke="rgba(255, 255, 255, 0.15)" strokeDasharray="3 3" />
+                              <text x={padL - 6} y={y + 3} textAnchor="end" className="text-[10px] font-mono fill-[#94A3B8]">
                                 {labelVal}
                               </text>
                             </g>
@@ -1264,7 +1264,7 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
                           const itemB = recentFormSeries.bRecent[i];
                           return (
                             <g key={i} onClick={() => setSelectedFormIndex(i)} className="cursor-pointer">
-                              <text x={x} y={chartH - 8} textAnchor="middle" className="text-[10px] font-mono fill-[#718096]">
+                              <text x={x} y={chartH - 8} textAnchor="middle" className="text-[10px] font-mono fill-[#94A3B8]">
                                 M{i + 1}
                               </text>
                               {itemB && (
@@ -1293,25 +1293,25 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
                       </svg>
 
                       {selectedFormIndex !== null && (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 border-t border-[#DFE7F2] text-xs">
-                          <div className="bg-[#EAF2FF] rounded-xl p-2.5">
-                            <div className="font-bold text-[#1554B8] truncate">{playerA.fullName}</div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 border-t border-white/10 text-xs">
+                          <div className="bg-[#00F2FE]/15 rounded-xl p-2.5">
+                            <div className="font-bold text-[#00F2FE] truncate">{playerA.fullName}</div>
                             {recentFormSeries.aRecent[selectedFormIndex] ? (
-                              <div className="text-[11px] text-[#172033] font-mono tabular-nums mt-0.5">
+                              <div className="text-[11px] text-white font-mono tabular-nums mt-0.5">
                                 {recentFormSeries.aRecent[selectedFormIndex].battingRuns}r ({recentFormSeries.aRecent[selectedFormIndex].ballsFaced}b) · {recentFormSeries.aRecent[selectedFormIndex].wickets}w — vs {recentFormSeries.aRecent[selectedFormIndex].opponentName}
                               </div>
                             ) : (
-                              <div className="text-[11px] text-[#718096] mt-0.5">No match record in slot</div>
+                              <div className="text-[11px] text-slate-400 mt-0.5">No match record in slot</div>
                             )}
                           </div>
                           <div className="bg-[#FEF3C7] rounded-xl p-2.5">
-                            <div className="font-bold text-[#B45309] truncate">{playerB.fullName}</div>
+                            <div className="font-bold text-amber-400 truncate">{playerB.fullName}</div>
                             {recentFormSeries.bRecent[selectedFormIndex] ? (
-                              <div className="text-[11px] text-[#172033] font-mono tabular-nums mt-0.5">
+                              <div className="text-[11px] text-white font-mono tabular-nums mt-0.5">
                                 {recentFormSeries.bRecent[selectedFormIndex].battingRuns}r ({recentFormSeries.bRecent[selectedFormIndex].ballsFaced}b) · {recentFormSeries.bRecent[selectedFormIndex].wickets}w — vs {recentFormSeries.bRecent[selectedFormIndex].opponentName}
                               </div>
                             ) : (
-                              <div className="text-[11px] text-[#718096] mt-0.5">No match record in slot</div>
+                              <div className="text-[11px] text-slate-400 mt-0.5">No match record in slot</div>
                             )}
                           </div>
                         </div>
@@ -1324,11 +1324,11 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
           )}
 
           {/* Diverging Split-Bar Stat Breakdown */}
-          <div className="bg-white border border-[#DFE7F2] rounded-2xl overflow-hidden shadow-xs">
-            <div className="bg-[#F2F6FC] px-4 py-3 border-b border-[#DFE7F2] flex items-center justify-between text-xs font-bold">
-              <span className="text-[#1554B8] truncate max-w-[35%]">{playerA.fullName}</span>
-              <span className="text-[#718096] text-[11px] uppercase tracking-wider">Metric</span>
-              <span className="text-[#B45309] truncate max-w-[35%] text-right">{playerB.fullName}</span>
+          <div className="stadium-card border border-white/10 rounded-2xl overflow-hidden shadow-xs">
+            <div className="stadium-card/5 px-4 py-3 border-b border-white/10 flex items-center justify-between text-xs font-bold">
+              <span className="text-[#00F2FE] truncate max-w-[35%]">{playerA.fullName}</span>
+              <span className="text-slate-400 text-[11px] uppercase tracking-wider">Metric</span>
+              <span className="text-amber-400 truncate max-w-[35%] text-right">{playerB.fullName}</span>
             </div>
 
             <div className="divide-y divide-[#DFE7F2]">
@@ -1343,17 +1343,17 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
                     <div className="grid grid-cols-3 items-center text-xs">
                       <span
                         className={`font-mono tabular-nums text-sm ${
-                          winner === 'A' ? 'font-bold text-[#1554B8]' : 'font-medium text-[#172033]'
+                          winner === 'A' ? 'font-bold text-[#00F2FE]' : 'font-medium text-white'
                         }`}
                       >
                         {row.displayA}
                       </span>
-                      <span className="text-center text-[11px] font-semibold text-[#718096]">
+                      <span className="text-center text-[11px] font-semibold text-slate-400">
                         {row.label}
                       </span>
                       <span
                         className={`font-mono tabular-nums text-sm text-right ${
-                          winner === 'B' ? 'font-bold text-[#B45309]' : 'font-medium text-[#172033]'
+                          winner === 'B' ? 'font-bold text-amber-400' : 'font-medium text-white'
                         }`}
                       >
                         {row.displayB}
@@ -1362,7 +1362,7 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
 
                     {/* Opposing proportional bars */}
                     <div className="grid grid-cols-2 gap-1.5 h-2">
-                      <div className="bg-[#F2F6FC] rounded-l-full overflow-hidden flex justify-end">
+                      <div className="stadium-card/5 rounded-l-full overflow-hidden flex justify-end">
                         <div
                           style={{
                             width: `${pctA}%`,
@@ -1371,7 +1371,7 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
                           className="h-full rounded-l-full transition-all duration-300"
                         />
                       </div>
-                      <div className="bg-[#F2F6FC] rounded-r-full overflow-hidden flex justify-start">
+                      <div className="stadium-card/5 rounded-r-full overflow-hidden flex justify-start">
                         <div
                           style={{
                             width: `${pctB}%`,
@@ -1387,18 +1387,18 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
             </div>
 
             {onSelectPlayerProfile && (
-              <div className="bg-[#F2F6FC] px-4 py-3 border-t border-[#DFE7F2] flex flex-wrap items-center justify-between gap-2">
+              <div className="stadium-card/5 px-4 py-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-2">
                 <button
                   type="button"
                   onClick={() => onSelectPlayerProfile(playerA)}
-                  className="text-xs font-bold text-[#1554B8] hover:underline cursor-pointer min-h-[36px]"
+                  className="text-xs font-bold text-[#00F2FE] hover:underline cursor-pointer min-h-[36px]"
                 >
                   Open {playerA.fullName} Profile →
                 </button>
                 <button
                   type="button"
                   onClick={() => onSelectPlayerProfile(playerB)}
-                  className="text-xs font-bold text-[#B45309] hover:underline cursor-pointer min-h-[36px]"
+                  className="text-xs font-bold text-amber-400 hover:underline cursor-pointer min-h-[36px]"
                 >
                   Open {playerB.fullName} Profile →
                 </button>
@@ -1415,42 +1415,42 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
           onClick={() => setPickerSlot(null)}
         >
           <div
-            className="bg-white w-full sm:max-w-md rounded-t-3xl sm:rounded-2xl border border-[#DFE7F2] shadow-2xl max-h-[82vh] flex flex-col overflow-hidden"
+            className="stadium-card w-full sm:max-w-md rounded-t-3xl sm:rounded-2xl border border-white/10 shadow-2xl max-h-[82vh] flex flex-col overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="px-4 py-3.5 border-b border-[#DFE7F2] flex items-center justify-between">
+            <div className="px-4 py-3.5 border-b border-white/10 flex items-center justify-between">
               <div>
-                <h3 className="font-bold text-sm text-[#172033]">
+                <h3 className="font-bold text-sm text-white">
                   Select Player {pickerSlot}
                 </h3>
-                <p className="text-[11px] text-[#718096]">
+                <p className="text-[11px] text-slate-400">
                   Choose from {players.length} registered players
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setPickerSlot(null)}
-                className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl text-[#718096] hover:text-[#172033] hover:bg-[#F2F6FC] cursor-pointer"
+                className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl text-slate-400 hover:text-white hover:stadium-card/5 cursor-pointer"
                 aria-label="Close player picker"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="p-3 border-b border-[#DFE7F2] space-y-2.5 bg-[#F2F6FC]">
+            <div className="p-3 border-b border-white/10 space-y-2.5 stadium-card/5">
               <div className="relative">
-                <Search className="w-4 h-4 text-[#718096] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
                   type="text"
                   autoFocus
                   value={pickerSearch}
                   onChange={(e) => setPickerSearch(e.target.value)}
                   placeholder="Search player name..."
-                  className="w-full bg-white border border-[#DFE7F2] rounded-xl pl-9 pr-3 py-2.5 text-xs text-[#172033] placeholder-[#718096] focus:outline-none focus:border-[#1554B8]"
+                  className="w-full stadium-card border border-white/10 rounded-xl pl-9 pr-3 py-2.5 text-xs text-white placeholder-[#718096] focus:outline-none focus:border-[#1554B8]"
                 />
               </div>
 
-              <div className="grid grid-cols-4 gap-1 p-1 bg-white border border-[#DFE7F2] rounded-xl text-[11px] font-semibold">
+              <div className="grid grid-cols-4 gap-1 p-1 stadium-card border border-white/10 rounded-xl text-[11px] font-semibold">
                 {(
                   [
                     { id: 'all', label: 'All' },
@@ -1466,7 +1466,7 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
                     className={`py-1.5 rounded-lg cursor-pointer transition-colors ${
                       roleFilter === rf.id
                         ? 'bg-[#1554B8] text-white font-bold'
-                        : 'text-[#718096] hover:text-[#172033]'
+                        : 'text-slate-400 hover:text-white'
                     }`}
                   >
                     {rf.label}
@@ -1477,7 +1477,7 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
 
             <div className="flex-1 overflow-y-auto divide-y divide-[#DFE7F2]">
               {pickerPlayers.length === 0 ? (
-                <div className="p-8 text-center text-xs text-[#718096]">
+                <div className="p-8 text-center text-xs text-slate-400">
                   No players match "{pickerSearch}".
                 </div>
               ) : (
@@ -1495,7 +1495,7 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
                       type="button"
                       onClick={() => handlePickPlayer(p)}
                       className={`w-full px-4 py-3 flex items-center justify-between gap-3 text-left transition-colors cursor-pointer min-h-[60px] ${
-                        isCurrentSlot ? 'bg-[#EAF2FF]' : 'hover:bg-[#F2F6FC]'
+                        isCurrentSlot ? 'bg-[#00F2FE]/15' : 'hover:stadium-card/5'
                       }`}
                     >
                       <div className="flex items-center gap-3 min-w-0">
@@ -1505,10 +1505,10 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
                           sizeClass="w-10 h-10"
                         />
                         <div className="min-w-0">
-                          <div className="font-bold text-xs sm:text-sm text-[#172033] truncate">
+                          <div className="font-bold text-xs sm:text-sm text-white truncate">
                             {p.fullName}
                           </div>
-                          <div className="text-[11px] text-[#718096] truncate">
+                          <div className="text-[11px] text-slate-400 truncate">
                             {formatRoleLabel(p.playingRole)} · {p.career?.runs || 0} R · {p.career?.wickets || 0} W
                           </div>
                         </div>
@@ -1516,13 +1516,13 @@ export const PlayerComparison: React.FC<PlayerComparisonProps> = ({
 
                       <div className="shrink-0 text-[11px] font-semibold">
                         {isCurrentSlot ? (
-                          <span className="text-[#1554B8] flex items-center gap-1">
+                          <span className="text-[#00F2FE] flex items-center gap-1">
                             <UserCheck className="w-3.5 h-3.5" /> Selected
                           </span>
                         ) : isOtherSlot ? (
-                          <span className="text-[#718096]">Swap</span>
+                          <span className="text-slate-400">Swap</span>
                         ) : (
-                          <span className="text-[#1554B8]">Select</span>
+                          <span className="text-[#00F2FE]">Select</span>
                         )}
                       </div>
                     </button>

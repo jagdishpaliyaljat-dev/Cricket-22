@@ -70,9 +70,9 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
   if (!match) {
     return (
       <div className="max-w-md mx-auto px-4 py-6 space-y-4 animate-pulse">
-        <div className="h-12 bg-[#EAF2FF] rounded-2xl w-full" />
-        <div className="h-48 bg-[#EAF2FF] rounded-3xl w-full" />
-        <div className="h-32 bg-[#EAF2FF] rounded-2xl w-full" />
+        <div className="h-12 bg-[#131E32]/90 rounded-2xl w-full" />
+        <div className="h-48 bg-[#131E32]/90 rounded-3xl w-full" />
+        <div className="h-32 bg-[#131E32]/90 rounded-2xl w-full" />
       </div>
     );
   }
@@ -379,18 +379,18 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
   const team2Squad = match.teamB.playerIds.map((id) => playersMap[id] || { id, fullName: `Player ${id.slice(-4)}` });
 
   return (
-    <div className="space-y-3.5 max-w-md mx-auto px-4 pb-8 text-[#172033] relative">
+    <div className="space-y-3.5 max-w-md mx-auto px-4 pb-8 text-white relative">
       {/* Toast Notice for Copied Link */}
       {copiedToast && (
-        <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-[#1554B8] text-white px-4 py-2.5 rounded-2xl shadow-xl flex items-center gap-2 text-xs font-bold border border-white/20 animate-in fade-in slide-in-from-top duration-200">
-          <CheckCircle className="w-4 h-4 text-[#21864A] bg-white rounded-full p-0.5 shrink-0" />
+        <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-gradient-to-r from-[#0F1E36] to-[#13284C] text-white px-4 py-2.5 rounded-2xl shadow-xl flex items-center gap-2 text-xs font-bold border border-white/20 animate-in fade-in slide-in-from-top duration-200">
+          <CheckCircle className="w-4 h-4 text-emerald-400 stadium-card rounded-full p-0.5 shrink-0" />
           <span>Match info copied to clipboard! (मैच की जानकारी कॉपी हो गई)</span>
         </div>
       )}
 
       {/* Toast Notice for MOTM Nomination */}
       {motmToast && (
-        <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-[#1554B8] text-white px-4 py-2.5 rounded-2xl shadow-xl flex items-center gap-2 text-xs font-bold border border-white/20 animate-in fade-in slide-in-from-top duration-200">
+        <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-gradient-to-r from-[#0F1E36] to-[#13284C] text-white px-4 py-2.5 rounded-2xl shadow-xl flex items-center gap-2 text-xs font-bold border border-white/20 animate-in fade-in slide-in-from-top duration-200">
           <Award className="w-4 h-4 text-amber-300 shrink-0" />
           <span>Man of the Match nominated successfully! (मैन ऑफ द मैच मनोनीत हुआ)</span>
         </div>
@@ -402,20 +402,20 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
       </div>
 
       {/* ================= TOP HEADER ================= */}
-      <div className="flex items-center justify-between pt-1 pb-1 text-[#172033] border-b border-[#DFE7F2]">
+      <div className="flex items-center justify-between pt-1 pb-1 text-white border-b border-white/10">
         <button
           onClick={onBack}
-          className="p-1.5 -ml-1 text-[#172033] hover:text-[#1554B8] rounded-lg transition-colors cursor-pointer"
+          className="p-1.5 -ml-1 text-white hover:text-[#00F2FE] rounded-lg transition-colors cursor-pointer"
           title="Back to Matches"
         >
           <ArrowLeft className="w-5 h-5 stroke-[2.5]" />
         </button>
 
         <div className="text-center min-w-0 flex-1 px-2 truncate">
-          <h2 className="font-sans font-bold text-base text-[#172033] leading-tight truncate">
+          <h2 className="font-sans font-bold text-base text-white leading-tight truncate">
             {match.title}
           </h2>
-          <p className="text-[11px] text-[#718096] font-medium leading-tight mt-0.5 truncate">
+          <p className="text-[11px] text-slate-400 font-medium leading-tight mt-0.5 truncate">
             {match.playersPerTeam}v{match.playersPerTeam} • {match.oversPerInnings} Overs •{' '}
             {match.status.toUpperCase()}
           </p>
@@ -425,7 +425,7 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
           {match.status === 'completed' && (
             <button
               onClick={handleShareImage}
-              className="p-1.5 text-[#172033] hover:text-[#1554B8] rounded-lg transition-colors cursor-pointer"
+              className="p-1.5 text-white hover:text-[#00F2FE] rounded-lg transition-colors cursor-pointer"
               title="Share Result Image"
             >
               <ImageIcon className="w-4.5 h-4.5 stroke-[2]" />
@@ -433,37 +433,37 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
           )}
           <button
             onClick={handleShare}
-            className="p-1.5 text-[#172033] hover:text-[#1554B8] rounded-lg transition-colors cursor-pointer"
+            className="p-1.5 text-white hover:text-[#00F2FE] rounded-lg transition-colors cursor-pointer"
             title="Share Match / Copy Link"
           >
             <Share2 className="w-4.5 h-4.5 stroke-[2]" />
           </button>
           <button
             onClick={handleCopySummary}
-            className="p-1.5 text-[#172033] hover:text-[#1554B8] rounded-lg transition-colors cursor-pointer"
+            className="p-1.5 text-white hover:text-[#00F2FE] rounded-lg transition-colors cursor-pointer"
             title="Copy Match Summary"
           >
             <Copy className="w-4.5 h-4.5 stroke-[2]" />
           </button>
           <button
             onClick={() => setShowMenu(!showMenu)}
-            className="p-1.5 text-[#172033] hover:text-[#1554B8] rounded-lg transition-colors cursor-pointer"
+            className="p-1.5 text-white hover:text-[#00F2FE] rounded-lg transition-colors cursor-pointer"
             title="More options"
           >
             <MoreVertical className="w-4.5 h-4.5 stroke-[2]" />
           </button>
 
           {showMenu && (
-            <div className="absolute right-0 top-8 z-50 bg-white border border-[#DFE7F2] rounded-xl shadow-xl py-1 w-44 text-xs text-[#172033]">
+            <div className="absolute right-0 top-8 z-50 stadium-card border border-white/10 rounded-xl shadow-xl py-1 w-44 text-xs text-white">
               {onEditMatch && (
                 <button
                   onClick={() => {
                     setShowMenu(false);
                     onEditMatch(match);
                   }}
-                  className="w-full text-left px-3 py-2 hover:bg-[#EAF2FF] flex items-center gap-2"
+                  className="w-full text-left px-3 py-2 hover:bg-[#131E32]/90 flex items-center gap-2"
                 >
-                  <Edit3 className="w-3.5 h-3.5 text-[#1554B8]" />
+                  <Edit3 className="w-3.5 h-3.5 text-[#00F2FE]" />
                   <span>Edit Match</span>
                 </button>
               )}
@@ -472,9 +472,9 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
                   setShowMenu(false);
                   handleShare();
                 }}
-                className="w-full text-left px-3 py-2 hover:bg-[#EAF2FF] flex items-center gap-2"
+                className="w-full text-left px-3 py-2 hover:bg-[#131E32]/90 flex items-center gap-2"
               >
-                <Share2 className="w-3.5 h-3.5 text-[#1554B8]" />
+                <Share2 className="w-3.5 h-3.5 text-[#00F2FE]" />
                 <span>Share Match Link</span>
               </button>
               <button
@@ -482,9 +482,9 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
                   setShowMenu(false);
                   handleCopySummary();
                 }}
-                className="w-full text-left px-3 py-2 hover:bg-[#EAF2FF] flex items-center gap-2"
+                className="w-full text-left px-3 py-2 hover:bg-[#131E32]/90 flex items-center gap-2"
               >
-                <Copy className="w-3.5 h-3.5 text-[#1554B8]" />
+                <Copy className="w-3.5 h-3.5 text-[#00F2FE]" />
                 <span>Copy Summary (सारांश)</span>
               </button>
               <button
@@ -492,9 +492,9 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
                   setShowMenu(false);
                   setActiveTab('scorecard');
                 }}
-                className="w-full text-left px-3 py-2 hover:bg-[#EAF2FF] flex items-center gap-2"
+                className="w-full text-left px-3 py-2 hover:bg-[#131E32]/90 flex items-center gap-2"
               >
-                <Trophy className="w-3.5 h-3.5 text-[#1554B8]" />
+                <Trophy className="w-3.5 h-3.5 text-[#00F2FE]" />
                 <span>Full Scorecard</span>
               </button>
               {onDeleteMatch && (
@@ -503,7 +503,7 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
                     setShowMenu(false);
                     setShowDeleteConfirm(true);
                   }}
-                  className="w-full text-left px-3 py-2 hover:bg-red-50 text-[#D94343] flex items-center gap-2 font-semibold"
+                  className="w-full text-left px-3 py-2 hover:bg-red-50 text-[#EF4444] flex items-center gap-2 font-semibold"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                   <span>Delete Match (मैच हटाएं)</span>
@@ -516,20 +516,20 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
 
       {/* SCHEDULED MATCH ADMIN / MANAGEMENT ACTION BAR */}
       {match.status === 'scheduled' && (
-        <div className="bg-white border border-[#DFE7F2] rounded-2xl p-3 shadow-xs space-y-2 text-[#172033]">
+        <div className="stadium-card border border-white/10 rounded-2xl p-3 shadow-xs space-y-2 text-white">
           <div className="flex items-center justify-between text-xs">
-            <span className="font-bold text-[#1554B8] flex items-center gap-1">
+            <span className="font-bold text-[#00F2FE] flex items-center gap-1">
               <Calendar className="w-3.5 h-3.5" />
               <span>Scheduled Match (शेड्यूल किया गया मैच)</span>
             </span>
-            <span className="text-[10px] text-[#718096] font-mono">ID: {match.id.slice(-6)}</span>
+            <span className="text-[10px] text-slate-400 font-mono">ID: {match.id.slice(-6)}</span>
           </div>
           <div className="grid grid-cols-2 gap-2 pt-1">
             {onEditMatch && (
               <button
                 type="button"
                 onClick={() => onEditMatch(match)}
-                className="py-2 px-3 bg-[#EAF2FF] hover:bg-[#dbe7fd] text-[#1554B8] border border-[#DFE7F2] font-bold text-xs rounded-xl flex items-center justify-center gap-1.5 cursor-pointer transition-colors shadow-xs"
+                className="py-2 px-3 bg-[#131E32]/90 hover:stadium-card/15 text-[#00F2FE] border border-white/10 font-bold text-xs rounded-xl flex items-center justify-center gap-1.5 cursor-pointer transition-colors shadow-xs"
               >
                 <Edit3 className="w-3.5 h-3.5" />
                 <span>मैच एडिट करें (Edit)</span>
@@ -539,7 +539,7 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
               <button
                 type="button"
                 onClick={() => setShowDeleteConfirm(true)}
-                className="py-2 px-3 bg-red-50 hover:bg-red-100 border border-red-200 text-[#D94343] font-bold text-xs rounded-xl flex items-center justify-center gap-1.5 cursor-pointer transition-colors shadow-xs"
+                className="py-2 px-3 bg-red-50 hover:bg-red-100 border border-red-200 text-[#EF4444] font-bold text-xs rounded-xl flex items-center justify-center gap-1.5 cursor-pointer transition-colors shadow-xs"
               >
                 <Trash2 className="w-3.5 h-3.5" />
                 <span>मैच डिलीट करें (Delete)</span>
@@ -550,7 +550,7 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
       )}
 
       {/* ================= TABS ================= */}
-      <div className="grid grid-cols-4 gap-1 p-1 bg-[#EAF2FF] border border-[#DFE7F2] rounded-xl text-xs font-semibold select-none">
+      <div className="grid grid-cols-4 gap-1 p-1 bg-[#131E32]/90 border border-white/10 rounded-xl text-xs font-semibold select-none">
         {[
           { id: 'live' as const, label: 'Live' },
           { id: 'scorecard' as const, label: 'Scorecard' },
@@ -564,8 +564,8 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
               onClick={() => setActiveTab(tab.id)}
               className={`py-1.5 px-2 rounded-lg text-center transition-all cursor-pointer ${
                 isActive
-                  ? 'bg-[#1554B8] text-white font-bold shadow-xs'
-                  : 'text-[#718096] hover:text-[#1554B8]'
+                  ? 'bg-gradient-to-r from-[#0F1E36] to-[#13284C] text-white font-bold shadow-xs'
+                  : 'text-slate-400 hover:text-[#00F2FE]'
               }`}
             >
               {tab.label}
@@ -578,12 +578,12 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
       {activeTab === 'live' && (
         <div className="space-y-3.5 animate-in fade-in duration-150">
           {/* LIVE SCORE HERO */}
-          <div className="bg-[#1554B8] border border-[#0B3F91] rounded-2xl p-3.5 space-y-3 relative overflow-hidden shadow-md text-white">
+          <div className="bg-gradient-to-r from-[#0F1E36] to-[#13284C] border border-white/10 rounded-2xl p-3.5 space-y-3 relative overflow-hidden shadow-md text-white">
             <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-black/20 pointer-events-none" />
 
             <div className="relative flex items-center justify-between text-xs">
-              <span className="bg-[#21864A] text-white font-bold text-[9.5px] px-2 py-0.5 rounded-full flex items-center gap-1 shrink-0 uppercase tracking-wider shadow-xs">
-                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+              <span className="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-white font-bold text-[9.5px] px-2 py-0.5 rounded-full flex items-center gap-1 shrink-0 uppercase tracking-wider shadow-xs">
+                <span className="w-1.5 h-1.5 rounded-full stadium-card animate-pulse" />
                 {match.status === 'live' ? 'LIVE' : match.status.toUpperCase()}
               </span>
               <span className="bg-[#0B3F91]/80 border border-white/20 text-white font-mono text-[11px] px-2.5 py-0.5 rounded-md">
@@ -650,13 +650,13 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
           </div>
 
           {/* WIN PROBABILITY CARD */}
-          <div className="bg-white rounded-2xl p-3.5 shadow-xs border border-[#DFE7F2] text-[#172033] space-y-2.5">
+          <div className="stadium-card rounded-2xl p-3.5 shadow-xs border border-white/10 text-white space-y-2.5">
             <div className="flex items-center justify-between text-xs">
-              <span className="font-bold text-[#172033] flex items-center gap-1.5">
-                <TrendingUp className="w-4 h-4 text-[#1554B8]" />
+              <span className="font-bold text-white flex items-center gap-1.5">
+                <TrendingUp className="w-4 h-4 text-[#00F2FE]" />
                 <span>Win Probability (जीतने की संभावना)</span>
               </span>
-              <span className="text-[10px] text-[#1554B8] font-bold bg-[#EAF2FF] px-2 py-0.5 rounded-full border border-[#DFE7F2]">
+              <span className="text-[10px] text-[#00F2FE] font-bold bg-[#131E32]/90 px-2 py-0.5 rounded-full border border-white/10">
                 {match.status === 'completed'
                   ? 'Final Result'
                   : match.status === 'live'
@@ -668,12 +668,12 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
             {/* TEAM PROBABILITY BREAKDOWN */}
             <div className="space-y-2">
               <div className="flex items-center justify-between text-xs font-bold font-mono">
-                <div className="flex items-center gap-1.5 text-[#1554B8] truncate max-w-[48%]">
+                <div className="flex items-center gap-1.5 text-[#00F2FE] truncate max-w-[48%]">
                   <TeamBadge teamNameOrKey={match.teamA.name} size="sm" />
                   <span className="truncate">{match.teamA.name}</span>
                   <span className="text-sm font-black">{winProb.teamAWinProb}%</span>
                 </div>
-                <div className="flex items-center gap-1.5 text-[#21864A] truncate max-w-[48%] justify-end">
+                <div className="flex items-center gap-1.5 text-emerald-400 truncate max-w-[48%] justify-end">
                   <span className="text-sm font-black">{winProb.teamBWinProb}%</span>
                   <span className="truncate">{match.teamB.name}</span>
                   <TeamBadge teamNameOrKey={match.teamB.name} size="sm" />
@@ -681,18 +681,18 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
               </div>
 
               {/* DYNAMIC DUAL BAR */}
-              <div className="h-3 w-full bg-[#EAF2FF] rounded-full overflow-hidden flex border border-[#DFE7F2] p-0.5 relative">
+              <div className="h-3 w-full bg-[#131E32]/90 rounded-full overflow-hidden flex border border-white/10 p-0.5 relative">
                 <div
-                  className="h-full bg-[#1554B8] rounded-l-full transition-all duration-500 ease-out flex items-center justify-end pr-1 text-[8px] text-white font-bold font-mono overflow-hidden"
+                  className="h-full bg-gradient-to-r from-[#0F1E36] to-[#13284C] rounded-l-full transition-all duration-500 ease-out flex items-center justify-end pr-1 text-[8px] text-white font-bold font-mono overflow-hidden"
                   style={{ width: `${winProb.teamAWinProb}%` }}
                 />
                 <div
-                  className="h-full bg-[#21864A] rounded-r-full transition-all duration-500 ease-out flex items-center justify-start pl-1 text-[8px] text-white font-bold font-mono overflow-hidden"
+                  className="h-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-r-full transition-all duration-500 ease-out flex items-center justify-start pl-1 text-[8px] text-white font-bold font-mono overflow-hidden"
                   style={{ width: `${winProb.teamBWinProb}%` }}
                 />
               </div>
 
-              <div className="flex items-center justify-between text-[10.5px] text-[#718096] pt-0.5">
+              <div className="flex items-center justify-between text-[10.5px] text-slate-400 pt-0.5">
                 <span>
                   {match.status === 'live' && winProb.battingTeamId
                     ? `Batting: ${
@@ -717,10 +717,10 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
 
           {/* MAN OF THE MATCH CARD (for completed matches or when nominated) */}
           {(match.status === 'completed' || potmPlayer) && (
-            <div className="bg-white rounded-2xl p-3.5 shadow-xs border border-[#DFE7F2] text-[#172033] space-y-3 relative overflow-hidden">
+            <div className="stadium-card rounded-2xl p-3.5 shadow-xs border border-white/10 text-white space-y-3 relative overflow-hidden">
               <div className="flex items-center justify-between text-xs">
-                <span className="font-bold text-[#172033] flex items-center gap-1.5">
-                  <Award className="w-4.5 h-4.5 text-[#1554B8]" />
+                <span className="font-bold text-white flex items-center gap-1.5">
+                  <Award className="w-4.5 h-4.5 text-[#00F2FE]" />
                   <span>Man of the Match (मैन ऑफ द मैच)</span>
                 </span>
                 {canNominateMotm && (
@@ -730,7 +730,7 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
                       setSelectedMotmPlayerId(potmPlayerId || '');
                       setShowMotmModal(true);
                     }}
-                    className="px-2.5 py-1 bg-[#EAF2FF] hover:bg-[#dbe7fd] border border-[#DFE7F2] text-[#1554B8] rounded-xl text-[11px] font-bold transition-colors cursor-pointer flex items-center gap-1 shadow-2xs"
+                    className="px-2.5 py-1 bg-[#131E32]/90 hover:stadium-card/15 border border-white/10 text-[#00F2FE] rounded-xl text-[11px] font-bold transition-colors cursor-pointer flex items-center gap-1 shadow-2xs"
                   >
                     <Edit3 className="w-3 h-3" />
                     <span>{potmPlayer ? 'Edit Nomination (बदलाव)' : 'Nominate (मनोनीत करें)'}</span>
@@ -739,8 +739,8 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
               </div>
 
               {potmPlayer ? (
-                <div className="bg-[#EAF2FF] border border-[#DFE7F2] rounded-xl p-3 flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-[#1554B8] text-white flex items-center justify-center font-black text-sm shrink-0 border-2 border-white shadow-xs overflow-hidden">
+                <div className="bg-[#131E32]/90 border border-white/10 rounded-xl p-3 flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#0F1E36] to-[#13284C] text-white flex items-center justify-center font-black text-sm shrink-0 border-2 border-white shadow-xs overflow-hidden">
                     {potmPlayer.photoUrl ? (
                       <img
                         src={potmPlayer.photoUrl}
@@ -754,18 +754,18 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
 
                   <div className="min-w-0 flex-1 space-y-0.5">
                     <div className="flex items-center gap-1.5">
-                      <h4 className="font-bold text-sm text-[#172033] truncate leading-tight">
+                      <h4 className="font-bold text-sm text-white truncate leading-tight">
                         {potmPlayer.fullName}
                       </h4>
-                      <span className="bg-[#1554B8] text-white font-black text-[9px] px-1.5 py-0.2 rounded-md uppercase shrink-0">
+                      <span className="bg-gradient-to-r from-[#0F1E36] to-[#13284C] text-white font-black text-[9px] px-1.5 py-0.2 rounded-md uppercase shrink-0">
                         POTM
                       </span>
                     </div>
-                    <p className="text-[11px] text-[#718096] font-medium truncate">
+                    <p className="text-[11px] text-slate-400 font-medium truncate">
                       {match.teamA.playerIds.includes(potmPlayer.id) ? match.teamA.name : match.teamB.name}
                     </p>
 
-                    <div className="flex flex-wrap items-center gap-2 pt-0.5 text-[11px] font-mono font-bold text-[#1554B8]">
+                    <div className="flex flex-wrap items-center gap-2 pt-0.5 text-[11px] font-mono font-bold text-[#00F2FE]">
                       {potmTotalRuns > 0 && (
                         <span>🏏 {potmTotalRuns} Runs ({potmTotalBalls}b)</span>
                       )}
@@ -779,21 +779,21 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
                   </div>
                 </div>
               ) : (
-                <div className="text-center py-3 bg-[#F2F6FC] border border-[#DFE7F2] rounded-xl space-y-2">
-                  <p className="text-xs text-[#718096] font-medium">
+                <div className="text-center py-3 stadium-card/5 border border-white/10 rounded-xl space-y-2">
+                  <p className="text-xs text-slate-400 font-medium">
                     No Man of the Match nominated yet for this completed match.
                   </p>
                   {canNominateMotm ? (
                     <button
                       type="button"
                       onClick={() => setShowMotmModal(true)}
-                      className="py-1.5 px-3.5 bg-[#1554B8] hover:bg-[#0B3F91] text-white font-bold text-xs rounded-xl transition-all shadow-xs inline-flex items-center gap-1.5 cursor-pointer"
+                      className="py-1.5 px-3.5 bg-gradient-to-r from-[#0F1E36] to-[#13284C] hover:bg-[#0B3F91] text-white font-bold text-xs rounded-xl transition-all shadow-xs inline-flex items-center gap-1.5 cursor-pointer"
                     >
                       <Award className="w-3.5 h-3.5" />
                       <span>Nominate Man of the Match (मैन ऑफ द मैच मनोनीत करें)</span>
                     </button>
                   ) : (
-                    <p className="text-[10.5px] text-[#718096]">Admins or scorers will nominate the match awardee.</p>
+                    <p className="text-[10.5px] text-slate-400">Admins or scorers will nominate the match awardee.</p>
                   )}
                 </div>
               )}
@@ -804,28 +804,28 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
           {(striker || nonStriker || bowler) ? (
             <div className="grid grid-cols-1 xs:grid-cols-2 gap-2.5">
               {/* BATTING */}
-              <div className="bg-white rounded-2xl p-3.5 shadow-xs border border-[#DFE7F2] text-[#172033] space-y-2">
-                <span className="text-[10.5px] font-bold text-[#718096] uppercase tracking-wider block">
+              <div className="stadium-card rounded-2xl p-3.5 shadow-xs border border-white/10 text-white space-y-2">
+                <span className="text-[10.5px] font-bold text-slate-400 uppercase tracking-wider block">
                   Current Batters
                 </span>
                 <div className="space-y-2">
                   {striker && (
                     <div className="flex items-center justify-between gap-1 text-xs">
-                      <span className="font-bold text-[#172033] truncate flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-[#21864A]" />
+                      <span className="font-bold text-white truncate flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30" />
                         {striker.fullName} *
                       </span>
-                      <span className="font-mono font-bold text-xs text-[#1554B8]">
+                      <span className="font-mono font-bold text-xs text-[#00F2FE]">
                         {strikerStat ? `${strikerStat.runs} (${strikerStat.balls})` : '0 (0)'}
                       </span>
                     </div>
                   )}
                   {nonStriker && (
                     <div className="flex items-center justify-between gap-1 text-xs">
-                      <span className="font-bold text-[#172033] truncate">
+                      <span className="font-bold text-white truncate">
                         {nonStriker.fullName}
                       </span>
-                      <span className="font-mono font-bold text-xs text-[#718096]">
+                      <span className="font-mono font-bold text-xs text-slate-400">
                         {nonStrikerStat ? `${nonStrikerStat.runs} (${nonStrikerStat.balls})` : '0 (0)'}
                       </span>
                     </div>
@@ -834,21 +834,21 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
               </div>
 
               {/* BOWLING */}
-              <div className="bg-white rounded-2xl p-3.5 shadow-xs border border-[#DFE7F2] text-[#172033] space-y-2 flex flex-col justify-between">
-                <span className="text-[10.5px] font-bold text-[#718096] uppercase tracking-wider block">
+              <div className="stadium-card rounded-2xl p-3.5 shadow-xs border border-white/10 text-white space-y-2 flex flex-col justify-between">
+                <span className="text-[10.5px] font-bold text-slate-400 uppercase tracking-wider block">
                   Current Bowler
                 </span>
                 {bowler ? (
                   <div className="space-y-1">
-                    <div className="font-bold text-xs text-[#172033] truncate">{bowler.fullName}</div>
-                    <div className="text-[11px] font-mono text-[#1554B8] font-bold">
+                    <div className="font-bold text-xs text-white truncate">{bowler.fullName}</div>
+                    <div className="text-[11px] font-mono text-[#00F2FE] font-bold">
                       {bowlerStat
                         ? `${bowlerStat.overs}.${bowlerStat.balls} - ${bowlerStat.runsConceded} - ${bowlerStat.wickets}`
                         : '0.0 - 0 - 0'}
                     </div>
                   </div>
                 ) : (
-                  <div className="text-xs text-[#718096]">No bowler selected</div>
+                  <div className="text-xs text-slate-400">No bowler selected</div>
                 )}
               </div>
             </div>
@@ -861,21 +861,21 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
                 if (onOpenScorecardModal) onOpenScorecardModal(match);
                 else setActiveTab('scorecard');
               }}
-              className="py-2.5 px-3 bg-[#1554B8] hover:bg-[#0B3F91] text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer shadow-xs transition-all active:scale-[0.99]"
+              className="py-2.5 px-3 bg-gradient-to-r from-[#0F1E36] to-[#13284C] hover:bg-[#0B3F91] text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer shadow-xs transition-all active:scale-[0.99]"
             >
               <Trophy className="w-4 h-4 stroke-[2.2]" />
               <span>Full Scorecard</span>
             </button>
             <button
               onClick={handleShare}
-              className="py-2.5 px-3 bg-[#EAF2FF] hover:bg-[#dbe7fd] border border-[#DFE7F2] text-[#1554B8] rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer shadow-xs transition-all active:scale-[0.99]"
+              className="py-2.5 px-3 bg-[#131E32]/90 hover:stadium-card/15 border border-white/10 text-[#00F2FE] rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer shadow-xs transition-all active:scale-[0.99]"
             >
               <Share2 className="w-4 h-4 stroke-[2.2]" />
               <span>Share Match</span>
             </button>
             <button
               onClick={handleCopySummary}
-              className="py-2.5 px-3 bg-[#EAF2FF] hover:bg-[#dbe7fd] border border-[#DFE7F2] text-[#1554B8] rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer shadow-xs transition-all active:scale-[0.99]"
+              className="py-2.5 px-3 bg-[#131E32]/90 hover:stadium-card/15 border border-white/10 text-[#00F2FE] rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer shadow-xs transition-all active:scale-[0.99]"
             >
               <Copy className="w-4 h-4 stroke-[2.2]" />
               <span>Copy Summary</span>
@@ -888,50 +888,50 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
       {activeTab === 'scorecard' && (
         <div className="space-y-3.5 animate-in fade-in duration-150">
           {/* Innings 1 Card */}
-          <div className="bg-white rounded-2xl p-3.5 shadow-xs border border-[#DFE7F2] space-y-2.5">
-            <div className="flex items-center justify-between border-b border-[#DFE7F2] pb-2">
-              <span className="font-bold text-xs text-[#172033]">
+          <div className="stadium-card rounded-2xl p-3.5 shadow-xs border border-white/10 space-y-2.5">
+            <div className="flex items-center justify-between border-b border-white/10 pb-2">
+              <span className="font-bold text-xs text-white">
                 1st Innings: {match.innings1?.teamName || match.teamA.name}
               </span>
-              <span className="font-mono font-bold text-sm text-[#1554B8]">
+              <span className="font-mono font-bold text-sm text-[#00F2FE]">
                 {match.innings1 ? `${match.innings1.totalRuns}/${match.innings1.wickets}` : 'Not Started'}
               </span>
             </div>
             {match.innings1?.batters && Object.values(match.innings1.batters).length > 0 ? (
               <div className="space-y-1.5 text-xs">
                 {Object.values(match.innings1.batters).map((b) => (
-                  <div key={b.playerId} className="flex justify-between text-[#172033] py-0.5">
+                  <div key={b.playerId} className="flex justify-between text-white py-0.5">
                     <span className="truncate">{b.playerName}</span>
                     <span className="font-mono font-bold">{b.runs} ({b.balls})</span>
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="text-xs text-[#718096] py-1">No batting data recorded yet</div>
+              <div className="text-xs text-slate-400 py-1">No batting data recorded yet</div>
             )}
           </div>
 
           {/* Innings 2 Card */}
-          <div className="bg-white rounded-2xl p-3.5 shadow-xs border border-[#DFE7F2] space-y-2.5">
-            <div className="flex items-center justify-between border-b border-[#DFE7F2] pb-2">
-              <span className="font-bold text-xs text-[#172033]">
+          <div className="stadium-card rounded-2xl p-3.5 shadow-xs border border-white/10 space-y-2.5">
+            <div className="flex items-center justify-between border-b border-white/10 pb-2">
+              <span className="font-bold text-xs text-white">
                 2nd Innings: {match.innings2?.teamName || match.teamB.name}
               </span>
-              <span className="font-mono font-bold text-sm text-[#1554B8]">
+              <span className="font-mono font-bold text-sm text-[#00F2FE]">
                 {match.innings2 ? `${match.innings2.totalRuns}/${match.innings2.wickets}` : 'Not Started'}
               </span>
             </div>
             {match.innings2?.batters && Object.values(match.innings2.batters).length > 0 ? (
               <div className="space-y-1.5 text-xs">
                 {Object.values(match.innings2.batters).map((b) => (
-                  <div key={b.playerId} className="flex justify-between text-[#172033] py-0.5">
+                  <div key={b.playerId} className="flex justify-between text-white py-0.5">
                     <span className="truncate">{b.playerName}</span>
                     <span className="font-mono font-bold">{b.runs} ({b.balls})</span>
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="text-xs text-[#718096] py-1">No batting data recorded yet</div>
+              <div className="text-xs text-slate-400 py-1">No batting data recorded yet</div>
             )}
           </div>
         </div>
@@ -939,11 +939,11 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
 
       {/* ================= COMMENTARY TAB ================= */}
       {activeTab === 'commentary' && (
-        <div className="bg-white rounded-2xl p-4 shadow-xs border border-[#DFE7F2] space-y-3 animate-in fade-in duration-150">
-          <h3 className="font-bold text-xs uppercase tracking-wider text-[#718096]">
+        <div className="stadium-card rounded-2xl p-4 shadow-xs border border-white/10 space-y-3 animate-in fade-in duration-150">
+          <h3 className="font-bold text-xs uppercase tracking-wider text-slate-400">
             Ball-by-Ball Timeline
           </h3>
-          <p className="text-xs text-[#718096]">
+          <p className="text-xs text-slate-400">
             Real deliveries recorded via the Live Scoring Pad will stream dynamically in sequence.
           </p>
         </div>
@@ -953,31 +953,31 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
       {activeTab === 'info' && (
         <div className="space-y-3 animate-in fade-in duration-150">
           {/* Match Details */}
-          <div className="bg-white rounded-2xl p-3.5 shadow-xs border border-[#DFE7F2] space-y-2 text-xs">
-            <h3 className="font-bold text-sm text-[#172033] mb-1">Match Details</h3>
-            <div className="space-y-1.5 text-[#172033]">
-              <div className="flex justify-between border-b border-[#DFE7F2] pb-1">
-                <span className="text-[#718096]">Venue</span>
-                <span className="font-semibold text-[#172033]">{match.venue}</span>
+          <div className="stadium-card rounded-2xl p-3.5 shadow-xs border border-white/10 space-y-2 text-xs">
+            <h3 className="font-bold text-sm text-white mb-1">Match Details</h3>
+            <div className="space-y-1.5 text-white">
+              <div className="flex justify-between border-b border-white/10 pb-1">
+                <span className="text-slate-400">Venue</span>
+                <span className="font-semibold text-white">{match.venue}</span>
               </div>
-              <div className="flex justify-between border-b border-[#DFE7F2] pb-1">
-                <span className="text-[#718096]">Date & Time</span>
-                <span className="font-semibold text-[#172033]">
+              <div className="flex justify-between border-b border-white/10 pb-1">
+                <span className="text-slate-400">Date & Time</span>
+                <span className="font-semibold text-white">
                   {new Date(match.dateTime).toLocaleString()}
                 </span>
               </div>
-              <div className="flex justify-between border-b border-[#DFE7F2] pb-1">
-                <span className="text-[#718096]">Players per Team</span>
-                <span className="font-semibold text-[#172033]">{match.playersPerTeam} Players</span>
+              <div className="flex justify-between border-b border-white/10 pb-1">
+                <span className="text-slate-400">Players per Team</span>
+                <span className="font-semibold text-white">{match.playersPerTeam} Players</span>
               </div>
-              <div className="flex justify-between border-b border-[#DFE7F2] pb-1">
-                <span className="text-[#718096]">Overs per Innings</span>
-                <span className="font-semibold text-[#172033]">{match.oversPerInnings} Overs</span>
+              <div className="flex justify-between border-b border-white/10 pb-1">
+                <span className="text-slate-400">Overs per Innings</span>
+                <span className="font-semibold text-white">{match.oversPerInnings} Overs</span>
               </div>
               {match.toss && (
-                <div className="flex justify-between border-b border-[#DFE7F2] pb-1">
-                  <span className="text-[#718096]">Toss</span>
-                  <span className="font-semibold text-[#1554B8]">
+                <div className="flex justify-between border-b border-white/10 pb-1">
+                  <span className="text-slate-400">Toss</span>
+                  <span className="font-semibold text-[#00F2FE]">
                     {match.toss.winnerTeamId === match.teamA.id ? match.teamA.name : match.teamB.name} elected to {match.toss.decision}
                   </span>
                 </div>
@@ -986,14 +986,14 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
           </div>
 
           {/* Team Squads */}
-          <div className="bg-white rounded-2xl p-3.5 shadow-xs border border-[#DFE7F2] space-y-2.5 text-xs">
-            <h3 className="font-bold text-sm text-[#172033]">Team Squads</h3>
+          <div className="stadium-card rounded-2xl p-3.5 shadow-xs border border-white/10 space-y-2.5 text-xs">
+            <h3 className="font-bold text-sm text-white">Team Squads</h3>
             <div className="space-y-3">
               <div>
-                <span className="font-bold text-xs text-[#1554B8] block mb-1">{match.teamA.name}</span>
+                <span className="font-bold text-xs text-[#00F2FE] block mb-1">{match.teamA.name}</span>
                 <div className="flex flex-wrap gap-1.5">
                   {team1Squad.map((p) => (
-                    <span key={p.id} className="bg-[#F2F6FC] border border-[#DFE7F2] px-2 py-0.5 rounded-lg text-[#172033] text-[11px]">
+                    <span key={p.id} className="stadium-card/5 border border-white/10 px-2 py-0.5 rounded-lg text-white text-[11px]">
                       {p.fullName}
                     </span>
                   ))}
@@ -1001,10 +1001,10 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
               </div>
 
               <div>
-                <span className="font-bold text-xs text-[#1554B8] block mb-1">{match.teamB.name}</span>
+                <span className="font-bold text-xs text-[#00F2FE] block mb-1">{match.teamB.name}</span>
                 <div className="flex flex-wrap gap-1.5">
                   {team2Squad.map((p) => (
-                    <span key={p.id} className="bg-[#F2F6FC] border border-[#DFE7F2] px-2 py-0.5 rounded-lg text-[#172033] text-[11px]">
+                    <span key={p.id} className="stadium-card/5 border border-white/10 px-2 py-0.5 rounded-lg text-white text-[11px]">
                       {p.fullName}
                     </span>
                   ))}
@@ -1018,25 +1018,25 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
       {/* IN-APP DELETE MATCH CONFIRMATION MODAL */}
       {showDeleteConfirm && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto animate-in fade-in">
-          <div className="bg-white rounded-3xl p-5 max-w-sm w-full space-y-4 shadow-2xl border border-red-100 text-[#172033]">
-            <div className="w-12 h-12 rounded-2xl bg-red-50 text-[#D94343] flex items-center justify-center mx-auto">
+          <div className="stadium-card rounded-3xl p-5 max-w-sm w-full space-y-4 shadow-2xl border border-red-100 text-white">
+            <div className="w-12 h-12 rounded-2xl bg-red-50 text-[#EF4444] flex items-center justify-center mx-auto">
               <Trash2 className="w-6 h-6 stroke-[2.2]" />
             </div>
 
             <div className="text-center space-y-1">
-              <h3 className="font-display font-black text-lg text-[#172033]">
+              <h3 className="font-display font-black text-lg text-white">
                 Delete Scheduled Match?
               </h3>
-              <p className="text-xs text-[#718096]">
+              <p className="text-xs text-slate-400">
                 क्या आप वाकई इस शेड्यूल किए गए मैच "{match.title}" को हटाना चाहते हैं? यह क्रिया वापस नहीं ली जा सकती।
               </p>
             </div>
 
-            <div className="bg-[#F2F6FC] border border-[#DFE7F2] rounded-2xl p-3 text-xs space-y-1">
-              <div className="font-bold text-[#172033]">{match.title}</div>
-              <div className="text-[#1554B8] font-semibold flex items-center justify-between">
+            <div className="stadium-card/5 border border-white/10 rounded-2xl p-3 text-xs space-y-1">
+              <div className="font-bold text-white">{match.title}</div>
+              <div className="text-[#00F2FE] font-semibold flex items-center justify-between">
                 <span>{match.teamA.name}</span>
-                <span className="text-[#718096] text-[10px]">VS</span>
+                <span className="text-slate-400 text-[10px]">VS</span>
                 <span>{match.teamB.name}</span>
               </div>
             </div>
@@ -1046,7 +1046,7 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
                 type="button"
                 disabled={isDeleting}
                 onClick={() => setShowDeleteConfirm(false)}
-                className="py-2.5 px-4 bg-[#EAF2FF] hover:bg-[#dbe7fd] text-[#1554B8] font-bold text-xs rounded-xl cursor-pointer transition-colors"
+                className="py-2.5 px-4 bg-[#131E32]/90 hover:stadium-card/15 text-[#00F2FE] font-bold text-xs rounded-xl cursor-pointer transition-colors"
               >
                 रद्द करें (Cancel)
               </button>
@@ -1066,7 +1066,7 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
                     setIsDeleting(false);
                   }
                 }}
-                className="py-2.5 px-4 bg-[#D94343] hover:bg-red-700 text-white font-bold text-xs rounded-xl cursor-pointer transition-colors flex items-center justify-center gap-1.5 shadow-md"
+                className="py-2.5 px-4 bg-red-500/20 text-red-400 border border-red-500/30 hover:bg-red-700 text-white font-bold text-xs rounded-xl cursor-pointer transition-colors flex items-center justify-center gap-1.5 shadow-md"
               >
                 {isDeleting ? 'Deleting...' : 'हटाएं (Delete)'}
               </button>
@@ -1078,24 +1078,24 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
       {/* MAN OF THE MATCH NOMINATION MODAL */}
       {showMotmModal && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto animate-in fade-in">
-          <div className="bg-white rounded-3xl p-5 max-w-md w-full space-y-4 shadow-2xl border border-[#DFE7F2] text-[#172033] max-h-[90vh] flex flex-col">
+          <div className="stadium-card rounded-3xl p-5 max-w-md w-full space-y-4 shadow-2xl border border-white/10 text-white max-h-[90vh] flex flex-col">
             {/* Modal Header */}
-            <div className="flex items-start justify-between border-b border-[#DFE7F2] pb-3 shrink-0">
+            <div className="flex items-start justify-between border-b border-white/10 pb-3 shrink-0">
               <div className="space-y-0.5">
                 <div className="flex items-center gap-2">
-                  <Award className="w-5 h-5 text-[#1554B8]" />
-                  <h3 className="font-display font-black text-base text-[#172033]">
+                  <Award className="w-5 h-5 text-[#00F2FE]" />
+                  <h3 className="font-display font-black text-base text-white">
                     Nominate Man of the Match
                   </h3>
                 </div>
-                <p className="text-xs text-[#718096]">
+                <p className="text-xs text-slate-400">
                   मैन ऑफ द मैच खिलाड़ी चुनें ({match.title})
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setShowMotmModal(false)}
-                className="p-1 text-[#718096] hover:text-[#172033] rounded-lg cursor-pointer"
+                className="p-1 text-slate-400 hover:text-white rounded-lg cursor-pointer"
               >
                 ✕
               </button>
@@ -1104,24 +1104,24 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
             {/* Search & Team Filter */}
             <div className="space-y-2 shrink-0">
               <div className="relative">
-                <Search className="w-4 h-4 text-[#718096] absolute left-3 top-2.5" />
+                <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
                 <input
                   type="text"
                   placeholder="Search player name..."
                   value={motmSearchQuery}
                   onChange={(e) => setMotmSearchQuery(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 bg-[#F2F6FC] border border-[#DFE7F2] rounded-xl text-xs font-semibold text-[#172033] focus:outline-none focus:border-[#1554B8]"
+                  className="w-full pl-9 pr-3 py-2 stadium-card/5 border border-white/10 rounded-xl text-xs font-semibold text-white focus:outline-none focus:border-[#1554B8]"
                 />
               </div>
 
-              <div className="flex gap-1.5 bg-[#EAF2FF] p-1 rounded-xl text-xs font-bold border border-[#DFE7F2]">
+              <div className="flex gap-1.5 bg-[#131E32]/90 p-1 rounded-xl text-xs font-bold border border-white/10">
                 <button
                   type="button"
                   onClick={() => setMotmTeamFilter('all')}
                   className={`flex-1 py-1 rounded-lg text-center transition-all cursor-pointer ${
                     motmTeamFilter === 'all'
-                      ? 'bg-[#1554B8] text-white shadow-xs'
-                      : 'text-[#718096] hover:text-[#1554B8]'
+                      ? 'bg-gradient-to-r from-[#0F1E36] to-[#13284C] text-white shadow-xs'
+                      : 'text-slate-400 hover:text-[#00F2FE]'
                   }`}
                 >
                   All Players
@@ -1131,8 +1131,8 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
                   onClick={() => setMotmTeamFilter('teamA')}
                   className={`flex-1 py-1 rounded-lg text-center transition-all cursor-pointer truncate px-1 ${
                     motmTeamFilter === 'teamA'
-                      ? 'bg-[#1554B8] text-white shadow-xs'
-                      : 'text-[#718096] hover:text-[#1554B8]'
+                      ? 'bg-gradient-to-r from-[#0F1E36] to-[#13284C] text-white shadow-xs'
+                      : 'text-slate-400 hover:text-[#00F2FE]'
                   }`}
                 >
                   {match.teamA.name}
@@ -1142,8 +1142,8 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
                   onClick={() => setMotmTeamFilter('teamB')}
                   className={`flex-1 py-1 rounded-lg text-center transition-all cursor-pointer truncate px-1 ${
                     motmTeamFilter === 'teamB'
-                      ? 'bg-[#1554B8] text-white shadow-xs'
-                      : 'text-[#718096] hover:text-[#1554B8]'
+                      ? 'bg-gradient-to-r from-[#0F1E36] to-[#13284C] text-white shadow-xs'
+                      : 'text-slate-400 hover:text-[#00F2FE]'
                   }`}
                 >
                   {match.teamB.name}
@@ -1156,8 +1156,8 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
               {/* TOP RECOMMENDED PERFORMERS SECTION */}
               {motmSearchQuery === '' && motmTeamFilter === 'all' && (
                 <div className="mb-3 space-y-1.5">
-                  <div className="flex items-center gap-1 text-[11px] font-bold text-[#1554B8] uppercase tracking-wider">
-                    <Sparkles className="w-3.5 h-3.5 text-[#1554B8]" />
+                  <div className="flex items-center gap-1 text-[11px] font-bold text-[#00F2FE] uppercase tracking-wider">
+                    <Sparkles className="w-3.5 h-3.5 text-[#00F2FE]" />
                     <span>Top Performers in Match (सिफारिशी खिलाड़ी)</span>
                   </div>
                   {recommendedPerformers.slice(0, 3).map((perf) => {
@@ -1168,23 +1168,23 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
                         onClick={() => setSelectedMotmPlayerId(perf.player.id)}
                         className={`p-2.5 rounded-xl border cursor-pointer transition-all flex items-center justify-between gap-2 ${
                           isSelected
-                            ? 'bg-[#EAF2FF] border-[#1554B8] ring-2 ring-[#1554B8]/30'
-                            : 'bg-white border-[#DFE7F2] hover:border-[#1554B8]'
+                            ? 'bg-[#131E32]/90 border-[#1554B8] ring-2 ring-[#1554B8]/30'
+                            : 'stadium-card border-white/10 hover:border-[#1554B8]'
                         }`}
                       >
                         <div className="flex items-center gap-2 min-w-0">
-                          <div className="w-8 h-8 rounded-full bg-[#1554B8] text-white flex items-center justify-center font-bold text-xs shrink-0">
+                          <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#0F1E36] to-[#13284C] text-white flex items-center justify-center font-bold text-xs shrink-0">
                             {perf.player.fullName.slice(0, 2).toUpperCase()}
                           </div>
                           <div className="min-w-0">
-                            <div className="font-bold text-xs text-[#172033] flex items-center gap-1 truncate">
+                            <div className="font-bold text-xs text-white flex items-center gap-1 truncate">
                               <span className="truncate">{perf.player.fullName}</span>
-                              <Star className="w-3 h-3 text-[#1554B8] fill-[#1554B8] shrink-0" />
+                              <Star className="w-3 h-3 text-[#00F2FE] fill-[#1554B8] shrink-0" />
                             </div>
-                            <div className="text-[10px] text-[#718096] flex items-center gap-1.5 truncate">
+                            <div className="text-[10px] text-slate-400 flex items-center gap-1.5 truncate">
                               <span>{perf.teamName}</span>
                               <span>•</span>
-                              <span className="font-mono font-semibold text-[#1554B8]">
+                              <span className="font-mono font-semibold text-[#00F2FE]">
                                 {perf.statSummary}
                               </span>
                             </div>
@@ -1192,7 +1192,7 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
                         </div>
 
                         <div className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 ${
-                          isSelected ? 'bg-[#1554B8] border-[#1554B8] text-white' : 'border-[#DFE7F2]'
+                          isSelected ? 'bg-gradient-to-r from-[#0F1E36] to-[#13284C] border-[#1554B8] text-white' : 'border-white/10'
                         }`}>
                           {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
                         </div>
@@ -1204,7 +1204,7 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
 
               {/* ALL SQUAD PLAYERS LIST */}
               <div className="space-y-1.5">
-                <div className="text-[11px] font-bold text-[#718096] uppercase tracking-wider pt-1">
+                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider pt-1">
                   All Squad Players
                 </div>
                 {recommendedPerformers
@@ -1222,28 +1222,28 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
                         onClick={() => setSelectedMotmPlayerId(perf.player.id)}
                         className={`p-2.5 rounded-xl border cursor-pointer transition-all flex items-center justify-between gap-2 ${
                           isSelected
-                            ? 'bg-[#EAF2FF] border-[#1554B8] ring-2 ring-[#1554B8]/30'
-                            : 'bg-white border-[#DFE7F2] hover:border-[#1554B8]'
+                            ? 'bg-[#131E32]/90 border-[#1554B8] ring-2 ring-[#1554B8]/30'
+                            : 'stadium-card border-white/10 hover:border-[#1554B8]'
                         }`}
                       >
                         <div className="flex items-center gap-2 min-w-0">
-                          <div className="w-8 h-8 rounded-full bg-[#F2F6FC] text-[#172033] border border-[#DFE7F2] flex items-center justify-center font-bold text-xs shrink-0">
+                          <div className="w-8 h-8 rounded-full stadium-card/5 text-white border border-white/10 flex items-center justify-center font-bold text-xs shrink-0">
                             {perf.player.fullName.slice(0, 2).toUpperCase()}
                           </div>
                           <div className="min-w-0">
-                            <div className="font-bold text-xs text-[#172033] truncate">
+                            <div className="font-bold text-xs text-white truncate">
                               {perf.player.fullName}
                             </div>
-                            <div className="text-[10px] text-[#718096] flex items-center gap-1 truncate">
+                            <div className="text-[10px] text-slate-400 flex items-center gap-1 truncate">
                               <span>{perf.teamName}</span>
                               <span>•</span>
-                              <span className="font-mono text-[#718096]">{perf.statSummary}</span>
+                              <span className="font-mono text-slate-400">{perf.statSummary}</span>
                             </div>
                           </div>
                         </div>
 
                         <div className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 ${
-                          isSelected ? 'bg-[#1554B8] border-[#1554B8] text-white' : 'border-[#DFE7F2]'
+                          isSelected ? 'bg-gradient-to-r from-[#0F1E36] to-[#13284C] border-[#1554B8] text-white' : 'border-white/10'
                         }`}>
                           {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
                         </div>
@@ -1254,12 +1254,12 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
             </div>
 
             {/* Modal Actions */}
-            <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#DFE7F2] shrink-0">
+            <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/10 shrink-0">
               <button
                 type="button"
                 disabled={isSubmittingMotm}
                 onClick={() => setShowMotmModal(false)}
-                className="py-2.5 px-4 bg-[#EAF2FF] hover:bg-[#dbe7fd] text-[#1554B8] font-bold text-xs rounded-xl cursor-pointer transition-colors"
+                className="py-2.5 px-4 bg-[#131E32]/90 hover:stadium-card/15 text-[#00F2FE] font-bold text-xs rounded-xl cursor-pointer transition-colors"
               >
                 Cancel (रद्द करें)
               </button>
@@ -1267,7 +1267,7 @@ export const MatchDetailsView: React.FC<MatchDetailsViewProps> = ({
                 type="button"
                 disabled={!selectedMotmPlayerId || isSubmittingMotm}
                 onClick={() => handleNominateMotmSubmit(selectedMotmPlayerId)}
-                className="py-2.5 px-4 bg-[#1554B8] hover:bg-[#0B3F91] disabled:opacity-50 text-white font-bold text-xs rounded-xl cursor-pointer transition-all shadow-md flex items-center justify-center gap-1.5"
+                className="py-2.5 px-4 bg-gradient-to-r from-[#0F1E36] to-[#13284C] hover:bg-[#0B3F91] disabled:opacity-50 text-white font-bold text-xs rounded-xl cursor-pointer transition-all shadow-md flex items-center justify-center gap-1.5"
               >
                 {isSubmittingMotm ? 'Saving...' : 'Confirm Nomination (मनोनीत करें)'}
               </button>

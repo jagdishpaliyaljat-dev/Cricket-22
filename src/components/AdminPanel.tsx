@@ -452,11 +452,11 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   };
 
   return (
-    <div className="bg-[#F2F6FC] text-[#172033] min-h-screen font-sans antialiased relative pb-16">
+    <div className="bg-[#0B1120] text-slate-100 min-h-screen font-sans antialiased relative pb-20">
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-white text-[#172033] px-4 py-2.5 rounded-2xl shadow-xl text-xs font-bold border border-[#DFE7F2] flex items-center gap-2 animate-in fade-in">
-          <span className="w-2 h-2 rounded-full bg-[#1554B8] animate-pulse" />
+        <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-[#131D33] text-white px-4 py-2.5 rounded-2xl shadow-2xl text-xs font-bold border border-cyan-500/40 flex items-center gap-2 animate-in fade-in">
+          <span className="w-2 h-2 rounded-full bg-[#00F2FE] animate-pulse" />
           <span>{toastMessage}</span>
         </div>
       )}
@@ -468,9 +468,9 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             className="absolute inset-0 bg-black/70 backdrop-blur-xs transition-opacity"
             onClick={() => setIsSidebarOpen(false)}
           />
-          <div className="absolute inset-y-0 left-0 w-[84%] max-w-[300px] bg-[#1554B8] border-r border-white/20 shadow-2xl flex flex-col text-white animate-in slide-in-from-left duration-200">
+          <div className="absolute inset-y-0 left-0 w-[84%] max-w-[300px] bg-[#0B1120] border-r border-white/10 shadow-[0_0_40px_rgba(0,0,0,0.8)] flex flex-col text-white animate-in slide-in-from-left duration-200">
             {/* Drawer Header */}
-            <div className="p-5 flex items-center justify-between border-b border-white/20 bg-[#1554B8]">
+            <div className="p-5 flex items-center justify-between border-b border-white/10 bg-[#0B1120]">
               <div className="flex items-center gap-3">
                 <Logo variant="full" className="h-8" />
               </div>
@@ -483,8 +483,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             </div>
 
             {/* Admin Profile */}
-            <div className="mx-4 mt-5 p-3.5 bg-white/10 border border-white/20 rounded-[24px] flex items-center gap-3.5 shadow-inner">
-              <div className="w-12 h-12 rounded-full border-2 border-white p-0.5 shadow-sm">
+            <div className="mx-4 mt-5 p-3.5 bg-[#131D33] border border-white/10 rounded-[24px] flex items-center gap-3.5 shadow-inner">
+              <div className="w-12 h-12 rounded-full border-2 border-[#00F2FE] p-0.5 shadow-sm">
                 <img
                   src={currentUser?.photoURL || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150&q=80'}
                   alt="Admin"
@@ -496,8 +496,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                   {currentUser?.displayName || currentUser?.email?.split('@')[0] || 'Administrator'}
                 </h3>
                 <div className="flex items-center gap-1.5 mt-0.5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                  <p className="text-[10px] text-white font-black uppercase tracking-widest">Active Admin</p>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#00F2FE] animate-pulse" />
+                  <p className="text-[10px] text-cyan-400 font-mono font-bold uppercase tracking-widest">Active Admin</p>
                 </div>
               </div>
             </div>
@@ -538,8 +538,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     }}
                     className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                       isActive
-                        ? 'bg-white text-[#1554B8] shadow-xs'
-                        : 'text-white/90 hover:bg-white/10 hover:text-white'
+                        ? 'bg-[#00F2FE] text-slate-950 font-black shadow-[0_0_15px_rgba(0,242,254,0.35)]'
+                        : 'text-slate-400 hover:text-white hover:bg-white/5'
                     }`}
                   >
                     <Icon className={`w-4.5 h-4.5 ${isActive ? 'text-[#1554B8]' : 'text-white/70'}`} />
@@ -550,7 +550,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             </div>
 
             {/* Logout Button */}
-            <div className="p-3 border-t border-white/20 bg-[#0B3F91]">
+            <div className="p-3 border-t border-white/10 bg-[#0B1120]">
               <button
                 onClick={async () => {
                   if (window.confirm('Are you sure you want to logout?')) {
@@ -565,7 +565,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     }
                   }
                 }}
-                className="w-full bg-[#1554B8] hover:bg-[#0B3F91] border border-white/20 text-white font-bold text-xs py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 cursor-pointer transition-colors"
+                className="w-full bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-400 font-bold text-xs py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 cursor-pointer transition-colors"
               >
                 <LogOut className="w-4 h-4" />
                 <span>Logout</span>
@@ -577,7 +577,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
       {/* ================= SHARED ADMIN HEADER ================= */}
       {activeScreen !== 'live_scoring_panel' && (
-        <header className="sticky top-0 z-40 bg-[#1554B8] text-white border-b border-white/20 shadow-sm backdrop-blur-md bg-opacity-95">
+        <header className="sticky top-0 z-40 bg-[#0B1120]/90 text-white border-b border-white/10 shadow-sm backdrop-blur-xl">
         <div className="max-w-md mx-auto px-4 h-[60px] flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <button
@@ -588,14 +588,14 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             </button>
             <div className="flex items-center gap-2.5">
               <Logo className="w-8 h-8" variant="icon" />
-              <span className="text-[9px] text-white/70 font-bold uppercase tracking-wider -ml-2.5 mt-4">Admin Portal</span>
+              <span className="text-[9px] text-cyan-400 font-bold uppercase tracking-wider -ml-2.5 mt-4">Admin Portal</span>
             </div>
           </div>
 
           <div className="flex items-center gap-2.5">
             <button className="relative p-2 text-white/80 hover:text-white rounded-xl hover:bg-white/10 cursor-pointer transition-colors active:scale-90">
               <Bell className="w-5.5 h-5.5" />
-              <span className="absolute top-2 right-2 w-2 h-2 bg-[#FF263D] rounded-full border-2 border-[#1554B8]" />
+              <span className="absolute top-2 right-2 w-2 h-2 bg-rose-500 rounded-full border-2 border-[#0B1120]" />
             </button>
             <button
               onClick={async () => {
@@ -615,7 +615,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             >
               <LogOut className="w-5.5 h-5.5" />
             </button>
-            <div className="w-9 h-9 rounded-full border-2 border-white p-0.5 shadow-[0_0_10px_rgba(255,255,255,0.2)]">
+            <div className="w-9 h-9 rounded-full border-2 border-[#00F2FE] p-0.5 shadow-[0_0_10px_rgba(0,242,254,0.3)]">
               <img
                 src={currentUser?.photoURL || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150&q=80'}
                 alt="Admin"
@@ -633,13 +633,13 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
           {/* Top Title & Date Selector */}
           <div className="flex items-center justify-between mt-2">
             <div>
-              <h1 className="font-display font-black text-2xl text-[#17211D] tracking-tight">Dashboard</h1>
-              <p className="text-[11px] text-[#68746F] font-bold uppercase tracking-widest mt-0.5">Overview</p>
+              <h1 className="font-display font-black text-2xl text-white tracking-tight">Dashboard</h1>
+              <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">Overview</p>
             </div>
-            <div className="flex items-center gap-2 bg-white border border-[#E3EAE7] pl-3 pr-2.5 py-2 rounded-2xl text-[11px] font-black text-[#17211D] shadow-sm cursor-pointer active:scale-95 transition-all">
-              <Calendar className="w-3.5 h-3.5 text-[#007A3D]" />
+            <div className="flex items-center gap-2 stadium-card border border-white/10 pl-3 pr-2.5 py-2 rounded-2xl text-[11px] font-black text-white shadow-sm cursor-pointer active:scale-95 transition-all">
+              <Calendar className="w-3.5 h-3.5 text-[#00F2FE]" />
               <span>{matchDate}</span>
-              <ChevronDown className="w-3.5 h-3.5 text-[#68746F]" />
+              <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
             </div>
           </div>
 
@@ -648,14 +648,14 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             {/* Card 1: Total Matches (Blue) */}
             <div
               onClick={() => setActiveScreen('manage_matches')}
-              className="bg-white border border-[#E3EAE7] rounded-3xl p-3.5 shadow-sm flex flex-col gap-2 cursor-pointer hover:border-[#168BFF] transition-all group active:scale-[0.98]"
+              className="stadium-card border border-white/10 rounded-3xl p-3.5 shadow-sm flex flex-col gap-2 cursor-pointer hover:border-[#168BFF] transition-all group active:scale-[0.98]"
             >
-              <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+              <div className="w-9 h-9 rounded-xl bg-cyan-500/10 text-[#00F2FE] border border-cyan-500/30 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
                 <Calendar className="w-4.5 h-4.5" />
               </div>
               <div>
-                <div className="text-2xl font-black text-[#17211D] font-mono leading-none">{matches.length}</div>
-                <div className="text-[10px] font-black text-[#68746F] uppercase tracking-widest mt-1">Matches</div>
+                <div className="text-2xl font-black text-white font-mono leading-none">{matches.length}</div>
+                <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Matches</div>
               </div>
             </div>
 
@@ -663,41 +663,41 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             {isAdmin && (
               <div
                 onClick={() => setActiveScreen('player_management')}
-                className="bg-white border border-[#E3EAE7] rounded-3xl p-3.5 shadow-sm flex flex-col gap-2 cursor-pointer hover:border-[#007A3D] transition-all group active:scale-[0.98]"
+                className="stadium-card border border-white/10 rounded-3xl p-3.5 shadow-sm flex flex-col gap-2 cursor-pointer hover:border-[#007A3D] transition-all group active:scale-[0.98]"
               >
-                <div className="w-9 h-9 rounded-xl bg-emerald-50 text-[#007A3D] flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                <div className="w-9 h-9 rounded-xl bg-emerald-50 text-[#00F2FE] flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
                   <Users className="w-4.5 h-4.5" />
                 </div>
                 <div>
-                  <div className="text-2xl font-black text-[#17211D] font-mono leading-none">{players.length}</div>
-                  <div className="text-[10px] font-black text-[#68746F] uppercase tracking-widest mt-1">Players</div>
+                  <div className="text-2xl font-black text-white font-mono leading-none">{players.length}</div>
+                  <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Players</div>
                 </div>
               </div>
             )}
 
             {/* Card 3: Total Teams (Orange) */}
-            <div className="bg-white border border-[#E3EAE7] rounded-3xl p-3.5 shadow-sm flex flex-col gap-2 group">
-              <div className="w-9 h-9 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+            <div className="stadium-card border border-white/10 rounded-3xl p-3.5 shadow-sm flex flex-col gap-2 group">
+              <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/30 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
                 <Activity className="w-4.5 h-4.5" />
               </div>
               <div>
-                <div className="text-2xl font-black text-[#17211D] font-mono leading-none">
+                <div className="text-2xl font-black text-white font-mono leading-none">
                   {new Set(matches.flatMap((m) => [m.teamA.name, m.teamB.name]).filter(Boolean)).size}
                 </div>
-                <div className="text-[10px] font-black text-[#68746F] uppercase tracking-widest mt-1">Teams</div>
+                <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Teams</div>
               </div>
             </div>
 
             {/* Card 4: Venues (Purple) */}
-            <div className="bg-white border border-[#E3EAE7] rounded-3xl p-3.5 shadow-sm flex flex-col gap-2 group">
-              <div className="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+            <div className="stadium-card border border-white/10 rounded-3xl p-3.5 shadow-sm flex flex-col gap-2 group">
+              <div className="w-9 h-9 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/30 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
                 <MapPin className="w-4.5 h-4.5" />
               </div>
               <div>
-                <div className="text-2xl font-black text-[#17211D] font-mono leading-none">
+                <div className="text-2xl font-black text-white font-mono leading-none">
                   {new Set(matches.map((m) => m.venue).filter(Boolean)).size}
                 </div>
-                <div className="text-[10px] font-black text-[#68746F] uppercase tracking-widest mt-1">Venues</div>
+                <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Venues</div>
               </div>
             </div>
           </div>
@@ -708,12 +708,12 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
           <div className="space-y-3.5">
             <div className="flex items-center justify-between px-0.5">
               <div className="flex items-center gap-2">
-                <Activity className="w-4 h-4 text-[#007A3D]" />
-                <h2 className="font-black text-sm text-[#17211D] uppercase tracking-widest">Today's Matches</h2>
+                <Activity className="w-4 h-4 text-[#00F2FE]" />
+                <h2 className="font-black text-sm text-white uppercase tracking-widest">Today's Matches</h2>
               </div>
               <button
                 onClick={() => setActiveScreen('manage_matches')}
-                className="text-[11px] font-black text-[#007A3D] bg-emerald-50 px-3 py-1.5 rounded-full hover:bg-emerald-100 transition-all cursor-pointer flex items-center gap-1 shadow-sm active:scale-95"
+                className="text-[11px] font-black text-[#00F2FE] bg-emerald-50 px-3 py-1.5 rounded-full hover:bg-emerald-100 transition-all cursor-pointer flex items-center gap-1 shadow-sm active:scale-95"
               >
                 <span>View All</span>
                 <ChevronDown className="w-3 h-3 -rotate-90" />
@@ -721,12 +721,12 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             </div>
 
             {matches.length === 0 ? (
-              <div className="bg-white border border-[#E3EAE7] rounded-2xl p-6 text-center text-xs text-[#68746F] space-y-2">
+              <div className="stadium-card border border-white/10 rounded-2xl p-6 text-center text-xs text-slate-400 space-y-2">
                 <p>No matches created yet.</p>
                 <button
                   type="button"
                   onClick={() => setActiveScreen('create_match')}
-                  className="mt-1 px-3 py-1.5 bg-[#007A3D] text-white font-bold text-xs rounded-xl cursor-pointer"
+                  className="mt-1 px-3 py-1.5 bg-gradient-to-r from-[#00F2FE] to-blue-600 text-slate-950 font-black font-bold text-xs rounded-xl cursor-pointer"
                 >
                   Create Match Fixture
                 </button>
@@ -739,33 +739,33 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 const isCompleted = m.status === 'completed';
 
                 return (
-                  <div key={m.id} className="bg-white border border-[#E3EAE7] rounded-3xl p-4 shadow-sm space-y-4 hover:shadow-md transition-shadow">
+                  <div key={m.id} className="stadium-card border border-white/10 rounded-3xl p-4 shadow-sm space-y-4 hover:shadow-md transition-shadow">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         {isLive && (
-                          <div className="bg-red-50 border border-red-100 text-[#FF263D] text-[9px] font-black px-2.5 py-1 rounded-full flex items-center gap-1.5 uppercase tracking-wider shadow-xs">
+                          <div className="bg-rose-500/10 border border-rose-500/30 text-rose-400 text-[9px] font-black px-2.5 py-1 rounded-full flex items-center gap-1.5 uppercase tracking-wider shadow-xs">
                             <span className="w-1.5 h-1.5 rounded-full bg-[#FF263D] animate-ping" />
                             Live
                           </div>
                         )}
                         {isScheduled && (
-                          <div className="bg-blue-50 border border-blue-100 text-blue-600 text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider">
+                          <div className="bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider">
                             Upcoming
                           </div>
                         )}
                         {isCompleted && (
-                          <div className="bg-slate-50 border border-slate-100 text-slate-500 text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider">
+                          <div className="bg-white/5 border border-white/10 text-slate-400 text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider">
                             Finished
                           </div>
                         )}
-                        <span className="text-[10px] text-[#68746F] font-black uppercase tracking-widest bg-slate-50 px-2 py-1 rounded-lg">
+                        <span className="text-[10px] text-slate-400 font-black uppercase tracking-widest bg-slate-50 px-2 py-1 rounded-lg">
                           {m.playersPerTeam}v{m.playersPerTeam} • {m.oversPerInnings}O
                         </span>
                       </div>
                       
                       <button
                         onClick={() => setActiveMenuMatchId(activeMenuMatchId === m.id ? null : m.id)}
-                        className="p-1.5 text-[#68746F] hover:text-[#17211D] hover:bg-slate-50 rounded-xl transition-colors cursor-pointer"
+                        className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-50 rounded-xl transition-colors cursor-pointer"
                       >
                         <MoreVertical className="w-4.5 h-4.5" />
                       </button>
@@ -774,40 +774,40 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     {/* Team Display */}
                     <div className="flex items-center justify-between gap-2 px-1">
                       <div className="flex flex-col items-center gap-2 flex-1">
-                        <div className="w-12 h-12 rounded-full bg-emerald-50 border-2 border-emerald-100 flex items-center justify-center text-[#007A3D] shadow-inner">
+                        <div className="w-12 h-12 rounded-full bg-emerald-50 border-2 border-emerald-100 flex items-center justify-center text-[#00F2FE] shadow-inner">
                           <span className="font-black text-xs">{m.teamA.name.substring(0, 2).toUpperCase()}</span>
                         </div>
-                        <span className="text-xs font-black text-[#17211D] text-center truncate w-full">{m.teamA.name}</span>
+                        <span className="text-xs font-black text-white text-center truncate w-full">{m.teamA.name}</span>
                       </div>
                       
                       <div className="flex flex-col items-center gap-1">
-                        <span className="text-[10px] font-black text-[#68746F] uppercase tracking-widest italic opacity-40">VS</span>
+                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest italic opacity-40">VS</span>
                       </div>
 
                       <div className="flex flex-col items-center gap-2 flex-1">
                         <div className="w-12 h-12 rounded-full bg-blue-50 border-2 border-blue-100 flex items-center justify-center text-blue-600 shadow-inner">
                           <span className="font-black text-xs">{m.teamB.name.substring(0, 2).toUpperCase()}</span>
                         </div>
-                        <span className="text-xs font-black text-[#17211D] text-center truncate w-full">{m.teamB.name}</span>
+                        <span className="text-xs font-black text-white text-center truncate w-full">{m.teamB.name}</span>
                       </div>
                     </div>
 
                     <div className="pt-3 border-t border-[#F5F7F8] flex items-center justify-between gap-3">
                       <div className="flex items-center gap-2 min-w-0 bg-slate-50 px-2.5 py-1.5 rounded-xl border border-slate-100">
-                        <MapPin className="w-3.5 h-3.5 text-[#007A3D] shrink-0" />
-                        <span className="text-[10px] font-black text-[#17211D] truncate tracking-tight">{m.venue || 'TBA'}</span>
+                        <MapPin className="w-3.5 h-3.5 text-[#00F2FE] shrink-0" />
+                        <span className="text-[10px] font-black text-white truncate tracking-tight">{m.venue || 'TBA'}</span>
                       </div>
                       <div className="flex items-center gap-2 shrink-0">
                         <button
                           onClick={(e) => { e.stopPropagation(); handleStartEditMatch(m); }}
-                          className="w-8 h-8 flex items-center justify-center bg-emerald-50 text-[#007A3D] rounded-xl border border-emerald-100 transition-all active:scale-90 cursor-pointer shadow-xs"
+                          className="w-8 h-8 flex items-center justify-center bg-emerald-50 text-[#00F2FE] rounded-xl border border-emerald-100 transition-all active:scale-90 cursor-pointer shadow-xs"
                           title="Edit"
                         >
                           <Edit3 className="w-4 h-4" />
                         </button>
                         <button
                           onClick={(e) => { e.stopPropagation(); setMatchToDelete(m); }}
-                          className="w-8 h-8 flex items-center justify-center bg-red-50 text-[#FF263D] rounded-xl border border-red-100 transition-all active:scale-90 cursor-pointer shadow-xs"
+                          className="w-8 h-8 flex items-center justify-center bg-rose-500/10 text-rose-400 border border-rose-500/30 rounded-xl border border-red-100 transition-all active:scale-90 cursor-pointer shadow-xs"
                           title="Delete"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -823,75 +823,75 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
           <div className="space-y-3.5">
             <div className="flex items-center gap-2 px-0.5">
-              <ShieldCheck className="w-4 h-4 text-[#007A3D]" />
-              <h2 className="font-black text-sm text-[#17211D] uppercase tracking-widest">Quick Actions</h2>
+              <ShieldCheck className="w-4 h-4 text-[#00F2FE]" />
+              <h2 className="font-black text-sm text-white uppercase tracking-widest">Quick Actions</h2>
             </div>
             <div className="grid grid-cols-2 gap-3.5">
               <button
                 onClick={() => setActiveScreen('create_match')}
-                className="bg-white border border-[#E3EAE7] p-3.5 rounded-[24px] flex flex-col gap-3 shadow-sm hover:border-[#007A3D] transition-all cursor-pointer active:scale-95 group"
+                className="stadium-card border border-white/10 p-3.5 rounded-[24px] flex flex-col gap-3 shadow-sm hover:border-[#007A3D] transition-all cursor-pointer active:scale-95 group"
               >
-                <div className="w-10 h-10 rounded-2xl bg-emerald-50 text-[#007A3D] flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform">
+                <div className="w-10 h-10 rounded-2xl bg-emerald-50 text-[#00F2FE] flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform">
                   <Plus className="w-5 h-5 stroke-[2.5]" />
                 </div>
                 <div>
-                  <div className="font-black text-[11px] text-[#17211D] uppercase tracking-wider">Create Match</div>
-                  <div className="text-[9px] font-bold text-[#68746F] mt-0.5 opacity-70">Schedule fixture</div>
+                  <div className="font-black text-[11px] text-white uppercase tracking-wider">Create Match</div>
+                  <div className="text-[9px] font-bold text-slate-400 mt-0.5 opacity-70">Schedule fixture</div>
                 </div>
               </button>
 
               {isAdmin && (
                 <button
                   onClick={() => setActiveScreen('player_management')}
-                  className="bg-white border border-[#E3EAE7] p-3.5 rounded-[24px] flex flex-col gap-3 shadow-sm hover:border-[#168BFF] transition-all cursor-pointer active:scale-95 group"
+                  className="stadium-card border border-white/10 p-3.5 rounded-[24px] flex flex-col gap-3 shadow-sm hover:border-[#168BFF] transition-all cursor-pointer active:scale-95 group"
                 >
-                  <div className="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform">
+                  <div className="w-10 h-10 rounded-2xl bg-cyan-500/10 text-[#00F2FE] border border-cyan-500/30 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform">
                     <Users className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="font-black text-[11px] text-[#17211D] uppercase tracking-wider">Add Player</div>
-                    <div className="text-[9px] font-bold text-[#68746F] mt-0.5 opacity-70">Register member</div>
+                    <div className="font-black text-[11px] text-white uppercase tracking-wider">Add Player</div>
+                    <div className="text-[9px] font-bold text-slate-400 mt-0.5 opacity-70">Register member</div>
                   </div>
                 </button>
               )}
 
               <button
                 onClick={() => setActiveScreen('manage_matches')}
-                className="bg-white border border-[#E3EAE7] p-3.5 rounded-[24px] flex flex-col gap-3 shadow-sm hover:border-orange-400 transition-all cursor-pointer active:scale-95 group"
+                className="stadium-card border border-white/10 p-3.5 rounded-[24px] flex flex-col gap-3 shadow-sm hover:border-orange-400 transition-all cursor-pointer active:scale-95 group"
               >
-                <div className="w-10 h-10 rounded-2xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform">
+                <div className="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/30 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform">
                   <Calendar className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="font-black text-[11px] text-[#17211D] uppercase tracking-wider">Fixtures</div>
-                  <div className="text-[9px] font-bold text-[#68746F] mt-0.5 opacity-70">Manage schedule</div>
+                  <div className="font-black text-[11px] text-white uppercase tracking-wider">Fixtures</div>
+                  <div className="text-[9px] font-bold text-slate-400 mt-0.5 opacity-70">Manage schedule</div>
                 </div>
               </button>
 
               <button
                 onClick={() => { setSelectedScoringMatch(null); setActiveScreen('live_scoring_panel'); }}
-                className="bg-white border border-[#E3EAE7] p-3.5 rounded-[24px] flex flex-col gap-3 shadow-sm hover:border-purple-400 transition-all cursor-pointer active:scale-95 group"
+                className="stadium-card border border-white/10 p-3.5 rounded-[24px] flex flex-col gap-3 shadow-sm hover:border-purple-400 transition-all cursor-pointer active:scale-95 group"
               >
-                <div className="w-10 h-10 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform">
+                <div className="w-10 h-10 rounded-2xl bg-purple-500/10 text-purple-400 border border-purple-500/30 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform">
                   <Activity className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="font-black text-[11px] text-[#17211D] uppercase tracking-wider">Live Scoring</div>
-                  <div className="text-[9px] font-bold text-[#68746F] mt-0.5 opacity-70">Ball-by-ball</div>
+                  <div className="font-black text-[11px] text-white uppercase tracking-wider">Live Scoring</div>
+                  <div className="text-[9px] font-bold text-slate-400 mt-0.5 opacity-70">Ball-by-ball</div>
                 </div>
               </button>
 
               {isAdmin && (
                 <button
                   onClick={() => setActiveScreen('manage_users')}
-                  className="col-span-2 bg-white border border-[#E3EAE7] p-3.5 rounded-[24px] flex items-center gap-4 shadow-sm hover:border-slate-500 transition-all cursor-pointer active:scale-[0.98] group"
+                  className="col-span-2 stadium-card border border-white/10 p-3.5 rounded-[24px] flex items-center gap-4 shadow-sm hover:border-slate-500 transition-all cursor-pointer active:scale-[0.98] group"
                 >
-                  <div className="w-10 h-10 rounded-2xl bg-slate-50 text-slate-600 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform">
+                  <div className="w-10 h-10 rounded-2xl bg-slate-500/10 text-slate-300 border border-white/10 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform">
                     <User className="w-5 h-5" />
                   </div>
                   <div className="flex-1">
-                    <div className="font-black text-[11px] text-[#17211D] uppercase tracking-wider">Registered Users</div>
-                    <div className="text-[9px] font-bold text-[#68746F] mt-0.5 opacity-70">Approve & convert new signups to player profiles</div>
+                    <div className="font-black text-[11px] text-white uppercase tracking-wider">Registered Users</div>
+                    <div className="text-[9px] font-bold text-slate-400 mt-0.5 opacity-70">Approve & convert new signups to player profiles</div>
                   </div>
                   <ChevronDown className="w-4 h-4 text-slate-300 -rotate-90 group-hover:translate-x-1 transition-transform" />
                 </button>
@@ -906,10 +906,10 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       {activeScreen === 'manage_matches' && (
         <main className="max-w-md mx-auto p-4 space-y-4">
           <div className="flex items-center justify-between">
-            <h1 className="font-display font-black text-xl text-[#17211D]">Manage Matches</h1>
+            <h1 className="font-display font-black text-xl text-white">Manage Matches</h1>
             <button
               onClick={() => setActiveScreen('create_match')}
-              className="bg-[#007A3D] hover:bg-[#006030] text-white font-bold text-xs px-3.5 py-2 rounded-xl flex items-center gap-1.5 shadow-2xs cursor-pointer"
+              className="bg-gradient-to-r from-[#00F2FE] to-blue-600 hover:from-[#00F2FE]/90 hover:to-blue-600/90 text-slate-950 font-black shadow-[0_0_15px_rgba(0,242,254,0.3)] font-bold text-xs px-3.5 py-2 rounded-xl flex items-center gap-1.5 shadow-2xs cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Create Match</span>
@@ -917,7 +917,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
           </div>
 
           {/* Match Filter Tabs - Improved Spacing & Compactness */}
-          <div className="grid grid-cols-4 gap-1 bg-[#F5F7F8] p-1 rounded-[20px] border border-[#E3EAE7] text-xs font-bold shadow-xs">
+          <div className="grid grid-cols-4 gap-1 bg-[#131D33] p-1 rounded-[20px] border border-white/10 text-xs font-bold shadow-xs">
             {[
               { id: 'all', label: 'All', count: matches.length },
               { id: 'live', label: 'Live', count: matches.filter((m) => m.status === 'live').length },
@@ -930,7 +930,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                   key={tab.id}
                   onClick={() => setMatchFilterTab(tab.id as typeof matchFilterTab)}
                   className={`py-2 px-0.5 text-center rounded-[14px] transition-all text-[11px] truncate cursor-pointer flex flex-col items-center justify-center leading-tight ${
-                    isActive ? 'bg-[#007A3D] text-white shadow-sm font-black' : 'text-[#68746F] hover:bg-white/50'
+                    isActive ? 'bg-gradient-to-r from-[#00F2FE] to-blue-600 text-slate-950 font-black shadow-sm font-black' : 'text-slate-400 hover:bg-white/50'
                   }`}
                 >
                   <span>{tab.label}</span>
@@ -943,16 +943,16 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
           {/* Search & Filter */}
           <div className="flex items-center gap-2">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#68746F]" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input
                 type="text"
                 placeholder="Search matches..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-white border border-[#E3EAE7] rounded-xl pl-9 pr-3 py-2 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                className="w-full stadium-card border border-white/10 rounded-xl pl-9 pr-3 py-2 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
               />
             </div>
-            <button className="bg-white border border-[#E3EAE7] p-2 rounded-xl text-[#68746F] hover:text-[#17211D] cursor-pointer">
+            <button className="stadium-card border border-white/10 p-2 rounded-xl text-slate-400 hover:text-white cursor-pointer">
               <Filter className="w-4.5 h-4.5" />
             </button>
           </div>
@@ -960,7 +960,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
           {/* Match List */}
           <div className="space-y-3">
             {filteredMatches.length === 0 ? (
-              <div className="bg-white rounded-2xl border border-[#E3EAE7] p-6 text-center text-xs text-[#68746F]">
+              <div className="bg-white rounded-2xl border border-white/10 p-6 text-center text-xs text-slate-400">
                 No matches found matching the selected filter.
               </div>
             ) : (
@@ -970,25 +970,25 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 const isCompleted = m.status === 'completed';
 
                 return (
-                  <div key={m.id} className="bg-white border border-[#E3EAE7] rounded-2xl p-3.5 shadow-2xs space-y-2.5 relative">
+                  <div key={m.id} className="stadium-card border border-white/10 rounded-2xl p-3.5 shadow-2xs space-y-2.5 relative">
                     {/* Match Card Header: Status & Info */}
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-1.5">
                         {isLive && (
-                          <div className="flex items-center gap-1 px-2 py-0.5 bg-[#FF263D]/10 text-[#FF263D] rounded-full border border-[#FF263D]/20 animate-pulse">
+                          <div className="flex items-center gap-1 px-2 py-0.5 bg-[#FF263D]/10 text-rose-400 rounded-full border border-[#FF263D]/20 animate-pulse">
                             <span className="w-1 h-1 rounded-full bg-[#FF263D]" />
                             <span className="text-[9px] font-black uppercase tracking-tighter">Live</span>
                           </div>
                         )}
                         {isScheduled && (
-                          <span className="px-2 py-0.5 bg-blue-50 text-blue-600 rounded-full border border-blue-100 text-[9px] font-black uppercase tracking-tighter">Scheduled</span>
+                          <span className="px-2 py-0.5 bg-cyan-500/10 text-[#00F2FE] border border-cyan-500/30 rounded-full border border-blue-100 text-[9px] font-black uppercase tracking-tighter">Scheduled</span>
                         )}
                         {isCompleted && (
                           <span className="px-2 py-0.5 bg-slate-100 text-slate-500 rounded-full border border-slate-200 text-[9px] font-black uppercase tracking-tighter">Finished</span>
                         )}
-                        <h4 className="text-xs font-black text-[#17211D] truncate max-w-[120px]">{m.title}</h4>
+                        <h4 className="text-xs font-black text-white truncate max-w-[120px]">{m.title}</h4>
                       </div>
-                      <span className="text-[10px] font-black text-[#007A3D] bg-emerald-50 px-2 py-0.5 rounded-lg border border-emerald-100">
+                      <span className="text-[10px] font-black text-[#00F2FE] bg-emerald-50 px-2 py-0.5 rounded-lg border border-emerald-100">
                         {m.oversPerInnings} Ov · {m.playersPerTeam}v{m.playersPerTeam}
                       </span>
                     </div>
@@ -996,18 +996,18 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                       <div className="relative">
                         <button
                           onClick={() => setActiveMenuMatchId(activeMenuMatchId === m.id ? null : m.id)}
-                          className="text-[#68746F] hover:text-[#17211D] p-1 cursor-pointer"
+                          className="text-slate-400 hover:text-white p-1 cursor-pointer"
                         >
                           <MoreVertical className="w-4 h-4" />
                         </button>
 
                         {activeMenuMatchId === m.id && (
-                          <div className="absolute right-0 top-7 z-20 bg-white border border-[#E3EAE7] rounded-xl shadow-lg py-1 w-40 text-xs text-[#17211D]">
+                          <div className="absolute right-0 top-7 z-20 stadium-card border border-white/10 rounded-xl shadow-lg py-1 w-40 text-xs text-white">
                             <button
                               onClick={() => handleStartEditMatch(m)}
-                              className="w-full text-left px-3 py-1.5 hover:bg-[#F5F7F8] flex items-center gap-2 font-medium"
+                              className="w-full text-left px-3 py-1.5 hover:bg-[#131D33] flex items-center gap-2 font-medium"
                             >
-                              <Edit3 className="w-3.5 h-3.5 text-[#007A3D]" />
+                              <Edit3 className="w-3.5 h-3.5 text-[#00F2FE]" />
                               <span>Edit Match</span>
                             </button>
                             <button
@@ -1015,9 +1015,9 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                                 setActiveMenuMatchId(null);
                                 onOpenScoringPad(m);
                               }}
-                              className="w-full text-left px-3 py-1.5 hover:bg-[#F5F7F8] flex items-center gap-2"
+                              className="w-full text-left px-3 py-1.5 hover:bg-[#131D33] flex items-center gap-2"
                             >
-                              <Play className="w-3.5 h-3.5 text-[#007A3D]" />
+                              <Play className="w-3.5 h-3.5 text-[#00F2FE]" />
                               <span>Scorecard</span>
                             </button>
                             <button
@@ -1025,7 +1025,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                                 setActiveMenuMatchId(null);
                                 onOpenTeamBuilder(m);
                               }}
-                              className="w-full text-left px-3 py-1.5 hover:bg-[#F5F7F8] flex items-center gap-2"
+                              className="w-full text-left px-3 py-1.5 hover:bg-[#131D33] flex items-center gap-2"
                             >
                               <Users className="w-3.5 h-3.5 text-[#168BFF]" />
                               <span>Rosters</span>
@@ -1035,7 +1035,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                                 setActiveMenuMatchId(null);
                                 setMatchToDelete(m);
                               }}
-                              className="w-full text-left px-3 py-1.5 hover:bg-red-50 text-[#FF263D] flex items-center gap-2 font-semibold"
+                              className="w-full text-left px-3 py-1.5 hover:bg-rose-500/10 text-rose-400 border border-rose-500/30 flex items-center gap-2 font-semibold"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                               <span>Delete Match</span>
@@ -1044,27 +1044,27 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                         )}
                       </div>
 
-                    <div className="flex items-center justify-between py-1 px-1 bg-[#F5F7F8] rounded-2xl border border-[#E3EAE7]/50">
+                    <div className="flex items-center justify-between py-1 px-1 bg-[#131D33] rounded-2xl border border-white/10/50">
                       <div className="flex items-center gap-2 flex-1">
                         <div className="w-8 h-8 rounded-full bg-[#007A3D] flex items-center justify-center text-white font-black text-[10px] shadow-sm">
                           {m.teamA.name.substring(0, 2).toUpperCase()}
                         </div>
-                        <span className="text-[11px] font-black text-[#17211D] truncate max-w-[80px]">{m.teamA.name}</span>
+                        <span className="text-[11px] font-black text-white truncate max-w-[80px]">{m.teamA.name}</span>
                       </div>
                       <div className="px-3">
-                        <span className="font-mono text-[#68746F] text-[9px] font-black bg-white px-2 py-0.5 rounded-full border border-[#E3EAE7]">VS</span>
+                        <span className="font-mono text-slate-400 text-[9px] font-black bg-white px-2 py-0.5 rounded-full border border-white/10">VS</span>
                       </div>
                       <div className="flex items-center gap-2 flex-1 justify-end">
-                        <span className="text-[11px] font-black text-[#17211D] truncate max-w-[80px]">{m.teamB.name}</span>
+                        <span className="text-[11px] font-black text-white truncate max-w-[80px]">{m.teamB.name}</span>
                         <div className="w-8 h-8 rounded-full bg-[#168BFF] flex items-center justify-center text-white font-black text-[10px] shadow-sm">
                           {m.teamB.name.substring(0, 2).toUpperCase()}
                         </div>
                       </div>
                     </div>
 
-                    <div className="pt-2 border-t border-[#E3EAE7] flex items-center justify-between text-[11px] text-[#68746F]">
+                    <div className="pt-2 border-t border-[#E3EAE7] flex items-center justify-between text-[11px] text-slate-400">
                       <div className="flex items-center gap-1 min-w-0 flex-1 pr-2">
-                        <MapPin className="w-3.5 h-3.5 text-[#007A3D] shrink-0" />
+                        <MapPin className="w-3.5 h-3.5 text-[#00F2FE] shrink-0" />
                         <span className="truncate">{m.venue || 'No venue'}</span>
                       </div>
                       <div className="flex items-center gap-1.5 shrink-0">
@@ -1074,7 +1074,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                             e.stopPropagation();
                             handleStartEditMatch(m);
                           }}
-                          className="px-2 py-0.5 bg-[#007A3D]/10 hover:bg-[#007A3D]/20 text-[#007A3D] text-[10.5px] font-bold rounded-lg flex items-center gap-1 cursor-pointer transition-colors"
+                          className="px-2 py-0.5 bg-[#007A3D]/10 hover:bg-[#007A3D]/20 text-[#00F2FE] text-[10.5px] font-bold rounded-lg flex items-center gap-1 cursor-pointer transition-colors"
                         >
                           <Edit3 className="w-3 h-3" />
                           <span>Edit</span>
@@ -1085,7 +1085,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                             e.stopPropagation();
                             setMatchToDelete(m);
                           }}
-                          className="px-2 py-0.5 bg-red-50 hover:bg-red-100 text-[#FF263D] text-[10.5px] font-bold rounded-lg flex items-center gap-1 cursor-pointer transition-colors"
+                          className="px-2 py-0.5 bg-red-50 hover:bg-red-100 text-rose-400 text-[10.5px] font-bold rounded-lg flex items-center gap-1 cursor-pointer transition-colors"
                         >
                           <Trash2 className="w-3 h-3" />
                           <span>Delete</span>
@@ -1106,41 +1106,41 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
           <div className="flex items-center gap-3">
             <button
               onClick={() => setActiveScreen('dashboard')}
-              className="p-1.5 text-[#17211D] hover:bg-[#E3EAE7] rounded-xl cursor-pointer"
+              className="p-1.5 text-white hover:bg-[#E3EAE7] rounded-xl cursor-pointer"
             >
               <ArrowLeft className="w-5 h-5" />
             </button>
-            <h1 className="font-display font-black text-xl text-[#17211D]">Create Match</h1>
+            <h1 className="font-display font-black text-xl text-white">Create Match</h1>
           </div>
 
           {formError && (
-            <div className="bg-red-50 border border-red-200 text-[#FF263D] p-3 rounded-xl text-xs font-semibold">
+            <div className="bg-red-50 border border-red-200 text-rose-400 p-3 rounded-xl text-xs font-semibold">
               {formError}
             </div>
           )}
 
           <form onSubmit={handleCreateMatchSubmit} className="space-y-4">
             {/* Basic Information Card */}
-            <div className="bg-white border border-[#E3EAE7] rounded-2xl p-4 space-y-3.5 shadow-2xs">
-              <h2 className="font-bold text-sm text-[#17211D]">Basic Information</h2>
+            <div className="stadium-card border border-white/10 rounded-2xl p-4 space-y-3.5 shadow-2xs">
+              <h2 className="font-bold text-sm text-white">Basic Information</h2>
 
               <div className="space-y-1">
-                <label className="text-[11px] font-bold text-[#68746F]">Match Name *</label>
+                <label className="text-[11px] font-bold text-slate-400">Match Name *</label>
                 <input
                   type="text"
                   placeholder="e.g. City Cup Final"
                   value={matchName}
                   onChange={(e) => setMatchName(e.target.value)}
-                  className="w-full bg-[#F5F7F8] border border-[#E3EAE7] rounded-xl px-3 py-2 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                  className="w-full bg-[#131D33] border border-white/10 text-white rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[11px] font-bold text-[#68746F]">Match Type *</label>
+                <label className="text-[11px] font-bold text-slate-400">Match Type *</label>
                 <select
                   value={matchType}
                   onChange={(e) => setMatchType(e.target.value)}
-                  className="w-full bg-[#F5F7F8] border border-[#E3EAE7] rounded-xl px-3 py-2 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                  className="w-full bg-[#131D33] border border-white/10 text-white rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                 >
                   <option value="Tournament Match">Tournament Match</option>
                   <option value="Friendly">Friendly</option>
@@ -1150,11 +1150,11 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1">
-                  <label className="text-[11px] font-bold text-[#68746F]">Format *</label>
+                  <label className="text-[11px] font-bold text-slate-400">Format *</label>
                   <select
                     value={format}
                     onChange={(e) => setFormat(e.target.value)}
-                    className="w-full bg-[#F5F7F8] border border-[#E3EAE7] rounded-xl px-3 py-2 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                    className="w-full bg-[#131D33] border border-white/10 text-white rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                   >
                     <option value="5v5">5v5</option>
                     <option value="7v7">7v7</option>
@@ -1164,7 +1164,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[11px] font-bold text-[#68746F]">Overs (मैच के ओवर) *</label>
+                  <label className="text-[11px] font-bold text-slate-400">Overs (मैच के ओवर) *</label>
                   <select
                     value={overs}
                     onChange={(e) => {
@@ -1172,7 +1172,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                       setOvers(val);
                       setIsCustomOvers(val === 'Custom');
                     }}
-                    className="w-full bg-[#F5F7F8] border border-[#E3EAE7] rounded-xl px-3 py-2 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                    className="w-full bg-[#131D33] border border-white/10 text-white rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                   >
                     <option value="3 Overs">3 Overs (3 ओवर)</option>
                     <option value="5 Overs">5 Overs (5 ओवर)</option>
@@ -1191,7 +1191,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                       value={customOversValue}
                       onChange={(e) => setCustomOversValue(e.target.value)}
                       placeholder="Enter overs"
-                      className="w-full mt-2 bg-white border border-[#E3EAE7] rounded-xl px-3 py-2 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                      className="w-full mt-2 stadium-card border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                       min="1"
                     />
                   )}
@@ -1200,35 +1200,35 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1">
-                  <label className="text-[11px] font-bold text-[#68746F]">Date *</label>
+                  <label className="text-[11px] font-bold text-slate-400">Date *</label>
                   <input
                     type="text"
                     value={matchDate}
                     onChange={(e) => setMatchDate(e.target.value)}
-                    className="w-full bg-[#F5F7F8] border border-[#E3EAE7] rounded-xl px-3 py-2 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                    className="w-full bg-[#131D33] border border-white/10 text-white rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[11px] font-bold text-[#68746F]">Time *</label>
+                  <label className="text-[11px] font-bold text-slate-400">Time *</label>
                   <input
                     type="text"
                     value={matchTime}
                     onChange={(e) => setMatchTime(e.target.value)}
-                    className="w-full bg-[#F5F7F8] border border-[#E3EAE7] rounded-xl px-3 py-2 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                    className="w-full bg-[#131D33] border border-white/10 text-white rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                   />
                 </div>
               </div>
 
               <div className="space-y-1">
-                <label className="text-[11px] font-bold text-[#68746F]">Venue *</label>
+                <label className="text-[11px] font-bold text-slate-400">Venue *</label>
                 <input
                   type="text"
                   placeholder="e.g. Central Community Oval, Cricket Ground"
                   value={venue}
                   onChange={(e) => setVenue(e.target.value)}
                   list="venues-datalist"
-                  className="w-full bg-[#F5F7F8] border border-[#E3EAE7] rounded-xl px-3 py-2 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                  className="w-full bg-[#131D33] border border-white/10 text-white rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                 />
                 <datalist id="venues-datalist">
                   {Array.from(new Set(matches.map((m) => m.venue).filter(Boolean))).map((v) => (
@@ -1239,19 +1239,19 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             </div>
 
             {/* Teams Card */}
-            <div className="bg-white border border-[#E3EAE7] rounded-2xl p-4 space-y-3.5 shadow-2xs">
-              <h2 className="font-bold text-sm text-[#17211D]">Teams</h2>
+            <div className="stadium-card border border-white/10 rounded-2xl p-4 space-y-3.5 shadow-2xs">
+              <h2 className="font-bold text-sm text-white">Teams</h2>
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1">
-                  <label className="text-[11px] font-bold text-[#68746F]">Team A *</label>
+                  <label className="text-[11px] font-bold text-slate-400">Team A *</label>
                   <input
                     type="text"
                     placeholder="e.g. Team A"
                     value={teamA}
                     onChange={(e) => setTeamA(e.target.value)}
                     list="teams-datalist-a"
-                    className="w-full bg-[#F5F7F8] border border-[#E3EAE7] rounded-xl px-3 py-2 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                    className="w-full bg-[#131D33] border border-white/10 text-white rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                   />
                   <datalist id="teams-datalist-a">
                     {Array.from(new Set([...matches.map((m) => m.teamA.name), ...players.map((p) => p.teamName || '')].filter(Boolean))).map((t) => (
@@ -1261,14 +1261,14 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[11px] font-bold text-[#68746F]">Team B *</label>
+                  <label className="text-[11px] font-bold text-slate-400">Team B *</label>
                   <input
                     type="text"
                     placeholder="e.g. Team B"
                     value={teamB}
                     onChange={(e) => setTeamB(e.target.value)}
                     list="teams-datalist-b"
-                    className="w-full bg-[#F5F7F8] border border-[#E3EAE7] rounded-xl px-3 py-2 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                    className="w-full bg-[#131D33] border border-white/10 text-white rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                   />
                   <datalist id="teams-datalist-b">
                     {Array.from(new Set([...matches.map((m) => m.teamB.name), ...players.map((p) => p.teamName || '')].filter(Boolean))).map((t) => (
@@ -1280,22 +1280,22 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             </div>
 
             {/* Player Selection Card (Team A, Team B, & Common Players) */}
-            <div className="bg-white border border-[#E3EAE7] rounded-2xl p-4 space-y-3 shadow-2xs">
+            <div className="stadium-card border border-white/10 rounded-2xl p-4 space-y-3 shadow-2xs">
               <div className="flex items-center justify-between border-b border-[#E3EAE7] pb-2">
                 <div>
-                  <h2 className="font-bold text-sm text-[#17211D]">Player Selection (खिलाड़ी चुनें)</h2>
-                  <p className="text-[11px] text-[#68746F]">
+                  <h2 className="font-bold text-sm text-white">Player Selection (खिलाड़ी चुनें)</h2>
+                  <p className="text-[11px] text-slate-400">
                     Select players for Team A, Team B, or mark as Common Player (दोनों टीमों का खिलाड़ी)
                   </p>
                 </div>
-                <span className="text-[10.5px] font-mono font-bold text-[#007A3D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                <span className="text-[10.5px] font-mono font-bold text-[#00F2FE] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
                   A: {selectedTeamAPlayers.length} · B: {selectedTeamBPlayers.length} · Common: {selectedCommonPlayers.length}
                 </span>
               </div>
 
               <div className="max-h-60 overflow-y-auto space-y-1.5 no-scrollbar pr-1">
                 {players.length === 0 ? (
-                  <div className="text-xs text-[#68746F] italic text-center py-2">
+                  <div className="text-xs text-slate-400 italic text-center py-2">
                     No registered players found in directory.
                   </div>
                 ) : (
@@ -1307,11 +1307,11 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     return (
                       <div
                         key={p.id}
-                        className="flex items-center justify-between p-2 rounded-xl border border-slate-100 bg-[#F5F7F8] gap-2 text-xs"
+                        className="flex items-center justify-between p-2 rounded-xl border border-slate-100 bg-[#131D33] gap-2 text-xs"
                       >
                         <div className="min-w-0 flex-1">
-                          <span className="font-bold text-[#17211D] block truncate">{p.fullName}</span>
-                          <span className="text-[10px] text-[#68746F] block truncate">
+                          <span className="font-bold text-white block truncate">{p.fullName}</span>
+                          <span className="text-[10px] text-slate-400 block truncate">
                             {p.teamName || 'Registered Player'}
                           </span>
                         </div>
@@ -1322,7 +1322,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                             onClick={() => handleAssignPlayer(p.id, isTeamA ? 'none' : 'teamA')}
                             className={`px-2 py-1 rounded-lg text-[10.5px] font-bold border transition-all cursor-pointer ${
                               isTeamA
-                                ? 'bg-[#007A3D] text-white border-[#007A3D]'
+                                ? 'bg-gradient-to-r from-[#00F2FE] to-blue-600 text-slate-950 font-black border-[#007A3D]'
                                 : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
                             }`}
                           >
@@ -1334,7 +1334,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                             onClick={() => handleAssignPlayer(p.id, isTeamB ? 'none' : 'teamB')}
                             className={`px-2 py-1 rounded-lg text-[10.5px] font-bold border transition-all cursor-pointer ${
                               isTeamB
-                                ? 'bg-[#007A3D] text-white border-[#007A3D]'
+                                ? 'bg-gradient-to-r from-[#00F2FE] to-blue-600 text-slate-950 font-black border-[#007A3D]'
                                 : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
                             }`}
                           >
@@ -1362,15 +1362,15 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             </div>
 
             {/* Match Settings Card */}
-            <div className="bg-white border border-[#E3EAE7] rounded-2xl p-4 space-y-3.5 shadow-2xs">
-              <h2 className="font-bold text-sm text-[#17211D]">Match Settings</h2>
+            <div className="stadium-card border border-white/10 rounded-2xl p-4 space-y-3.5 shadow-2xs">
+              <h2 className="font-bold text-sm text-white">Match Settings</h2>
 
               <div className="space-y-1">
-                <label className="text-[11px] font-bold text-[#68746F]">Status *</label>
+                <label className="text-[11px] font-bold text-slate-400">Status *</label>
                 <select
                   value={matchStatus}
                   onChange={(e) => setMatchStatus(e.target.value)}
-                  className="w-full bg-[#F5F7F8] border border-[#E3EAE7] rounded-xl px-3 py-2 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                  className="w-full bg-[#131D33] border border-white/10 text-white rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                 >
                   <option value="Upcoming">Upcoming</option>
                   <option value="Live">Live</option>
@@ -1379,7 +1379,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
               </div>
 
               <div className="flex items-center justify-between py-1">
-                <span className="text-xs font-bold text-[#17211D]">Live Scoring</span>
+                <span className="text-xs font-bold text-white">Live Scoring</span>
                 <button
                   type="button"
                   onClick={() => setLiveScoringEnabled(!liveScoringEnabled)}
@@ -1396,13 +1396,13 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
               </div>
 
               <div className="space-y-1">
-                <label className="text-[11px] font-bold text-[#68746F]">Description (Optional)</label>
+                <label className="text-[11px] font-bold text-slate-400">Description (Optional)</label>
                 <textarea
                   rows={3}
                   placeholder="Enter match details..."
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="w-full bg-[#F5F7F8] border border-[#E3EAE7] rounded-xl p-3 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                  className="w-full bg-[#131D33] border border-white/10 text-white rounded-xl p-3 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                 />
               </div>
             </div>
@@ -1411,7 +1411,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-[#007A3D] hover:bg-[#006030] text-white font-bold text-sm py-3.5 rounded-xl shadow-sm cursor-pointer transition-colors disabled:opacity-50"
+              className="w-full bg-gradient-to-r from-[#00F2FE] to-blue-600 hover:from-[#00F2FE]/90 hover:to-blue-600/90 text-slate-950 font-black shadow-[0_0_15px_rgba(0,242,254,0.3)] font-bold text-sm py-3.5 rounded-xl shadow-sm cursor-pointer transition-colors disabled:opacity-50"
             >
               {isSubmitting ? 'Creating...' : 'Create Match'}
             </button>
@@ -1430,13 +1430,13 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                   setActiveScreen('manage_matches');
                   setEditingMatch(null);
                 }}
-                className="p-1.5 text-[#17211D] hover:bg-[#E3EAE7] rounded-xl cursor-pointer transition-colors"
+                className="p-1.5 text-white hover:bg-[#E3EAE7] rounded-xl cursor-pointer transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
               </button>
               <div>
-                <h1 className="font-display font-black text-xl text-[#17211D]">Edit Match (मैच एडिट करें)</h1>
-                <p className="text-[11px] text-[#68746F]">Update schedule, teams, venue, or player roster</p>
+                <h1 className="font-display font-black text-xl text-white">Edit Match (मैच एडिट करें)</h1>
+                <p className="text-[11px] text-slate-400">Update schedule, teams, venue, or player roster</p>
               </div>
             </div>
 
@@ -1444,7 +1444,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
               <button
                 type="button"
                 onClick={() => setMatchToDelete(editingMatch)}
-                className="px-2.5 py-1.5 bg-red-50 hover:bg-red-100 text-[#FF263D] border border-red-200 text-xs font-bold rounded-xl flex items-center gap-1 cursor-pointer transition-colors"
+                className="px-2.5 py-1.5 bg-red-50 hover:bg-red-100 text-rose-400 border border-red-200 text-xs font-bold rounded-xl flex items-center gap-1 cursor-pointer transition-colors"
               >
                 <Trash2 className="w-3.5 h-3.5" />
                 <span>Delete</span>
@@ -1453,33 +1453,33 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
           </div>
 
           {formError && (
-            <div className="bg-red-50 border border-red-200 text-[#FF263D] p-3 rounded-xl text-xs font-semibold">
+            <div className="bg-red-50 border border-red-200 text-rose-400 p-3 rounded-xl text-xs font-semibold">
               {formError}
             </div>
           )}
 
           <form onSubmit={handleUpdateMatchSubmit} className="space-y-4">
             {/* Basic Information Card */}
-            <div className="bg-white border border-[#E3EAE7] rounded-2xl p-4 space-y-3.5 shadow-2xs">
-              <h2 className="font-bold text-sm text-[#17211D]">Basic Information</h2>
+            <div className="stadium-card border border-white/10 rounded-2xl p-4 space-y-3.5 shadow-2xs">
+              <h2 className="font-bold text-sm text-white">Basic Information</h2>
 
               <div className="space-y-1">
-                <label className="text-[11px] font-bold text-[#68746F]">Match Name / Title *</label>
+                <label className="text-[11px] font-bold text-slate-400">Match Name / Title *</label>
                 <input
                   type="text"
                   placeholder="e.g. City Cup Final"
                   value={matchName}
                   onChange={(e) => setMatchName(e.target.value)}
-                  className="w-full bg-[#F5F7F8] border border-[#E3EAE7] rounded-xl px-3 py-2 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                  className="w-full bg-[#131D33] border border-white/10 text-white rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[11px] font-bold text-[#68746F]">Match Type *</label>
+                <label className="text-[11px] font-bold text-slate-400">Match Type *</label>
                 <select
                   value={matchType}
                   onChange={(e) => setMatchType(e.target.value)}
-                  className="w-full bg-[#F5F7F8] border border-[#E3EAE7] rounded-xl px-3 py-2 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                  className="w-full bg-[#131D33] border border-white/10 text-white rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                 >
                   <option value="Tournament Match">Tournament Match</option>
                   <option value="Friendly">Friendly</option>
@@ -1489,11 +1489,11 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1">
-                  <label className="text-[11px] font-bold text-[#68746F]">Format *</label>
+                  <label className="text-[11px] font-bold text-slate-400">Format *</label>
                   <select
                     value={format}
                     onChange={(e) => setFormat(e.target.value)}
-                    className="w-full bg-[#F5F7F8] border border-[#E3EAE7] rounded-xl px-3 py-2 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                    className="w-full bg-[#131D33] border border-white/10 text-white rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                   >
                     <option value="5v5">5v5</option>
                     <option value="7v7">7v7</option>
@@ -1503,7 +1503,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[11px] font-bold text-[#68746F]">Overs (मैच के ओवर) *</label>
+                  <label className="text-[11px] font-bold text-slate-400">Overs (मैच के ओवर) *</label>
                   <select
                     value={overs}
                     onChange={(e) => {
@@ -1511,7 +1511,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                       setOvers(val);
                       setIsCustomOvers(val === 'Custom');
                     }}
-                    className="w-full bg-[#F5F7F8] border border-[#E3EAE7] rounded-xl px-3 py-2 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                    className="w-full bg-[#131D33] border border-white/10 text-white rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                   >
                     <option value="3 Overs">3 Overs (3 ओवर)</option>
                     <option value="5 Overs">5 Overs (5 ओवर)</option>
@@ -1530,7 +1530,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                       value={customOversValue}
                       onChange={(e) => setCustomOversValue(e.target.value)}
                       placeholder="Enter overs"
-                      className="w-full mt-2 bg-white border border-[#E3EAE7] rounded-xl px-3 py-2 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                      className="w-full mt-2 stadium-card border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                       min="1"
                     />
                   )}
@@ -1539,35 +1539,35 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1">
-                  <label className="text-[11px] font-bold text-[#68746F]">Date *</label>
+                  <label className="text-[11px] font-bold text-slate-400">Date *</label>
                   <input
                     type="text"
                     value={matchDate}
                     onChange={(e) => setMatchDate(e.target.value)}
-                    className="w-full bg-[#F5F7F8] border border-[#E3EAE7] rounded-xl px-3 py-2 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                    className="w-full bg-[#131D33] border border-white/10 text-white rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[11px] font-bold text-[#68746F]">Time *</label>
+                  <label className="text-[11px] font-bold text-slate-400">Time *</label>
                   <input
                     type="text"
                     value={matchTime}
                     onChange={(e) => setMatchTime(e.target.value)}
-                    className="w-full bg-[#F5F7F8] border border-[#E3EAE7] rounded-xl px-3 py-2 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                    className="w-full bg-[#131D33] border border-white/10 text-white rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                   />
                 </div>
               </div>
 
               <div className="space-y-1">
-                <label className="text-[11px] font-bold text-[#68746F]">Venue *</label>
+                <label className="text-[11px] font-bold text-slate-400">Venue *</label>
                 <input
                   type="text"
                   placeholder="e.g. Central Community Oval, Cricket Ground"
                   value={venue}
                   onChange={(e) => setVenue(e.target.value)}
                   list="venues-datalist-edit"
-                  className="w-full bg-[#F5F7F8] border border-[#E3EAE7] rounded-xl px-3 py-2 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                  className="w-full bg-[#131D33] border border-white/10 text-white rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                 />
                 <datalist id="venues-datalist-edit">
                   {Array.from(new Set(matches.map((m) => m.venue).filter(Boolean))).map((v) => (
@@ -1578,19 +1578,19 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             </div>
 
             {/* Teams Card */}
-            <div className="bg-white border border-[#E3EAE7] rounded-2xl p-4 space-y-3.5 shadow-2xs">
-              <h2 className="font-bold text-sm text-[#17211D]">Teams</h2>
+            <div className="stadium-card border border-white/10 rounded-2xl p-4 space-y-3.5 shadow-2xs">
+              <h2 className="font-bold text-sm text-white">Teams</h2>
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1">
-                  <label className="text-[11px] font-bold text-[#68746F]">Team A *</label>
+                  <label className="text-[11px] font-bold text-slate-400">Team A *</label>
                   <input
                     type="text"
                     placeholder="e.g. Team A"
                     value={teamA}
                     onChange={(e) => setTeamA(e.target.value)}
                     list="teams-datalist-a-edit"
-                    className="w-full bg-[#F5F7F8] border border-[#E3EAE7] rounded-xl px-3 py-2 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                    className="w-full bg-[#131D33] border border-white/10 text-white rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                   />
                   <datalist id="teams-datalist-a-edit">
                     {Array.from(new Set([...matches.map((m) => m.teamA.name), ...players.map((p) => p.teamName || '')].filter(Boolean))).map((t) => (
@@ -1600,14 +1600,14 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[11px] font-bold text-[#68746F]">Team B *</label>
+                  <label className="text-[11px] font-bold text-slate-400">Team B *</label>
                   <input
                     type="text"
                     placeholder="e.g. Team B"
                     value={teamB}
                     onChange={(e) => setTeamB(e.target.value)}
                     list="teams-datalist-b-edit"
-                    className="w-full bg-[#F5F7F8] border border-[#E3EAE7] rounded-xl px-3 py-2 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                    className="w-full bg-[#131D33] border border-white/10 text-white rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                   />
                   <datalist id="teams-datalist-b-edit">
                     {Array.from(new Set([...matches.map((m) => m.teamB.name), ...players.map((p) => p.teamName || '')].filter(Boolean))).map((t) => (
@@ -1619,15 +1619,15 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             </div>
 
             {/* Player Selection Card (Team A, Team B, & Common Players) */}
-            <div className="bg-white border border-[#E3EAE7] rounded-2xl p-4 space-y-3.5 shadow-2xs">
+            <div className="stadium-card border border-white/10 rounded-2xl p-4 space-y-3.5 shadow-2xs">
               <div className="flex items-center justify-between border-b border-[#E3EAE7] pb-2">
                 <div>
-                  <h2 className="font-bold text-sm text-[#17211D]">Squad & Player Roster (स्क्वाड संभालें)</h2>
-                  <p className="text-[11px] text-[#68746F]">
+                  <h2 className="font-bold text-sm text-white">Squad & Player Roster (स्क्वाड संभालें)</h2>
+                  <p className="text-[11px] text-slate-400">
                     टीम A, टीम B के खिलाड़ी चुनें या स्क्वाड डेटा साफ़ करें
                   </p>
                 </div>
-                <span className="text-[10.5px] font-mono font-bold text-[#007A3D] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                <span className="text-[10.5px] font-mono font-bold text-[#00F2FE] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
                   A: {selectedTeamAPlayers.length} · B: {selectedTeamBPlayers.length}
                 </span>
               </div>
@@ -1642,7 +1642,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     setSelectedCommonPlayers([]);
                     showToast('पूरा स्क्वाड डेटा खाली कर दिया गया है। (All squad data cleared)');
                   }}
-                  className="px-2.5 py-1.5 bg-red-50 hover:bg-red-100 border border-red-200 text-[#FF263D] font-bold text-[11px] rounded-xl flex items-center gap-1 cursor-pointer transition-colors"
+                  className="px-2.5 py-1.5 bg-red-50 hover:bg-red-100 border border-red-200 text-rose-400 font-bold text-[11px] rounded-xl flex items-center gap-1 cursor-pointer transition-colors"
                 >
                   <Trash2 className="w-3 h-3" />
                   <span>Clear All Squad Data (पूरा स्क्वाड हटाएं)</span>
@@ -1670,12 +1670,12 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
               </div>
 
               {/* CURRENT TEAM A SQUAD */}
-              <div className="space-y-1 bg-[#F5F7F8] p-2.5 rounded-xl border border-[#E3EAE7]">
-                <div className="flex items-center justify-between text-[11px] font-bold text-[#007A3D]">
+              <div className="space-y-1 bg-[#131D33] p-2.5 rounded-xl border border-white/10">
+                <div className="flex items-center justify-between text-[11px] font-bold text-[#00F2FE]">
                   <span>{teamA || 'Team A'} Squad ({selectedTeamAPlayers.length} Players)</span>
                 </div>
                 {selectedTeamAPlayers.length === 0 ? (
-                  <p className="text-[11px] text-[#68746F] italic">No players in Team A squad.</p>
+                  <p className="text-[11px] text-slate-400 italic">No players in Team A squad.</p>
                 ) : (
                   <div className="flex flex-wrap gap-1.5 pt-1">
                     {selectedTeamAPlayers.map((pId) => {
@@ -1684,7 +1684,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                       return (
                         <span
                           key={pId}
-                          className="bg-white border border-[#007A3D]/30 text-[#007A3D] font-bold px-2 py-0.5 rounded-lg text-[11px] flex items-center gap-1 shadow-2xs"
+                          className="bg-white border border-[#007A3D]/30 text-[#00F2FE] font-bold px-2 py-0.5 rounded-lg text-[11px] flex items-center gap-1 shadow-2xs"
                         >
                           <span>{name}</span>
                           <button
@@ -1703,12 +1703,12 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
               </div>
 
               {/* CURRENT TEAM B SQUAD */}
-              <div className="space-y-1 bg-[#F5F7F8] p-2.5 rounded-xl border border-[#E3EAE7]">
+              <div className="space-y-1 bg-[#131D33] p-2.5 rounded-xl border border-white/10">
                 <div className="flex items-center justify-between text-[11px] font-bold text-[#168BFF]">
                   <span>{teamB || 'Team B'} Squad ({selectedTeamBPlayers.length} Players)</span>
                 </div>
                 {selectedTeamBPlayers.length === 0 ? (
-                  <p className="text-[11px] text-[#68746F] italic">No players in Team B squad.</p>
+                  <p className="text-[11px] text-slate-400 italic">No players in Team B squad.</p>
                 ) : (
                   <div className="flex flex-wrap gap-1.5 pt-1">
                     {selectedTeamBPlayers.map((pId) => {
@@ -1737,10 +1737,10 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
               {/* DIRECTORY LIST TO TOGGLE PLAYERS */}
               <div className="space-y-1 pt-1">
-                <span className="text-[11px] font-bold text-[#68746F] block">Add/Toggle Players from Directory:</span>
+                <span className="text-[11px] font-bold text-slate-400 block">Add/Toggle Players from Directory:</span>
                 <div className="max-h-52 overflow-y-auto space-y-1.5 no-scrollbar pr-1">
                   {players.length === 0 ? (
-                    <div className="text-xs text-[#68746F] italic text-center py-2">
+                    <div className="text-xs text-slate-400 italic text-center py-2">
                       No registered players found in directory. You can add new players from Admin Player Management.
                     </div>
                   ) : (
@@ -1752,11 +1752,11 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                       return (
                         <div
                           key={p.id}
-                          className="flex items-center justify-between p-2 rounded-xl border border-slate-100 bg-[#F5F7F8] gap-2 text-xs"
+                          className="flex items-center justify-between p-2 rounded-xl border border-slate-100 bg-[#131D33] gap-2 text-xs"
                         >
                           <div className="min-w-0 flex-1">
-                            <span className="font-bold text-[#17211D] block truncate">{p.fullName}</span>
-                            <span className="text-[10px] text-[#68746F] block truncate">
+                            <span className="font-bold text-white block truncate">{p.fullName}</span>
+                            <span className="text-[10px] text-slate-400 block truncate">
                               {p.teamName || 'Registered Player'}
                             </span>
                           </div>
@@ -1767,7 +1767,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                               onClick={() => handleAssignPlayer(p.id, isTeamA ? 'none' : 'teamA')}
                               className={`px-2 py-1 rounded-lg text-[10.5px] font-bold border transition-all cursor-pointer ${
                                 isTeamA
-                                  ? 'bg-[#007A3D] text-white border-[#007A3D]'
+                                  ? 'bg-gradient-to-r from-[#00F2FE] to-blue-600 text-slate-950 font-black border-[#007A3D]'
                                   : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
                               }`}
                             >
@@ -1779,7 +1779,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                               onClick={() => handleAssignPlayer(p.id, isTeamB ? 'none' : 'teamB')}
                               className={`px-2 py-1 rounded-lg text-[10.5px] font-bold border transition-all cursor-pointer ${
                                 isTeamB
-                                  ? 'bg-[#007A3D] text-white border-[#007A3D]'
+                                  ? 'bg-gradient-to-r from-[#00F2FE] to-blue-600 text-slate-950 font-black border-[#007A3D]'
                                   : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
                               }`}
                             >
@@ -1808,15 +1808,15 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             </div>
 
             {/* Match Settings Card */}
-            <div className="bg-white border border-[#E3EAE7] rounded-2xl p-4 space-y-3.5 shadow-2xs">
-              <h2 className="font-bold text-sm text-[#17211D]">Match Status & Details</h2>
+            <div className="stadium-card border border-white/10 rounded-2xl p-4 space-y-3.5 shadow-2xs">
+              <h2 className="font-bold text-sm text-white">Match Status & Details</h2>
 
               <div className="space-y-1">
-                <label className="text-[11px] font-bold text-[#68746F]">Status *</label>
+                <label className="text-[11px] font-bold text-slate-400">Status *</label>
                 <select
                   value={matchStatus}
                   onChange={(e) => setMatchStatus(e.target.value)}
-                  className="w-full bg-[#F5F7F8] border border-[#E3EAE7] rounded-xl px-3 py-2 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                  className="w-full bg-[#131D33] border border-white/10 text-white rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                 >
                   <option value="Upcoming">Upcoming (Scheduled)</option>
                   <option value="Live">Live</option>
@@ -1825,11 +1825,11 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
               </div>
 
               <div className="space-y-1">
-                <label className="text-[11px] font-bold text-[#68746F]">MVP Selector (मैन ऑफ द मैच)</label>
+                <label className="text-[11px] font-bold text-slate-400">MVP Selector (मैन ऑफ द मैच)</label>
                 <select
                   value={selectedMvpId || ''}
                   onChange={(e) => setSelectedMvpId(e.target.value || null)}
-                  className="w-full bg-[#F5F7F8] border border-[#E3EAE7] rounded-xl px-3 py-2 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                  className="w-full bg-[#131D33] border border-white/10 text-white rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                 >
                   <option value="">Select MVP</option>
                   {Array.from(new Set([...selectedTeamAPlayers, ...selectedTeamBPlayers])).map((pId) => {
@@ -1840,13 +1840,13 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
               </div>
 
               <div className="space-y-1">
-                <label className="text-[11px] font-bold text-[#68746F]">Description (Optional)</label>
+                <label className="text-[11px] font-bold text-slate-400">Description (Optional)</label>
                 <textarea
                   rows={3}
                   placeholder="Enter match details, remarks..."
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="w-full bg-[#F5F7F8] border border-[#E3EAE7] rounded-xl p-3 text-xs text-[#17211D] focus:outline-none focus:border-[#007A3D]"
+                  className="w-full bg-[#131D33] border border-white/10 text-white rounded-xl p-3 text-xs text-white focus:outline-none focus:border-[#00F2FE]"
                 />
               </div>
             </div>
@@ -1856,7 +1856,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
               <button
                 type="submit"
                 disabled={isSubmitting || (editingMatch.status === 'completed' && !isAdmin)}
-                className="w-full bg-[#007A3D] hover:bg-[#006030] text-white font-bold text-sm py-3.5 rounded-xl shadow-sm cursor-pointer transition-colors disabled:opacity-50"
+                className="w-full bg-gradient-to-r from-[#00F2FE] to-blue-600 hover:from-[#00F2FE]/90 hover:to-blue-600/90 text-slate-950 font-black shadow-[0_0_15px_rgba(0,242,254,0.3)] font-bold text-sm py-3.5 rounded-xl shadow-sm cursor-pointer transition-colors disabled:opacity-50"
               >
                 {isSubmitting ? 'Saving Changes...' : 'Update Match (बदलाव सेव करें)'}
               </button>
@@ -1867,7 +1867,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                   setActiveScreen('manage_matches');
                   setEditingMatch(null);
                 }}
-                className="w-full py-2.5 bg-gray-100 hover:bg-gray-200 text-[#17211D] font-bold text-xs rounded-xl cursor-pointer transition-colors"
+                className="w-full py-2.5 bg-gray-100 hover:bg-gray-200 text-white font-bold text-xs rounded-xl cursor-pointer transition-colors"
               >
                 Cancel (रद्द करें)
               </button>
@@ -1924,7 +1924,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       {/* ================= 8. ADMIN LOGO UPLOAD SCREEN ================= */}
       {activeScreen === 'logo_upload' && (
         <div className="p-4 space-y-4 max-w-md mx-auto">
-          <h2 className="text-xl font-black text-[#17211D]">Upload Custom Logo</h2>
+          <h2 className="text-xl font-black text-white">Upload Custom Logo</h2>
           <input 
             type="file" 
             onChange={(e) => {
@@ -1941,7 +1941,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             <button 
               onClick={handleLogoUpload}
               disabled={isUploading || !logoFile}
-              className="bg-[#007A3D] text-white px-4 py-2 rounded-xl flex items-center gap-2"
+              className="bg-gradient-to-r from-[#00F2FE] to-blue-600 text-slate-950 font-black px-4 py-2 rounded-xl flex items-center gap-2"
             >
               {isUploading ? 'Uploading...' : 'Save Logo'}
             </button>
@@ -1958,30 +1958,30 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       {/* IN-APP DELETE MATCH CONFIRMATION MODAL (No window.confirm!) */}
       {matchToDelete && (
         <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto animate-in fade-in">
-          <div className="bg-white rounded-3xl p-5 max-w-sm w-full space-y-4 shadow-2xl border border-red-100 text-[#17211D]">
-            <div className="w-12 h-12 rounded-2xl bg-red-50 text-[#FF263D] flex items-center justify-center mx-auto">
+          <div className="bg-white rounded-3xl p-5 max-w-sm w-full space-y-4 shadow-2xl border border-red-100 text-white">
+            <div className="w-12 h-12 rounded-2xl bg-rose-500/10 text-rose-400 border border-rose-500/30 flex items-center justify-center mx-auto">
               <Trash2 className="w-6 h-6 stroke-[2.2]" />
             </div>
 
             <div className="text-center space-y-1">
-              <h3 className="font-display font-black text-lg text-[#17211D]">
+              <h3 className="font-display font-black text-lg text-white">
                 Delete Match Fixture?
               </h3>
-              <p className="text-xs text-[#68746F]">
+              <p className="text-xs text-slate-400">
                 क्या आप वाकई इस मैच को हटाना चाहते हैं? यह क्रिया वापस नहीं ली जा सकती।
               </p>
             </div>
 
-            <div className="bg-[#F5F7F8] border border-[#E3EAE7] rounded-2xl p-3 text-xs space-y-1.5">
-              <div className="font-bold text-[#17211D] truncate">
+            <div className="bg-[#131D33] border border-white/10 text-white rounded-2xl p-3 text-xs space-y-1.5">
+              <div className="font-bold text-white truncate">
                 {matchToDelete.title}
               </div>
-              <div className="text-[#007A3D] font-semibold flex items-center justify-between">
+              <div className="text-[#00F2FE] font-semibold flex items-center justify-between">
                 <span>{matchToDelete.teamA.name}</span>
-                <span className="text-[#68746F] text-[10px]">VS</span>
+                <span className="text-slate-400 text-[10px]">VS</span>
                 <span>{matchToDelete.teamB.name}</span>
               </div>
-              <div className="text-[11px] text-[#68746F] flex items-center gap-2 pt-1 border-t border-[#E3EAE7]">
+              <div className="text-[11px] text-slate-400 flex items-center gap-2 pt-1 border-t border-[#E3EAE7]">
                 <span>{matchToDelete.playersPerTeam}v{matchToDelete.playersPerTeam}</span>
                 <span>•</span>
                 <span>{matchToDelete.oversPerInnings} Overs</span>
@@ -1995,7 +1995,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 type="button"
                 disabled={isDeleting}
                 onClick={() => setMatchToDelete(null)}
-                className="py-2.5 px-4 bg-gray-100 hover:bg-gray-200 text-[#17211D] font-bold text-xs rounded-xl cursor-pointer transition-colors"
+                className="py-2.5 px-4 bg-gray-100 hover:bg-gray-200 text-white font-bold text-xs rounded-xl cursor-pointer transition-colors"
               >
                 रद्द करें (Cancel)
               </button>
@@ -2003,7 +2003,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 type="button"
                 disabled={isDeleting}
                 onClick={handleConfirmDeleteMatch}
-                className="py-2.5 px-4 bg-[#FF263D] hover:bg-red-700 text-white font-bold text-xs rounded-xl cursor-pointer transition-colors flex items-center justify-center gap-1.5 shadow-md"
+                className="py-2.5 px-4 bg-rose-600 hover:bg-rose-500 shadow-[0_0_15px_rgba(244,63,94,0.4)] text-white font-bold text-xs rounded-xl cursor-pointer transition-colors flex items-center justify-center gap-1.5 shadow-md"
               >
                 {isDeleting ? (
                   <span>Deleting...</span>
