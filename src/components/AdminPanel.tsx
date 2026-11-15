@@ -884,14 +884,17 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
               {isAdmin && (
                 <button
                   onClick={() => setActiveScreen('manage_users')}
-                  className="col-span-2 stadium-card border border-white/10 p-3.5 rounded-[24px] flex items-center gap-4 shadow-sm hover:border-slate-500 transition-all cursor-pointer active:scale-[0.98] group"
+                  className="col-span-2 stadium-card border border-white/10 p-3.5 rounded-[24px] flex items-center gap-4 shadow-sm hover:border-amber-400/50 transition-all cursor-pointer active:scale-[0.98] group"
                 >
-                  <div className="w-10 h-10 rounded-2xl bg-slate-500/10 text-slate-300 border border-white/10 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform">
+                  <div className="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform">
                     <User className="w-5 h-5" />
                   </div>
-                  <div className="flex-1">
-                    <div className="font-black text-[11px] text-white uppercase tracking-wider">Registered Users</div>
-                    <div className="text-[9px] font-bold text-slate-400 mt-0.5 opacity-70">Approve & convert new signups to player profiles</div>
+                  <div className="flex-1 text-left">
+                    <div className="font-black text-[11px] text-white uppercase tracking-wider flex items-center gap-2">
+                      <span>Users & Roles (एडमिन व रोल्स)</span>
+                      <span className="bg-amber-400/20 text-amber-300 text-[8px] font-black uppercase px-1.5 py-0.5 rounded-full">New</span>
+                    </div>
+                    <div className="text-[9px] font-bold text-slate-400 mt-0.5 opacity-70">Make users Admin, assign Scorers, or create player profiles</div>
                   </div>
                   <ChevronDown className="w-4 h-4 text-slate-300 -rotate-90 group-hover:translate-x-1 transition-transform" />
                 </button>

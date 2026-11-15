@@ -213,6 +213,66 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setRole(simulatedAppUser.role);
     setIsSuperAdmin(demoRole === 'admin');
     setLoading(false);
+
+    // Background sync to Firestore so the user and demo users exist in the users table
+    (async () => {
+      try {
+        await setDoc(doc(db, 'users', simulatedAppUser.id), simulatedAppUser, { merge: true });
+        if (demoRole === 'admin') {
+          await setDoc(doc(db, 'admins', simulatedAppUser.id), {
+            uid: simulatedAppUser.id,
+            email: simulatedAppUser.email,
+            createdAt: new Date().toISOString(),
+          }, { merge: true });
+        }
+
+        // Ensure sample registered users exist for instant testing of role changes
+        const sampleUsers: AppUser[] = [
+          {
+            id: 'sample_user_rahul',
+            email: 'rahul.cricket@gmail.com',
+            displayName: 'Rahul Sharma',
+            role: 'player',
+            createdAt: new Date(Date.now() - 86400000 * 2).toISOString(),
+          },
+          {
+            id: 'sample_user_vikram',
+            email: 'vikram.singh@gmail.com',
+            displayName: 'Vikram Singh Rathore',
+            role: 'scorer',
+            createdAt: new Date(Date.now() - 86400000 * 5).toISOString(),
+          },
+          {
+            id: 'sample_user_amit',
+            email: 'amit.patel@gmail.com',
+            displayName: 'Amit Patel',
+            role: 'player',
+            createdAt: new Date(Date.now() - 86400000 * 1).toISOString(),
+          },
+        ];
+
+        for (const s of sampleUsers) {
+          const userRef = doc(db, 'users', s.id);
+          const snap = await getDoc(userRef);
+          if (!snap.exists()) {
+            await setDoc(userRef, s);
+            if (s.role === 'scorer') {
+              await setDoc(
+                doc(db, 'scorers', s.id),
+                {
+                  uid: s.id,
+                  email: s.email,
+                  createdAt: s.createdAt,
+                },
+                { merge: true }
+              );
+            }
+          }
+        }
+      } catch (e) {
+        console.warn('Demo users Firestore background sync notice (non-fatal):', e);
+      }
+    })();
   };
 
   useEffect(() => {

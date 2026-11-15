@@ -45,6 +45,160 @@ export function subscribeAppUsers(
   );
 }
 
+export function subscribeAdminUids(
+  onData: (adminIds: string[]) => void,
+  onError?: (err: unknown) => void
+) {
+  return onSnapshot(
+    collection(db, 'admins'),
+    (snap) => {
+      onData(snap.docs.map((d) => d.id));
+    },
+    (error) => {
+      if (onError) onError(error);
+    }
+  );
+}
+
+export function subscribeScorerUids(
+  onData: (scorerIds: string[]) => void,
+  onError?: (err: unknown) => void
+) {
+  return onSnapshot(
+    collection(db, 'scorers'),
+    (snap) => {
+      onData(snap.docs.map((d) => d.id));
+    },
+    (error) => {
+      if (onError) onError(error);
+    }
+  );
+}
+
+export async function updateUserRole(
+  userId: string,
+  email: string,
+  newRole: 'admin' | 'scorer' | 'player',
+  performedBy?: { uid: string; email?: string | null } | null
+): Promise<void> {
+  try {
+    const userRef = doc(db, USERS_COLLECTION, userId);
+    const adminRef = doc(db, 'admins', userId);
+    const scorerRef = doc(db, 'scorers', userId);
+
+    // Update role in users document
+    await setDoc(
+      userRef,
+      {
+        role: newRole,
+        updatedAt: new Date().toISOString(),
+      },
+      { merge: true }
+    );
+
+    if (newRole === 'admin') {
+      // Add to admins collection
+      await setDoc(
+        adminRef,
+        {
+          uid: userId,
+          email: email || '',
+          assignedAt: new Date().toISOString(),
+          assignedBy: performedBy?.email || performedBy?.uid || 'admin',
+        },
+        { merge: true }
+      );
+
+      // Clean up scorers collection if previously a scorer
+      try {
+        await deleteDoc(scorerRef);
+      } catch (err) {
+        // Safe to ignore
+      }
+    } else if (newRole === 'scorer') {
+      // Add to scorers collection
+      await setDoc(
+        scorerRef,
+        {
+          uid: userId,
+          email: email || '',
+          assignedAt: new Date().toISOString(),
+          assignedBy: performedBy?.email || performedBy?.uid || 'admin',
+        },
+        { merge: true }
+      );
+
+      // Clean up admins collection if previously an admin
+      try {
+        await deleteDoc(adminRef);
+      } catch (err) {
+        // Safe to ignore
+      }
+    } else {
+      // Role is player - remove from both admins and scorers collections
+      try {
+        await deleteDoc(adminRef);
+      } catch (err) {}
+      try {
+        await deleteDoc(scorerRef);
+      } catch (err) {}
+    }
+  } catch (error) {
+    handleFirestoreError(error, OperationType.UPDATE, `${USERS_COLLECTION}/${userId}`);
+    throw error;
+  }
+}
+
+export async function createOrInviteUser(
+  email: string,
+  displayName: string,
+  role: 'admin' | 'scorer' | 'player',
+  performedBy?: { uid: string; email?: string | null } | null
+): Promise<AppUser> {
+  try {
+    const cleanId = email.toLowerCase().replace(/[^a-z0-9]/g, '_');
+    const newUser: AppUser = {
+      id: cleanId,
+      email: email.trim().toLowerCase(),
+      displayName: displayName.trim(),
+      role,
+      createdAt: new Date().toISOString(),
+    };
+
+    const userRef = doc(db, USERS_COLLECTION, cleanId);
+    await setDoc(userRef, newUser, { merge: true });
+
+    if (role === 'admin') {
+      await setDoc(
+        doc(db, 'admins', cleanId),
+        {
+          uid: cleanId,
+          email: newUser.email,
+          assignedAt: new Date().toISOString(),
+          assignedBy: performedBy?.email || performedBy?.uid || 'admin',
+        },
+        { merge: true }
+      );
+    } else if (role === 'scorer') {
+      await setDoc(
+        doc(db, 'scorers', cleanId),
+        {
+          uid: cleanId,
+          email: newUser.email,
+          assignedAt: new Date().toISOString(),
+          assignedBy: performedBy?.email || performedBy?.uid || 'admin',
+        },
+        { merge: true }
+      );
+    }
+
+    return newUser;
+  } catch (error) {
+    handleFirestoreError(error, OperationType.CREATE, USERS_COLLECTION);
+    throw error;
+  }
+}
+
 export const initialCareerStats: PlayerCareerStats = {
   matches: 0,
   innings: 0,
